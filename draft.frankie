@@ -15,11 +15,11 @@ type (spawn) CleanSpawn (
 )
 
 ;; You can also import these types from the standard Frankie libraries
-import CleanSpawn from <spawn>
-import Error from <echo>
+import (CleanSpawn) from <spawn>
+import (Error) from <echo>
 
 ;; You can also import your own local Frankie files!
-import MyType from "./my-type.frankie"
+import (MyType) from "./my-type.frankie"
 
 echo Error "You did something wrong!"
 echo ?Error "You should be ashamed of yourself!"
