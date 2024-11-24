@@ -6,11 +6,14 @@ type (echo) Error (
     $color=COLOR_RED
     $bold=TRUE
     $prefix?="(!) Error: " ;; If you prefix the Type with a question mark (?), this assignment will be ignored!
+
+    ;; $clean-on-start=TRUE ;; This will clean up all previous logs before echoing
 )
 
 ;; This spawn style is defined by default in the spawn library
 type (spawn) CleanSpawn (
     $clean-on-success=TRUE ;; This will clean up the logs of the spawned command when the output matches the @rule!
+    $clean-on-start=FALSE ;; This will clean up all logs when the spawned command is about to start
     $clean-on-end=FALSE ;; This will clean up the logs of the spawned command when the command is done running!
 )
 
