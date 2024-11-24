@@ -1,0 +1,39 @@
+## C++ files ignore list
+# Prerequisites
+*.d
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+# Precompiled Headers
+*.gch
+*.pch
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+# Fortran module files
+*.mod
+*.smod
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+# Executables
+*.exe
+*.out
+*.app
+
+## NodeJS ignore list
+node_modules
+
+## Visual Studio list
+*.vsix
+
+## ANTLR List
+.antlr
+
+# Duplicated LICENSE file
+supplements/vscode-extension/LICENSE
