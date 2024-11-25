@@ -14,7 +14,6 @@ type (echo) Error (
 ;; This spawn style is defined by default in the spawn library
 type (spawn) CleanSpawn (
     $clean-on-success=TRUE ;; This will clean up the logs of the spawned command when the output matches the @rule!
-    $clean-on-start=FALSE ;; This will clean up all logs when the spawned command is about to start
     $clean-on-end=FALSE ;; This will clean up the logs of the spawned command when the command is done running!
 )
 
