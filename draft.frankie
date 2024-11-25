@@ -1,5 +1,5 @@
 ;; This echo style is defined by default in the echo library
-import (EchoColors:) from <echo>
+import (EchoColors) from <echo>
 type (echo) Error (
     $overflow=FALSE ;; if you wish for the style to overflow to include the message content
     $color-overflow=TRUE ;; colour-only overflow
