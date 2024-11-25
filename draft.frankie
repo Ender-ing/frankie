@@ -1,9 +1,10 @@
 ;; This echo style is defined by default in the echo library
+import (EchoColors:) from <echo>
 type (echo) Error (
     $overflow=FALSE ;; if you wish for the style to overflow to include the message content
     $color-overflow=TRUE ;; colour-only overflow
     $bold-overflow=FALSE ;; bold-only overflow
-    $color=COLOR_RED
+    $color=EchoColors:RED
     $bold=TRUE
     $prefix?="(!) Error: " ;; If you prefix the Type with a question mark (?), this assignment will be ignored!
 
