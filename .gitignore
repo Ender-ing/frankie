@@ -36,4 +36,4 @@ node_modules
 .antlr
 
 # Duplicated LICENSE file
-supplements/vscode-extension/LICENSE
+supplements/VSCode-Extension/LICENSE
