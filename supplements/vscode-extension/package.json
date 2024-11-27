@@ -1,0 +1,107 @@
+{
+    "name": "polarfrankie",
+    "main": "scripts/extension.js",
+    "browser": "scripts/extension.light.js",
+    "displayName": "PolarFrankie",
+    "description": "All you need to start working with the PolarFrankie command line scripting language!",
+    "version": "0.0.1",
+    "preview": true,
+    "icon": "icons/frankie.png",
+    "engines": {
+        "vscode": "^1.94.0"
+    },
+    "publisher": "Endering",
+    "contributes": {
+        "configurationDefaults": {
+            "[polarfrankie]": {
+                "editor.maxTokenizationLineLength": 2500,
+                "editor.formatOnSave": true,
+                "editor.formatOnType": true
+            },
+            "files.associations": {
+                "*.frankie": "polarfrankie"
+            }
+        },
+        "languages": [
+            {
+                "id": "polarfrankie",
+                "aliases": [
+                    "PolarFrankie",
+                    "Frankie"
+                ],
+                "extensions": [
+                    ".frankie"
+                ],
+                "icon": {
+                    "light": "icons/frankie.svg",
+                    "dark": "icons/frankie.svg"
+                },
+                "formatter": {
+                    "scheme": "file",
+                    "language": "polarfrankie"
+                },
+                "configuration": "./configurations/polarfrankie-language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "polarfrankie",
+                "scopeName": "source.polarfrankie",
+                "path": "./syntaxes/polarfrankie.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "polarfrankie",
+                "path": "./snippets/polarfrankie.code-snippets.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "polarfrankie.docs",
+                "title": "Check the latest PolarFrankie documentation!",
+                "category": "PolarFrankie"
+            }
+        ]
+    },
+    "activationEvents": [
+        "onLanguage:polarfrankie",
+        "workspaceContains:**/*.frankie"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Ender-ing/frankie.git"
+    },
+    "homepage": "https://frankie.ender.ing/",
+    "categories": [
+        "Programming Languages",
+        "Snippets",
+        "Language Packs",
+        "Formatters"
+    ],
+    "keywords": [
+        "frankie",
+        "polarfrankie",
+        "frankie scripting language",
+        "frankie command line language",
+        "polarfrankie scripting language",
+        "polarfrankie command line language"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "vsce-package": "vsce package --no-dependencies --baseContentUrl https://github.com/Ender-ing/frankie/tree/main/supplements/VSCode-Extension",
+        "win-copy-license": "xcopy /y ..\\..\\LICENSE .",
+        "lix-copy-license": "cp ../../LICENSE .",
+        "win-delete-vsix": "del polarfrankie*.vsix",
+        "lix-delete-vsix": "rm -f polarfrankie*.vsix",
+        "win-delete-license": "del LICENSE",
+        "lix-delete-license": "rm -f LICENSE",
+        "win-package": "npm run win-delete-vsix && npm run win-delete-license && npm run win-copy-license && npm run build && npm run vsce-package && npm run win-delete-license",
+        "lix-package": "npm run lix-delete-vsix && npm run lix-delete-license && npm run lix-copy-license && npm run build && npm run vsce-package && npm run lix-delete-license"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.94.0",
+        "@vscode/vsce": "^3.2.1",
+        "typescript": "^5.6.3"
+    }
+}
