@@ -1,3 +1,8 @@
+;;?
+ ;  @INFO
+ ;  This is the syntax draft file for PolarFrankie!
+?;;
+
 ;; PolarFrankie (command line scripting language)
 ;; Generate Bash and Batch files from the same source file!
 
@@ -8,27 +13,27 @@ use (System) ;; You can use the "use" keyword to negate the need to use the name
 type (print) Error (
     ;; Prefix text style!
     $$prefix-color=Colors:$RED ;; Or "System:Colors:$RED" to call this value!
-    $$prefix-bold=TRUE
+    $$prefix-bold=$TRUE
     ;; Text style!
     $$color=Colors:$WHITE
-    $$bold=FALSE
+    $$bold=$FALSE
     ;; New line control!
-    $$newline-before=FALSE
-    $$newline-after=TRUE
+    $$newline-before=$FALSE
+    $$newline-after=$TRUE
     ;; Prefix text!
     $$prefix="(!) Error: " ;; Default prefix!
     $$prefix?="\t " ;; Only when you prefix the Type with a question mark (?) will this assignment will be respected!
 
     ;; Cnly the last variable value to be defined in this scope will be respected when duplicates are present!
 
-    ;; $clean-on-start=TRUE ;; This will clean up all previous logs before printing
-    ;; $clean-on-end=TRUE ;; This will clean up logs after printing
+    ;; $clean-on-start=$TRUE ;; This will clean up all previous logs before printing
+    ;; $clean-on-end=$TRUE ;; This will clean up logs after printing
 )
 
 ;; This spawn style is defined by default in the spawn library
 type (spawn) CleanSpawn (
-    $$clean-output-on-success=TRUE ;; This will clean up the logs of the spawned command when the output matches the @rule!
-    $$clean-output-on-end=FALSE ;; This will clean up the logs of the spawned command when the command is done running!
+    $$clean-output-on-success=$TRUE ;; This will clean up the logs of the spawned command when the output matches the @rule!
+    $$clean-output-on-end=$FALSE ;; This will clean up the logs of the spawned command when the command is done running!
 )
 
 ;; You can also import these types from the standard Frankie libraries
@@ -50,12 +55,12 @@ print ?Error "You should be ashamed of yourself!"
 ;; define it yourself!
 ;; (all library commands are defined like this!)
 ;; <command-name> [<short-flat> <long-flag>, <short-flat> <long-flag>, ...] bash (...) batch (...)
-command "my-command" &(%f %%flag) &(%x %%extra ^extra-input ?^extra-input-2) ^input1 ^input2 bash (
+command "my-command" *(%f %%flag) *(%x %%extra "extra-input" ?"extra-input-2") "input1" "input2" bash (
     ;; You can add documentation to each element of this command using (;;!!) comments!
     ;;!! |"my-command"|           |This command does this!|
     ;;!! |%f|                     |This flag does something!|
     ;;!! |%x|                     |This flag does something else!|
-    ;;!! |^extra-input|           |This flag input does something extra!|
+    ;;!! |"extra-input"|           |This flag input does something extra!|
     ;; ...
     ;; These messages will should up for users when they hover the components you're implementing!
 
@@ -117,7 +122,7 @@ command "my-command" &(%f %%flag) &(%x %%extra ^extra-input ?^extra-input-2) ^in
     $input2
 ) batch (
     ;; command
-    $command="command2"
+    $command="./command2" ;; You can also use local native binaries/files as commands!
 
     ;; flag
     $f="-f2"
@@ -141,7 +146,7 @@ command "my-command" &(%f %%flag) &(%x %%extra ^extra-input ?^extra-input-2) ^in
 ;; (rule functions can only return TRUE or FALSE)
 rule @@rule-function (
     ;; Do all the minipulation
-    return TRUE ;; if the final output is valid, return TRUE! (this is a success)
+    return $TRUE ;; if the final output is valid, return TRUE! (this is a success)
 )
 
 ;; You can spawn child processes, and check their output!
@@ -151,17 +156,20 @@ spawn CleanSpawn (
         ;; In this npm command, NodeJS:Npm:$INSTALL is just a variable that holds the string "install"!
 ) follow @@rule-function match ( ;; If you fail to handle at least one of these match cases, the build will fail!
     print Error "Failed to install NPM dependencies!"
-    return TRUE ;; Return true to indicate that this failure should end the script!
+    return $TRUE ;; Return true to indicate that this failure should end the script!
 ) mismatch (
     print Error "Installed NPM dependencies successfully!"
-    return TRUE ;; Return true to indicate that this success should end the script! (As an error!)
+    return $TRUE ;; Return true to indicate that this success should end the script! (As an error!)
 )
 ;; Make sure the function's output is as expected!
 
 ;; There are six data types!
 NUMBER ;; Numbers
+    48324 .4324 2342342.
 BOOLEAN ;; Booleans (true/false)
+    $TRUE $FALSE
 TEXT ;; Text (chars, strings, etc.)
+    "dasdas"
 ANY ;; Any value! (used when not sure of the type of the variable!)
 NONE ;; Used for functions to indicate that they do not return a value!
 ;; If you do not append variables with types on definition, the type of the variable
@@ -179,7 +187,11 @@ NUMBER $val = $(@my-function 1) ;; This is how capture the value returned by the
 
 ;; $() - used to capture command output values inside a zone
 ;; #() - used to capture final bash/batch code in TEXT format
+;; *() - used to group command definition elements
 ;; () - used to group commands/elements! (doesn't end with new lines)
 
 ;; New lines are important! They mark the end of a command!
 ;; You can also end commands with a semicolon to start another command in the same line!
+
+;; You can mix strings this way
+"$var-1, $var-2, and $VAR-3! You can escape \$variables too!"
