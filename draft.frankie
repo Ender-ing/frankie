@@ -1,58 +1,197 @@
-;; This echo style is defined by default in the echo library
-import (EchoColors) from <echo>
-type (echo) Error (
-    $overflow=FALSE ;; if you wish for the style to overflow to include the message content
-    $color-overflow=TRUE ;; colour-only overflow
-    $bold-overflow=FALSE ;; bold-only overflow
-    $color=EchoColors:RED
-    $bold=TRUE
-    $prefix?="(!) Error: " ;; If you prefix the Type with a question mark (?), this assignment will be ignored!
+;;?
+ ;  @INFO
+ ;  This is the syntax draft file for PolarFrankie!
+?;;
 
-    ;; $clean-on-start=TRUE ;; This will clean up all previous logs before echoing
-    ;; $clean-on-end=TRUE ;; This will clean up logs after echoing
+;; PolarFrankie (command line scripting language)
+;; Generate Bash and Batch files from the same source file!
+
+;; This print (echo) style is defined by default in the print library
+import (print; Colors) from "#print"
+use (System) ;; You can use the "use" keyword to negate the need to use the namespace that a library is under!
+;; Note that the "System" namespace is only used by commands that are considered "system commands"
+type (print) Error (
+    ;; Prefix text style!
+    $$prefix-color=Colors:$RED ;; Or "System:Colors:$RED" to call this value!
+    $$prefix-bold=$TRUE
+    ;; Text style!
+    $$color=Colors:$WHITE
+    $$bold=$FALSE
+    ;; New line control!
+    $$newline-before=$FALSE
+    $$newline-after=$TRUE
+    ;; Prefix text!
+    $$prefix="(!) Error: " ;; Default prefix!
+    $$prefix?="\t " ;; Only when you prefix the Type with a question mark (?) will this assignment will be respected!
+
+    ;; Cnly the last variable value to be defined in this scope will be respected when duplicates are present!
+
+    ;; $clean-on-start=$TRUE ;; This will clean up all previous logs before printing
+    ;; $clean-on-end=$TRUE ;; This will clean up logs after printing
 )
 
 ;; This spawn style is defined by default in the spawn library
 type (spawn) CleanSpawn (
-    $clean-output-on-success=TRUE ;; This will clean up the logs of the spawned command when the output matches the @rule!
-    $clean-output-on-end=FALSE ;; This will clean up the logs of the spawned command when the command is done running!
+    $$clean-output-on-success=$TRUE ;; This will clean up the logs of the spawned command when the output matches the @rule!
+    $$clean-output-on-end=$FALSE ;; This will clean up the logs of the spawned command when the command is done running!
 )
 
 ;; You can also import these types from the standard Frankie libraries
-import (CleanSpawn) from <spawn>
-import (Error) from <echo>
+import (CleanSpawn) from "#spawn"
+import (Error) from "#print"
 
 ;; You can also import your own local Frankie files!
 import (MyType) from "./my-type.frankie"
 
-echo Error "You did something wrong!"
-echo ?Error "You should be ashamed of yourself!"
-;; These two lines will echo the following:
+print Error "You did something wrong!"
+print ?Error "You should be ashamed of yourself!"
+;; These two lines will print the following:
 
 ;; (!) Error: You did something wrong!
 ;; You should be ashamed of yourself!
 
 
+;; If the built-in libraries do not include a command you need to use, you can
+;; define it yourself!
+;; (all library commands are defined like this!)
+;; <command-name> [<short-flat> <long-flag>, <short-flat> <long-flag>, ...] bash (...) batch (...)
+command "my-command" *(%f %%flag) *(%x %%extra "extra-input" ?"extra-input-2") "input1" "input2" bash (
+    ;; You can add documentation to each element of this command using (;;!!) comments!
+    ;;!! |"my-command"|           |This command does this!|
+    ;;!! |%f|                     |This flag does something!|
+    ;;!! |%x|                     |This flag does something else!|
+    ;;!! |"extra-input"|           |This flag input does something extra!|
+    ;; ...
+    ;; These messages will should up for users when they hover the components you're implementing!
+
+    ;; Order of ($) variables and detached/free (that are not related to commands/keywords) zones is important here!
+    ;; The order/presence of conditionals and ($$) type variables does not affect the command generation!
+    ;; This means you can use logic in here!
+
+    ;; Only conditionals (if/else), variables ($/$$), detached/free zones, and literal numbers (IDs) are allowed here!
+
+    ;; You must define type/control variables (with their type, no type inference allowed) at the start of this zone!
+    BOOLEAN $$command-behavior-var
+
+    ;; command
+    $command="command1"
+
+    ;; You can use conditional blocks to affect the final output of the command!
+    if ($$command-behavior-var) (
+        "--do-1"
+    ) else (
+        "--do-2"
+    )
+
+    ;; flag
+    $f="-f"
+    $flag="--flag"
+    1; () ;; You should always create an input/presence zone for flags, even when not used, for easier code maintenance!
+    ;; (input/presence zones are marked by their unique number, starting from 1 and up!
+    ;; The unique number is assigned according to the detection order, left-to-right!)
+
+    ;; input
+    $input1 ;; the order you place this variable in will affect its place in the generated command text!
+
+    ;; flag
+    $x="-x"
+    $extra="--extra"
+    2; (
+        $extra-input ;; Usually, if you reference a value as part of a flag, you'd use it within the input zone for that
+        ;; flag!
+
+        ;; You can use an input/presence zone every before referencing the related value!
+        3;(
+            ""
+            $extra-input-2 ;; Notice that this input is optional! Any optional input, just like how flags are optional,
+                ;; Must be followed by an input/presence zone!
+        )
+    )
+
+    3; (
+        $extra-input ;; You can use input/presence zones more than once!
+    )
+    3; $extra-input ;; You can also do this with individual elements without a zone!
+
+    ;; You can do this without semicolons too!
+    3
+    $extra-input
+
+    ;; custom input
+    "-input" ;; You can even add extra text to the final output like this
+    $input2
+) batch (
+    ;; command
+    $command="./command2" ;; You can also use local native binaries/files as commands!
+
+    ;; flag
+    $f="-f2"
+    $flag="--flag2"
+    1; ()
+
+    ;; flag
+    $x="-w"
+    $extra="--w-extra"
+    2; (
+        $input1 ;; If you reference a value in an argument's scope, this means this value will be included in the
+            ;; final command text only if the argument is present!
+    )
+
+    ;; input
+    $input1 ;; You can even have one input value repeate!
+    $input2
+)
+
 ;; You can define output match rules!
 ;; (rule functions can only return TRUE or FALSE)
-rule @rule-function (
+rule @@rule-function (
     ;; Do all the minipulation
-    return TRUE ;; if the final output if valid, return TRUE! (this is a success)
+    return $TRUE ;; if the final output is valid, return TRUE! (this is a success)
 )
 
 ;; You can spawn child processes, and check their output!
+import (npm, Npm) from "#extra.npm" ;; this command uses the NodeJS namespace!
 spawn CleanSpawn (
-    npm i
-) follow @rule-function (
-    ;; You should always handle failures!
-    ;; If you fail to handle at least one of these events, the build will fail!
-    @on-mismatch (
-        echo Error "Failed to install NPM dependencies!"
-        return TRUE ;; Return true to indicate that this failure should end the script!
-    )
-    @on-match (
-        echo Error "Installed NPM dependencies successfully!"
-        return TRUE ;; Return true to indicate that this success should end the script! (As an error!)
-    )
+    #(NodeJS:npm %d %%global NodeJS:Npm:$INSTALL) ;; You can capture the final string value of a command like this!
+        ;; In this npm command, NodeJS:Npm:$INSTALL is just a variable that holds the string "install"!
+) follow @@rule-function match ( ;; If you fail to handle at least one of these match cases, the build will fail!
+    print Error "Failed to install NPM dependencies!"
+    return $TRUE ;; Return true to indicate that this failure should end the script!
+) mismatch (
+    print Error "Installed NPM dependencies successfully!"
+    return $TRUE ;; Return true to indicate that this success should end the script! (As an error!)
 )
 ;; Make sure the function's output is as expected!
+
+;; There are six data types!
+NUMBER ;; Numbers
+    48324 .4324 2342342.
+BOOLEAN ;; Booleans (true/false)
+    $TRUE $FALSE
+TEXT ;; Text (chars, strings, etc.)
+    "dasdas"
+ANY ;; Any value! (used when not sure of the type of the variable!)
+NONE ;; Used for functions to indicate that they do not return a value!
+;; If you do not append variables with types on definition, the type of the variable
+;; will be inferred! (If no type can be inferred, the type ANY will be assigned to said variable)
+
+;; functions!
+function @my-function (NUMBER $input) NUMBER ( ;; If you choose to not specify a return type, the new inferred return type would be NONE!
+    return $input ;; This function returns a number!
+)
+
+@my-function 1 ;; this is how you call this function!
+
+NUMBER $val = $(@my-function 1) ;; This is how capture the value returned by the functions like this!
+
+
+;; $() - used to capture command output values inside a zone
+;; #() - used to capture final bash/batch code in TEXT format
+;; *() - used to group command definition elements
+;; () - used to group commands/elements! (doesn't end with new lines)
+
+;; New lines are important! They mark the end of a command!
+;; You can also end commands with a semicolon to start another command in the same line!
+
+;; You can mix strings this way
+"$var-1, $var-2, and $VAR-3! You can escape \$variables too!"

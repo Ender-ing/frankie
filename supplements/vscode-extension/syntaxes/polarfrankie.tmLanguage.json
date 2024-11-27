@@ -1,0 +1,227 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "PolarFrankie",
+  "scopeName": "source.polarfrankie",
+  "patterns": [
+    {
+      "include": "#root-order"
+    }
+  ],
+  "repository": {
+    "root-order": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#literals"
+        },
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#identifiers"
+        },
+        {
+          "include": "#operators"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.documentation.polarfrankie",
+          "begin": ";;\\?",
+          "end": "\\?;;",
+          "patterns": [
+            {
+              "include": "#comment-highlights"
+            }
+          ]
+        },
+        {
+          "name": "comment.line.double-slash.polarfrankie",
+          "begin": ";;",
+          "end": "\\\n",
+          "patterns": [
+            {
+              "include": "#comment-highlights"
+            }
+          ]
+        }
+      ]
+    },
+    "comment-highlights": {
+      "patterns": [
+        {
+          "name": "comment.highlight.warning.polarfrankie",
+          "match": "(?<![^\\s])(@!.+)(?=\\n)",
+          "captures": {
+            "1": {
+              "name": "invalid.warning.polarfrankie"
+            }
+          }
+        },
+        {
+          "name": "comment.highlight.title.polarfrankie",
+          "match": "(?<![^\\s])(@[^\\s]+)",
+          "captures": {
+            "1": {
+              "name": "markup.inserted.polarfrankie"
+            }
+          }
+        },
+        {
+          "name": "comment.highlight.escape.polarfrankie",
+          "begin": "{(?=[^\\n]*\\}[^\\n]*)",
+          "end": "}",
+          "captures": {
+            "0": {
+              "name": "markup.italic.polarfrankie"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#root-order"
+            },
+            {
+              "name": "markup.italic.polarfrankie",
+              "match": "[^\\n]+?"
+            }
+          ]
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.logic.polarfrankie",
+          "match": "\\b(if|else|return)\\b"
+        },
+        {
+          "name": "keyword.control.source.polarfrankie",
+          "match": "\\b(import|from|use)\\b"
+        },
+        {
+          "name": "keyword.control.definition.polarfrankie",
+          "match": "\\b(type|command|function|rule)\\b"
+        },
+        {
+          "name": "keyword.control.target.polarfrankie",
+          "match": "\\b(bash|batch)\\b"
+        }
+      ]
+    },
+    "identifiers": {
+      "patterns": [
+        {
+          "name": "entity.name.function.polarfrankie",
+          "match": "(@@?[\\w-]+)\\b"
+        },
+        {
+          "include": "#value-identifiers"
+        },
+        {
+          "name": "entity.name.type.polarfrankie",
+          "match": "\\b([A-Z][\\w-]*)\\b"
+        },
+        {
+          "name": "constant.other.polarfrankie",
+          "match": "(%%?[\\w-]+)\\b",
+          "captures": {
+            "0": {
+              "name": "emphasis.polarfrankie"
+            },
+            "1": {
+              "name": "constant.regexp.polarfrankie"
+            }
+          }
+        },
+        {
+          "name": "keyword.other.polarfrankie",
+          "match": "\\b([a-z][\\w-]*)\\b"
+        }
+      ]
+    },
+    "value-identifiers": {
+      "patterns": [
+        {
+          "name": "constant.other.user.polarfrankie",
+          "match": "(\\$\\$?[A-Z0-9_-]+)\\b",
+          "captures": {
+            "0": {
+              "name": "storage.polarfrankie"
+            }
+          }
+        },
+        {
+          "name": "variable.name.polarfrankie",
+          "match": "(\\$\\$?[\\w-]+)\\b"
+        }
+      ]
+    },
+    "literals": {
+      "patterns": [
+        {
+          "include": "#numericals"
+        },
+        {
+          "include": "#texts"
+        }
+      ]
+    },
+    "numericals": {
+      "patterns": [
+        {
+          "name": "constant.numeric.polarfrankie",
+          "match": "-?((\\d+\\.\\d*([eE][-+]?\\d+)?)|(\\d*\\.\\d+([eE][-+]?\\d+)?)|(\\d+([eE][-+]?\\d+)?))"
+        }
+      ]
+    },
+    "texts": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.polarfrankie",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "include": "#escapeSequences"
+            },
+            {
+              "include": "#value-identifiers"
+            }
+          ]
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.new.polarfrankie",
+          "match": "\\$|#|\\*|\\?|\\^|%"
+        },
+        {
+          "name": "keyword.operator.polarfrankie",
+          "match": "="
+        },
+        {
+          "name": "keyword.operator.polarfrankie",
+          "match": "\\(|\\)|;|,"
+        }
+      ]
+    },
+    "escapeSequences": {
+      "patterns": [
+        {
+          "name": "constant.character.escape.polarfrankie",
+          "match": "\\\\([btnfrs'\"\/\\\\$])"
+        },
+        {
+          "name": "invalid.illegal.polarfrankie",
+          "match": "\\\\([^btnfrs'\"\/\\\\$])"
+        }
+      ]
+    }
+  }
+}
