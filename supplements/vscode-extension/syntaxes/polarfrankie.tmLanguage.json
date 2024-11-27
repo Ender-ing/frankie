@@ -174,7 +174,7 @@
       "patterns": [
         {
           "name": "constant.numeric.polarfrankie",
-          "match": "-?((\\d+\\.\\d*([eE][-+]?\\d+)?)|(\\d*\\.\\d+([eE][-+]?\\d+)?)|(\\d+([eE][-+]?\\d+)?))"
+          "match": "-?((\\d+\\.\\d*)|(\\d*\\.\\d+)|(\\d+))"
         }
       ]
     },
