@@ -1,5 +1,5 @@
 # PolarFrankie files
-*.frankie linguist-language=polar-frankie
+*.frankie linguist-language=polarfrankie
 
 # C++
 *.cpp *.hpp linguist-language=cpp
