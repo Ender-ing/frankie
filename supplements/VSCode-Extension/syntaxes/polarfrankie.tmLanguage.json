@@ -100,7 +100,7 @@
         },
         {
           "name": "keyword.control.source.polarfrankie",
-          "match": "\\b(import|from|use)\\b"
+          "match": "\\b(import|from|use|group)\\b"
         },
         {
           "name": "keyword.control.definition.polarfrankie",
@@ -116,7 +116,7 @@
       "patterns": [
         {
           "name": "entity.name.function.polarfrankie",
-          "match": "(@@?[\\w-]+)\\b"
+          "match": "(@@?[a-zA-Z_][\\w-]+)\\b"
         },
         {
           "include": "#value-identifiers"
@@ -127,7 +127,7 @@
         },
         {
           "name": "constant.other.polarfrankie",
-          "match": "(%%?[\\w-]+)\\b",
+          "match": "(%%?[a-zA-Z_][\\w-]+)\\b",
           "captures": {
             "0": {
               "name": "emphasis.polarfrankie"
@@ -139,7 +139,7 @@
         },
         {
           "name": "keyword.other.polarfrankie",
-          "match": "\\b([a-z][\\w-]*)\\b"
+          "match": "\\b([a-z_][\\w-]*)\\b"
         }
       ]
     },
@@ -147,7 +147,7 @@
       "patterns": [
         {
           "name": "constant.other.user.polarfrankie",
-          "match": "(\\$\\$?[A-Z0-9_-]+)\\b",
+          "match": "(\\$\\$?[A-Z_]+)\\b",
           "captures": {
             "0": {
               "name": "storage.polarfrankie"
@@ -156,7 +156,7 @@
         },
         {
           "name": "variable.name.polarfrankie",
-          "match": "(\\$\\$?[\\w-]+)\\b"
+          "match": "(\\$\\$?[a-zA-Z_][\\w-]+)\\b"
         }
       ]
     },
