@@ -33,8 +33,8 @@ INPUT_IDENTIFIER
     : '^' VARIABLE_IDENTIFIER_CONTENT_
     ; /* All input identifiers must start with a (^caret) character! */
 TYPE_IDENTIFIER
-    : [A-Z] ((STANDARD_IDENTIFIER_CHARS_)* (STANDARD_IDENTIFIER_CHARS_EDGE_))?
+    : [A-Z] ((STANDARD_IDENTIFIER_CHARS_)* (STANDARD_IDENTIFIER_CHARS_END_))?
     ; /* All type identifiers must start with a capital letter! */
 COMMAND_IDENTIFIER
-    : [a-z_] ((STANDARD_IDENTIFIER_CHARS_)* (STANDARD_IDENTIFIER_CHARS_EDGE_))?
+    : [a-z_] ((STANDARD_IDENTIFIER_CHARS_)* (STANDARD_IDENTIFIER_CHARS_END_))?
     ; /* All type command identifiers must start with either a small letter or an underscore! */
