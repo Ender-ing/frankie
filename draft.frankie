@@ -30,6 +30,11 @@ type (print) Error (
     ;; $clean-on-end=$TRUE ;; This will clean up logs after printing
 )
 
+;; You can define your own element groups/namespaces
+group System (
+    ;;
+)
+
 ;; This spawn style is defined by default in the spawn library
 type (spawn) CleanSpawn (
     $$clean-output-on-success=$TRUE ;; This will clean up the logs of the spawned command when the output matches the @rule!
