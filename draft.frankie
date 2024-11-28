@@ -96,7 +96,7 @@ command "my-command" *(%f %%flag) *(%x %%extra "extra-input" ?"extra-input-2") "
     ;; The unique number is assigned according to the detection order, left-to-right!)
 
     ;; input
-    $input1 ;; the order you place this variable in will affect its place in the generated command text!
+    $input ;; the order you place this variable in will affect its place in the generated command text!
 
     ;; flag
     $x="-x"

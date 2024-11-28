@@ -116,18 +116,18 @@
       "patterns": [
         {
           "name": "entity.name.function.polarfrankie",
-          "match": "(@@?[a-zA-Z_][\\w-]+)\\b"
+          "match": "(@@?[a-zA-Z_]([\\w-]*[a-zA-Z_])?)(\\b|(?=\\d))"
         },
         {
           "include": "#value-identifiers"
         },
         {
           "name": "entity.name.type.polarfrankie",
-          "match": "\\b([A-Z][\\w-]*)\\b"
+          "match": "\\b([A-Z]([\\w-]*[a-zA-Z_])?)(\\b|(?=\\d))"
         },
         {
           "name": "constant.other.polarfrankie",
-          "match": "(%%?[a-zA-Z_][\\w-]+)\\b",
+          "match": "(%%?[a-zA-Z_]([\\w-]*[a-zA-Z_])?)(\\b|(?=\\d))",
           "captures": {
             "0": {
               "name": "emphasis.polarfrankie"
@@ -139,7 +139,7 @@
         },
         {
           "name": "keyword.other.polarfrankie",
-          "match": "\\b([a-z_][\\w-]*)\\b"
+          "match": "\\b([a-z_]([\\w-]*[a-zA-Z_])?)(\\b|(?=\\d))"
         }
       ]
     },
@@ -147,7 +147,7 @@
       "patterns": [
         {
           "name": "constant.other.user.polarfrankie",
-          "match": "(\\$\\$?[A-Z_]+)\\b",
+          "match": "(\\$\\$?[A-Z_]([A-Z-]*[a-zA-Z_])?)(\\b|(?=\\d))",
           "captures": {
             "0": {
               "name": "storage.polarfrankie"
@@ -156,7 +156,7 @@
         },
         {
           "name": "variable.name.polarfrankie",
-          "match": "(\\$\\$?[a-zA-Z_][\\w-]+)\\b"
+          "match": "(\\$\\$?[a-zA-Z_]([\\w-]*[a-zA-Z_])?)(\\b|(?=\\d))"
         }
       ]
     },
