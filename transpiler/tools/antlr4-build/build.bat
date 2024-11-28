@@ -5,7 +5,13 @@ setlocal enabledelayedexpansion
 set input_folder=.\..\..\source\ANTLR4
 set output_folder=.\..\..\generated\ANTLR4
 
-:: Make the output
+:: Empty the output directory
+del /q /s "%output_folder%\*.cpp"
+del /q /s "%output_folder%\*.h"
+del /q /s "%output_folder%\*.interp"
+del /q /s "%output_folder%\*.tokens"
+
+:: Make the output directory
 mkdir %output_folder%
 
 :: Process the lexer
