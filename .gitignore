@@ -37,3 +37,6 @@ node_modules
 
 # Duplicated LICENSE file
 supplements/VSCode-Extension/LICENSE
+
+# Generated transpiler build files
+transpiler/generated
