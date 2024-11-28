@@ -1,0 +1,18 @@
+// This file is used to configure debugging settings for your project. It specifies the debugger to
+// use, the target to debug, and any necessary arguments or environment variables.
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "name": "PolarFrankie Debug (ANTLR4 grammar)",
+            "type": "antlr-debug",
+            "request": "launch",
+            "input": "${file}",
+            "grammar": "transpiler/source/ANTLR4/PolarFrankieParser.g4",
+            "actionFile": "transpiler/source/ANTLR4/actions.debug.js",
+            "startRule": "root",
+            "printParseTree": true,
+            "visualParseTree": false
+        }
+    ]
+}

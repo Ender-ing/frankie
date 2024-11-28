@@ -1,0 +1,7 @@
+// This file lists the extensions that are installed and enabled for your project. You can use it to
+// manage and configure extensions specific to your project.
+{
+    "recommendations": [
+        "endering.polarfrankie"
+    ]
+}
