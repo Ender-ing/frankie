@@ -1,3 +1,6 @@
+@echo off
+setlocal enabledelayedexpansion
+
 :: Input and output
 set input_folder=.\..\..\source\ANTLR4
 set output_folder=.\..\..\generated\ANTLR4
