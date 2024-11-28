@@ -14,7 +14,6 @@ java org.antlr.v4.Tool %input_folder%\PolarFrankieLexer.g4
 java org.antlr.v4.Tool %input_folder%\PolarFrankieParser.g4
 
 :: Move the files to the generated files directory
-
 for %%f in (%input_folder%\*.your_extension) do (
-    move "%%f" "%output_folder%\%%f"
+    move "%input_folder%\%%f" "%output_folder%\%%f"
 )
