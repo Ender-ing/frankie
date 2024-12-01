@@ -55,8 +55,8 @@ literal_text_reference
     :   LIT_STRING_REFERENCE_START
             (LIT_STRING_REFERENCE_CONSTANT | LIT_STRING_REFERENCE_VARIABLE)
         (
-            LIT_STRING_REFERENCE_END | // Normal end
-            LIT_STRING_REFERENCE_ESCAPE_END // end with an escape character!
+            LIT_STRING_REFERENCE_END_STRING_CONTENT | // Normal end
+            LIT_STRING_REFERENCE_ESCAPE_END_STRING_CONTENT // end with an escape character!
         )
     ; /* Text! */
 literal_text

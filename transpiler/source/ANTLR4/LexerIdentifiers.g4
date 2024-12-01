@@ -20,11 +20,17 @@ import LexerFragments, LexerIdentifiersFragments;
 FUNCTION_IDENTIFIER
     : '@' VARIABLE_IDENTIFIER_CONTENT_
     ; /* All function identifiers must start with an at (@) sign! */
+TYPE_CONSTANT_IDENTIFIER
+    : '$' '$' CONSTANT_IDENTIFIER_CONTENT_
+    ; /* All type-related constant identifiers must start with double dollar ($$) signs and not include small letters! */
 CONSTANT_IDENTIFIER
-    : '$' '$'? CONSTANT_IDENTIFIER_CONTENT_
+    : '$' CONSTANT_IDENTIFIER_CONTENT_
     ; /* All constant identifiers must start with a dollar ($) sign and not include small letters! */
+TYPE_VARIABLE_IDENTIFIER
+    : '$' '$' VARIABLE_IDENTIFIER_CONTENT_
+    ; /* All type-related variable identifiers must start with double dollar ($$) signs! */
 VARIABLE_IDENTIFIER
-    : '$' '$'? VARIABLE_IDENTIFIER_CONTENT_
+    : '$' VARIABLE_IDENTIFIER_CONTENT_
     ; /* All variable identifiers must start with a dollar ($) sign! */
 FLAG_IDENTIFIER
     : '%' '%'? VARIABLE_IDENTIFIER_CONTENT_
