@@ -147,7 +147,7 @@
       "patterns": [
         {
           "name": "constant.other.user.polarfrankie",
-          "match": "(\\$\\$?[A-Z_]([A-Z-]*[\\w])?)\\b",
+          "match": "(\\$\\$?[A-Z_]([A-Z0-9_-]*[A-Z0-9_])?)\\b",
           "captures": {
             "0": {
               "name": "storage.polarfrankie"
