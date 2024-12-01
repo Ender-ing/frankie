@@ -38,11 +38,17 @@ LIT_STRING_START
 
 // String template inner capture
 mode MODE_STRING_CAPTURE_REFERENCE;
+    LIT_STRING_REFERENCE_TYPE_CONSTANT
+        : '$' CONSTANT_IDENTIFIER_CONTENT_
+        ; /* Type-related constants */
     LIT_STRING_REFERENCE_CONSTANT
-        : '$'? CONSTANT_IDENTIFIER_CONTENT_
+        : CONSTANT_IDENTIFIER_CONTENT_
         ; /* Constants */
+    LIT_STRING_REFERENCE_TYPE_VARIABLE
+        : '$' VARIABLE_IDENTIFIER_CONTENT_
+        ; /* Type-related variables */
     LIT_STRING_REFERENCE_VARIABLE
-        : '$'? VARIABLE_IDENTIFIER_CONTENT_
+        : VARIABLE_IDENTIFIER_CONTENT_
         ; /* Variables */
     LIT_STRING_REFERENCE_ESCAPE_END
         : ESCAPE_SEQUENCE_
