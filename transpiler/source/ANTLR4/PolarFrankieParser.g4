@@ -53,7 +53,12 @@ literal_number
     ; /* Numbers! */
 literal_text_reference
     :   LIT_STRING_REFERENCE_START
-            (LIT_STRING_REFERENCE_CONSTANT | LIT_STRING_REFERENCE_VARIABLE)
+            (
+                LIT_STRING_REFERENCE_CONSTANT |
+                LIT_STRING_REFERENCE_VARIABLE |
+                LIT_STRING_REFERENCE_TYPE_CONSTANT |
+                LIT_STRING_REFERENCE_TYPE_VARIABLE
+            )
     ; /* Text value reference! */
 literal_text_reference_end
     :   literal_text_reference
