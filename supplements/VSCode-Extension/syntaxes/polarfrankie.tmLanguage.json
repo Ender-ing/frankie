@@ -127,7 +127,7 @@
         },
         {
           "name": "constant.other.polarfrankie",
-          "match": "(%%?[a-zA-Z_]([\\w-]*[\\w])?)\\b",
+          "match": "(--?[a-zA-Z_]([\\w-]*[\\w])?)\\b",
           "captures": {
             "0": {
               "name": "emphasis.polarfrankie"
@@ -203,7 +203,7 @@
       "patterns": [
         {
           "name": "keyword.operator.new.polarfrankie",
-          "match": "\\$|#|\\*|\\?|\\^|%"
+          "match": "\\$|#|\\*|\\?|\\^|-"
         },
         {
           "name": "keyword.operator.polarfrankie",
@@ -219,11 +219,11 @@
       "patterns": [
         {
           "name": "constant.character.escape.polarfrankie",
-          "match": "\\\\([btnfrs'\"\/\\\\$])"
+          "match": "\\\\([btnfrs'\"\/\\\\$m])"
         },
         {
           "name": "invalid.illegal.polarfrankie",
-          "match": "\\\\([^btnfrs'\"\/\\\\$])"
+          "match": "\\\\([^btnfrs'\"\/\\\\$m])"
         }
       ]
     }

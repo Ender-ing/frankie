@@ -33,10 +33,10 @@ VARIABLE_IDENTIFIER
     : '$' VARIABLE_IDENTIFIER_CONTENT_
     ; /* All variable identifiers must start with a dollar ($) sign! */
 LONG_FLAG_IDENTIFIER
-    : '%' '%' VARIABLE_IDENTIFIER_CONTENT_
+    : '-' '-' VARIABLE_IDENTIFIER_CONTENT_
     ; /* All flag identifiers must start with a percentage (%) character! */
 FLAG_IDENTIFIER
-    : '%' VARIABLE_IDENTIFIER_CONTENT_
+    : '-' VARIABLE_IDENTIFIER_CONTENT_
     ; /* All flag identifiers must start with a percentage (%) character! */
 INPUT_IDENTIFIER
     : '^' VARIABLE_IDENTIFIER_CONTENT_

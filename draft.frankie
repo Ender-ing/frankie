@@ -60,12 +60,12 @@ print ?Error "You should be ashamed of yourself!"
 ;; define it yourself!
 ;; (all library commands are defined like this!)
 ;; <command-name> [<short-flat> <long-flag>, <short-flat> <long-flag>, ...] bash (...) batch (...)
-command "my-command" *(%f %%flag) *(%x %%extra "extra-input" ?"extra-input-2") "input1" "input2" bash (
+command "my-command" *(-f --flag) *(-x --extra "extra-input" ?"extra-input-2") "input1" "input2" bash (
     ;; You can add documentation to each element of this command using (;;!!) comments!
     ;;!! |"my-command"|           |This command does this!|
-    ;;!! |%f|                     |This flag does something!|
-    ;;!! |%x|                     |This flag does something else!|
-    ;;!! |"extra-input"|           |This flag input does something extra!|
+    ;;!! |-f|                     |This flag does something!|
+    ;;!! |-x|                     |This flag does something else!|
+    ;;!! |"extra-input"|          |This flag input does something extra!|
     ;; ...
     ;; These messages will should up for users when they hover the components you're implementing!
 
@@ -77,6 +77,11 @@ command "my-command" *(%f %%flag) *(%x %%extra "extra-input" ?"extra-input-2") "
 
     ;; You must define type/control variables (with their type, no type inference allowed) at the start of this zone!
     BOOLEAN $$command-behavior-var
+
+    "extra-command ..."
+
+    "\m" ;; If you want to append other commands to this command, use the escape character "\m" to break commands apart!
+    ;; NEVER use new lines when they are not needed!
 
     ;; command
     $command="command1"
@@ -157,7 +162,7 @@ rule @@rule-function (
 ;; You can spawn child processes, and check their output!
 import "#extra.npm" ;; this command uses the NodeJS namespace! (npm, Npm)
 spawn CleanSpawn (
-    #(NodeJS:npm %d %%global NodeJS:Npm:$INSTALL) ;; You can capture the final string value of a command like this!
+    #(NodeJS:npm -d --global NodeJS:Npm:$INSTALL) ;; You can capture the final string value of a command like this!
         ;; In this npm command, NodeJS:Npm:$INSTALL is just a variable that holds the string "install"!
 ) follow @@rule-function match ( ;; If you fail to handle at least one of these match cases, the build will fail!
     print Error "Failed to install NPM dependencies!"
