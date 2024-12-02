@@ -20,6 +20,9 @@ TYPE_NUMBER
 TYPE_TEXT
     : 'TEXT'
     ;
+TYPE_COMMAND
+    : 'COMMAND'
+    ;
 TYPE_BOOLEAN
     : 'BOOLEAN'
     ;
