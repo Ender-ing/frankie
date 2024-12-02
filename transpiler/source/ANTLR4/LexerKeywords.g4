@@ -12,9 +12,6 @@ lexer grammar LexerKeywords;
 KYW_IMPORT
     : 'import'
     ; /* Used to import libraries */
-KYW_FROM
-    : 'from'
-    ; /* Used to import libraries */
 KYW_GROUP
     : 'group'
     ; /* Used to specify used namespace elements */

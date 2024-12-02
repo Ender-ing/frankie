@@ -7,7 +7,7 @@
 ;; Generate Bash and Batch files from the same source file!
 
 ;; This print (echo) style is defined by default in the print library
-import (print; Colors) from "#print"
+import "#print" ;; print, Colors
 use (System) ;; You can use the "use" keyword to negate the need to use the namespace that a library is under!
 ;; Note that the "System" namespace is only used by commands that are considered "system commands"
 type (print) Error (
@@ -42,11 +42,11 @@ type (spawn) CleanSpawn (
 )
 
 ;; You can also import these types from the standard Frankie libraries
-import (CleanSpawn) from "#spawn"
-import (Error) from "#print"
+import "#spawn" ;; CleanSpawn
+import "#print" ;; Error (print)
 
 ;; You can also import your own local Frankie files!
-import (MyType) from "./my-type.frankie"
+import "./my-type.frankie" ;; MyType
 
 print Error "You did something wrong!"
 print ?Error "You should be ashamed of yourself!"
@@ -155,7 +155,7 @@ rule @@rule-function (
 )
 
 ;; You can spawn child processes, and check their output!
-import (npm, Npm) from "#extra.npm" ;; this command uses the NodeJS namespace!
+import "#extra.npm" ;; this command uses the NodeJS namespace! (npm, Npm)
 spawn CleanSpawn (
     #(NodeJS:npm %d %%global NodeJS:Npm:$INSTALL) ;; You can capture the final string value of a command like this!
         ;; In this npm command, NodeJS:Npm:$INSTALL is just a variable that holds the string "install"!
