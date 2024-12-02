@@ -52,18 +52,19 @@ literal_number
     : LIT_NUMBER
     ; /* Numbers! */
 literal_text_reference
-    :   LIT_STRING_REFERENCE_START
-            (LIT_STRING_REFERENCE_CONSTANT | LIT_STRING_REFERENCE_VARIABLE)
-        (
-            LIT_STRING_REFERENCE_END_STRING_CONTENT | // Normal end
-            LIT_STRING_REFERENCE_ESCAPE_END_STRING_CONTENT // end with an escape character!
-        )
+    :   LIT_STRING_REFERENCE_CONSTANT |
+        LIT_STRING_REFERENCE_VARIABLE |
+        LIT_STRING_REFERENCE_TYPE_CONSTANT |
+        LIT_STRING_REFERENCE_TYPE_VARIABLE
+    ; /* Text value reference! */
+literal_text_content
+    :   LIT_STRING_CONTENT_ESCAPED
+    | LIT_STRING_CONTENT
     ; /* Text! */
 literal_text
     :   LIT_STRING_START
             (
-                LIT_STRING_CONTENT_ESCAPED |
-                LIT_STRING_CONTENT |
+                literal_text_content |
                 literal_text_reference
             )*
         LIT_STRING_END
