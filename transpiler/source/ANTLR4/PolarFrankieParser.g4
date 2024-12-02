@@ -52,13 +52,13 @@ literal_number
     : LIT_NUMBER
     ; /* Numbers! */
 literal_text_reference
-    :   LIT_STRING_REFERENCE_CONSTANT |
-        LIT_STRING_REFERENCE_VARIABLE |
-        LIT_STRING_REFERENCE_TYPE_CONSTANT |
-        LIT_STRING_REFERENCE_TYPE_VARIABLE
+    : LIT_STRING_REFERENCE_CONSTANT
+    | LIT_STRING_REFERENCE_VARIABLE
+    | LIT_STRING_REFERENCE_TYPE_CONSTANT
+    | LIT_STRING_REFERENCE_TYPE_VARIABLE
     ; /* Text value reference! */
 literal_text_content
-    :   LIT_STRING_CONTENT_ESCAPED
+    : LIT_STRING_CONTENT_ESCAPED
     | LIT_STRING_CONTENT
     ; /* Text! */
 literal_text
