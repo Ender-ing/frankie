@@ -26,6 +26,7 @@ root
 // Expressions
 expression
     : literals
+    | statements
     | expressions_group
     ; /* All supported expressions */
 expression_end
@@ -35,6 +36,14 @@ expression_end
 expression_full
     : expression expression_end
     ; /* Full expressions */
+command_element_expression
+    : literal_text // input names!
+    | command_element_optional_text // optional input
+    | flag_idenitifers // Flags
+    ; /* Command defenition expressions */
+command_element_expression_full
+    :  command_element_expression expression_end
+    ; /* Command defenition full expressions */
 
 // Groups/zones
 expressions_group
@@ -53,7 +62,7 @@ script_capture_expressions_group
 command_element_expressions_group
     : SYM_ASTERISK
         SYM_PARENTHESIS_OPEN
-            // command_element_expression_full* // Only command element definitions are allowed in here!
+            command_element_expression_full* // Only command element definitions are allowed in here!
         SYM_PARENTHESIS_CLOSE
     ; /* Used to group command definition elements */
 
@@ -88,3 +97,48 @@ literals
     | literal_number
     | literal_text
     ; /* Group all literals */
+
+// Statements
+statements
+    : command_statement
+    ; /* Group all statements */
+
+// Command statement
+command_targets
+    :   KYW_BASH expressions_group KYW_BATCH expressions_group // Bash/Linux, Batch/Windows
+    |   KYW_BATCH expressions_group KYW_BASH expressions_group // Batch/Windows, Bash/Linux
+    ; /* Targets for commands! */
+command_element
+    : command_element_expressions_group // For flags and related inputs
+    | literal_text // input
+    ; /* Command elements */
+command_statement
+    : KYW_COMMAND literal_text command_element* command_targets
+    ; /* "command" definition statement */
+
+// Idenitifers
+short_flag_idenitifer
+    : FLAG_IDENTIFIER
+    ; /* Short flags */
+long_flag_idenitifer
+    : LONG_FLAG_IDENTIFIER
+    ; /* Long flags */
+flag_idenitifers
+    : short_flag_idenitifer
+    | long_flag_idenitifer
+    ; /* Group all flag idenitifer */
+
+// Commands-related strings
+command_element_optional_text
+    : SYM_QUESTION_MARK literal_text
+    ;
+
+/*RULE_IDENTIFIER
+FUNCTION_IDENTIFIER
+TYPE_CONSTANT_IDENTIFIER
+CONSTANT_IDENTIFIER
+TYPE_VARIABLE_IDENTIFIER
+VARIABLE_IDENTIFIER
+INPUT_IDENTIFIER
+TYPE_IDENTIFIER
+COMMAND_IDENTIFIER*/
