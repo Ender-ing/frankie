@@ -1,0 +1,21 @@
+;;?
+ ;  @INFO
+ ;  This is a debug file!
+?;;
+
+command my-command ?*(-f --flag $FLAG) ?*(-x --extra $EXTRA; TEXT|NUMBER $EXTRA-INPUT; TEXT ?$EXTRA-INPUT-2) *(ANY $INPUT-1; TEXT $INPUT-2) bash (
+    "sadsaasasa"
+) batch (
+    "sddsadafsa"
+) default MyType
+
+
+;; Basic types
+
+"This is a simple string!"
+"asada $$asdasda$AADSA $asada $DSDS casda asasa"
+
+$TRUE $FALSE
+
+453 .4534 2432.
+
