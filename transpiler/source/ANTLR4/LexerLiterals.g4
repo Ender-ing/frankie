@@ -51,13 +51,17 @@ mode MODE_STRING_CAPTURE_REFERENCE;
         : VARIABLE_IDENTIFIER_CONTENT_
         ; /* Variables */
     LIT_STRING_REFERENCE_ESCAPE_END_STRING_CONTENT
-        : ESCAPE_SEQUENCE_
+        : ESCAPE_SEQUENCE_ // Ends with an escape character!
                 -> popMode
-        ; /* End the escape mode! (part of raw string content) */
+        ; /* End the reference mode! (part of raw string content) */
+    LIT_STRING_REFERENCE_END_STRING_END
+        : '"' // Ends the string!
+                -> popMode, popMode
+        ; /* End the string capture (When the reference mode ends with the string closing!) */
     LIT_STRING_REFERENCE_END_STRING_CONTENT
-        : .
+        : . // Ends with a normal character
                 -> popMode
-        ; /* End the escape mode! (part of raw string content) */
+        ; /* End the reference mode! (part of raw string content) */
 
 // String template inner capture
 mode MODE_STRING_CAPTURE;
