@@ -59,7 +59,7 @@ print ?Error "You should be ashamed of yourself!"
 ;; If the built-in libraries do not include a command you need to use, you can define it yourself!
 ;; (all library commands are defined like this!)
 ;; <command-name> [<short-flat> <long-flag>, <short-flat> <long-flag>, ...] bash (...) batch (...)
-command "my-command" ?*(-f --flag $FLAG) ?*(-x --extra $EXTRA; TEXT|NUMBER $EXTRA-INPUT; TEXT ?$EXTRA-INPUT-2) *(ANY $INPUT-1; TEXT $INPUT-2) bash (
+command my-command ?*(-f --flag $FLAG) ?*(-x --extra $EXTRA; TEXT|NUMBER $EXTRA-INPUT; TEXT ?$EXTRA-INPUT-2) *(ANY $INPUT-1; TEXT $INPUT-2) bash (
     ;; You can add documentation to each element of this command using (;;!!) comments!
     ;;!! |"my-command"|           |This command does this!|
     ;;!! |-f|                     |This flag does something!|
