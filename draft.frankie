@@ -60,7 +60,7 @@ print ?Error "You should be ashamed of yourself!"
 ;; define it yourself!
 ;; (all library commands are defined like this!)
 ;; <command-name> [<short-flat> <long-flag>, <short-flat> <long-flag>, ...] bash (...) batch (...)
-command "my-command" *(-f --flag) *(-x --extra "extra-input" ?"extra-input-2") "input1" "input2" bash (
+command "my-command" *(-f; --flag) *(-x; --extra; "extra-input"; ?"extra-input-2") "input1" "input2" bash (
     ;; You can add documentation to each element of this command using (;;!!) comments!
     ;;!! |"my-command"|           |This command does this!|
     ;;!! |-f|                     |This flag does something!|
