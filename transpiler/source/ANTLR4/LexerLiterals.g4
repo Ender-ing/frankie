@@ -41,6 +41,10 @@ mode MODE_STRING_CAPTURE;
     LIT_STRING_CONTENT_ESCAPED
         : ESCAPE_SEQUENCE_
         ; /* Capture escaped string chars */
+    INVALID_LIT_STRING_REFERENCE
+        : LIT_BOOLEAN_TRUE
+        | LIT_BOOLEAN_FALSE
+        ; /* Invalid var references */
     LIT_STRING_REFERENCE_TYPE_CONSTANT
         : '$' '$' CONSTANT_IDENTIFIER_CONTENT_
         ; /* Type-related constants */

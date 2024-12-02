@@ -16,7 +16,10 @@ options {
 import LexerFragments, LexerIdentifiersFragments;
 
 // Identifiers
-// Identifiers cannot start/end with a dash!
+// Identifier names (expect for a flag's start) cannot start/end with a dash!
+RULE_IDENTIFIER
+    : '@' '@' VARIABLE_IDENTIFIER_CONTENT_
+    ; /* All rule function identifiers must start with double at (@@) signs! */
 FUNCTION_IDENTIFIER
     : '@' VARIABLE_IDENTIFIER_CONTENT_
     ; /* All function identifiers must start with an at (@) sign! */
@@ -32,12 +35,12 @@ TYPE_VARIABLE_IDENTIFIER
 VARIABLE_IDENTIFIER
     : '$' VARIABLE_IDENTIFIER_CONTENT_
     ; /* All variable identifiers must start with a dollar ($) sign! */
-FLAG_IDENTIFIER
-    : '%' '%'? VARIABLE_IDENTIFIER_CONTENT_
+LONG_FLAG_IDENTIFIER
+    : '-' '-' VARIABLE_IDENTIFIER_CONTENT_
     ; /* All flag identifiers must start with a percentage (%) character! */
-INPUT_IDENTIFIER
-    : '^' VARIABLE_IDENTIFIER_CONTENT_
-    ; /* All input identifiers must start with a (^caret) character! */
+FLAG_IDENTIFIER
+    : '-' VARIABLE_IDENTIFIER_CONTENT_
+    ; /* All flag identifiers must start with a percentage (%) character! */
 TYPE_IDENTIFIER
     : [A-Z] ((STANDARD_IDENTIFIER_CHARS_)* (STANDARD_IDENTIFIER_CHARS_END_))?
     ; /* All type identifiers must start with a capital letter! */

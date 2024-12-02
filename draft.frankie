@@ -37,8 +37,8 @@ group System (
 
 ;; This spawn style is defined by default in the spawn library
 type (spawn) CleanSpawn (
-    $$clean-output-on-success=$TRUE ;; This will clean up the logs of the spawned command when the output matches the @rule!
-    $$clean-output-on-end=$FALSE ;; This will clean up the logs of the spawned command when the command is done running!
+    $$clean-output-on-match=$TRUE ;; Cleans up the logs of the spawned command when the output matches the @rule!
+    $$clean-output-on-end=$FALSE ;; Cleans up the logs of the spawned command when the command is done running!
 )
 
 ;; You can also import these types from the standard Frankie libraries
@@ -56,96 +56,96 @@ print ?Error "You should be ashamed of yourself!"
 ;; You should be ashamed of yourself!
 
 
-;; If the built-in libraries do not include a command you need to use, you can
-;; define it yourself!
+;; If the built-in libraries do not include a command you need to use, you can define it yourself!
 ;; (all library commands are defined like this!)
 ;; <command-name> [<short-flat> <long-flag>, <short-flat> <long-flag>, ...] bash (...) batch (...)
-command "my-command" *(%f %%flag) *(%x %%extra "extra-input" ?"extra-input-2") "input1" "input2" bash (
+command "my-command" ?*(-f --flag $FLAG) ?*(-x --extra $EXTRA; TEXT|NUMBER $EXTRA-INPUT; TEXT ?$EXTRA-INPUT-2) *(ANY $INPUT-1; TEXT $INPUT-2) bash (
     ;; You can add documentation to each element of this command using (;;!!) comments!
     ;;!! |"my-command"|           |This command does this!|
-    ;;!! |%f|                     |This flag does something!|
-    ;;!! |%x|                     |This flag does something else!|
-    ;;!! |"extra-input"|           |This flag input does something extra!|
+    ;;!! |-f|                     |This flag does something!|
+    ;;!! |-x|                     |This flag does something else!|
+    ;;!! |"extra-input"|          |This flag input does something extra!|
     ;; ...
     ;; These messages will should up for users when they hover the components you're implementing!
 
-    ;; Order of ($) variables and detached/free (that are not related to commands/keywords) zones is important here!
-    ;; The order/presence of conditionals and ($$) type variables does not affect the command generation!
-    ;; This means you can use logic in here!
-
-    ;; Only conditionals (if/else), variables ($/$$), detached/free zones, and literal numbers (IDs) are allowed here!
+    ;; Do dynamic values are allowed here!
+    ;; Notice that all command elements are constants
 
     ;; You must define type/control variables (with their type, no type inference allowed) at the start of this zone!
     BOOLEAN $$command-behavior-var
 
+    ;; You can use the "inject" keyword to inject commands into the final bash/batch files
+    inject "extra-command ..."
+
+    inject "\m" ;; If you want to append other commands to this command, use the escape character "\m" to break commands
+        ;; apart! NEVER use new lines when they are not needed!
+
     ;; command
-    $command="command1"
+    inject "native-command-name"
 
     ;; You can use conditional blocks to affect the final output of the command!
     if ($$command-behavior-var) (
-        "--do-1"
+        inject "--do-1"
     ) else (
-        "--do-2"
+        inject "--do-2"
     )
 
     ;; flag
-    $f="-f"
-    $flag="--flag"
-    command-zone 1; () ;; You should always create an input/presence zone for flags, even when not used, for easier code maintenance!
-    ;; (input/presence zones are marked by their unique number, starting from 1 and up!
-    ;; The unique number is assigned according to the detection order, left-to-right!)
+    ;; (note that any optional element colleciton - ?*(...) - must contain at least one non-optional element!)
+    if ($FLAG) ( ;; You should always check the status of optional elements before injection!
+        inject "--native-flag"
+    )
+    ;; (references to flags always take on the raw text value of the flag!)
 
     ;; input
-    $input1 ;; the order you place this variable in will affect its place in the generated command text!
+    inject $INPUT-1 ;; the order you place this variable in will affect its place in the generated command text!
 
     ;; flag
-    $x="-x"
-    $extra="--extra"
-    command-zone 2; (
-        $extra-input ;; Usually, if you reference a value as part of a flag, you'd use it within the input zone for that
-        ;; flag!
+    if ($EXTRA) (
+        inject "--native-extra-flag"
+        inject $EXTRA-INPUT ;; Usually, if you reference a value as part of a flag, you'd use it within the input zone for
+        ;; that flag!
 
-        ;; You can use an input/presence zone every before referencing the related value!
-        command-zone 3;(
-            ""
-            $extra-input-2 ;; Notice that this input is optional! Any optional input, just like how flags are optional,
-                ;; Must be followed by an input/presence zone!
+        if ($EXTRA-INPUT-2) (
+            inject ""
+            inject $EXTRA-INPUT-2 ;; Notice that this input is optional! Any optional input, just like how flags are
+                ;; optional, must be checked before use!
         )
     )
 
-    command-zone 3; (
-        $extra-input ;; You can use input/presence zones more than once!
+    if ($EXTRA-INPUT-2) (
+        inject $EXTRA-INPUT ;; You can check the status of these elements more than once!
     )
-    command-zone 3; $extra-input ;; You can also do this with individual elements without a zone!
 
-    ;; You can do this without semicolons too!
-    command-zone 3
-    $extra-input
+    ;; You can also change the final script output depending on the type of the input!
+    if ($EXTRA-INPUT instance-of NUMBER) (
+        inject "-some-custom-int-flag"
+    )else if ($EXTRA-INPUT instance-of TEXT) (
+        inject "-some-custom-text-flag"
+    )
 
     ;; custom input
-    "-input" ;; You can even add extra text to the final output like this
-    $input2
+    inject "-input" ;; You can even add extra text to the final output like this
+    inject $INPUT-2
 ) batch (
     ;; command
-    $command="./command2" ;; You can also use local native binaries/files as commands!
+    inject "./command2" ;; You can also use local native binaries/files as commands!
 
     ;; flag
-    $f="-f2"
-    $flag="--flag2"
-    command-zone 1; ()
+    if ($FLAG) (
+        inject "--win-flag"
+    )
 
     ;; flag
-    $x="-w"
-    $extra="--w-extra"
-    command-zone 2; (
-        $input1 ;; If you reference a value in an argument's scope, this means this value will be included in the
+    if ($EXTRA) (
+        inject $INPUT-1 ;; If you reference a value in an argument's scope, this means this value will be included in the
             ;; final command text only if the argument is present!
     )
 
     ;; input
-    $input1 ;; You can even have one input value repeate!
-    $input2
-)
+    inject $INPUT-1 ;; You can even have one input value repeate!
+    inject $INPUT-2
+) default DefaultStyle
 
 ;; You can define output match rules!
 ;; (rule functions can only return TRUE or FALSE)
@@ -156,9 +156,9 @@ rule @@rule-function (
 
 ;; You can spawn child processes, and check their output!
 import "#extra.npm" ;; this command uses the NodeJS namespace! (npm, Npm)
-spawn CleanSpawn (
-    #(NodeJS:npm %d %%global NodeJS:Npm:$INSTALL) ;; You can capture the final string value of a command like this!
-        ;; In this npm command, NodeJS:Npm:$INSTALL is just a variable that holds the string "install"!
+spawn CleanSpawn #( ;; You can capture the final string value of a command like this!
+    NodeJS:npm -d --global NodeJS:Npm:$INSTALL
+    ;; In this npm command, NodeJS:Npm:$INSTALL is just a variable that holds the string "install"!
 ) follow @@rule-function match ( ;; If you fail to handle at least one of these match cases, the build will fail!
     print Error "Failed to install NPM dependencies!"
     return $TRUE ;; Return true to indicate that this failure should end the script!
@@ -175,6 +175,8 @@ BOOLEAN ;; Booleans (true/false)
     $TRUE $FALSE
 TEXT ;; Text (chars, strings, etc.)
     "dasdas"
+COMMAND ;; Final text generated from commands!
+    #(my-command)
 ANY ;; Any value! (used when not sure of the type of the variable!)
 NONE ;; Used for functions to indicate that they do not return a value!
 ;; If you do not append variables with types on definition, the type of the variable

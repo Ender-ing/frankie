@@ -21,12 +21,18 @@ KYW_USE
 
 
 // Declarative keywords
+KYW_INJECT
+    : 'inject'
+    ; /* Used to inject final target scripts */
 KYW_TYPE
     : 'type'
     ; /* Used to define action types (not values, actions) */
-KYW_COMMAND_ZONE
-    : 'command-zone'
-    ; /* Used to reference command optional zones! */
+KYW_INSTANCE_OF
+    : 'instance-of'
+    ; /* Used to reference variables/constants type cases! */
+KYW_DEFAULT
+    : 'default'
+    ; /* Used to define default values! */
 KYW_COMMAND
     : 'command'
     ; /* Used to define commands! */

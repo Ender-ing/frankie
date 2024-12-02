@@ -45,5 +45,5 @@ fragment WHITESPACE_
 
 // Strings-related
 fragment ESCAPE_SEQUENCE_
-    : '\\' [btnfrs"\\/$]
+    : '\\' [btnfrs"\\/$m]
     ; /* Escape characters */
