@@ -73,7 +73,7 @@ SYM_DOLLAR
     ; /* Marks output capture groups */
 SYM_HASHTAG
     : '#'
-    ; /* Marks script capture groups */
+    ; /* Marks script capture groups and command element strings */
 
 /*SYM_COMMA
     : ','
