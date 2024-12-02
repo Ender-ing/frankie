@@ -105,7 +105,7 @@ command_targets
     |   KYW_BATCH expressions_group KYW_BASH expressions_group // Batch/Windows, Bash/Linux
     ; /* Targets for commands! */
 command_statement
-    : KYW_COMMAND literal_text command_element_expressions_group* command_targets KYW_DEFAULT command_type_identifier
+    : KYW_COMMAND command_identifier command_element_expressions_group* command_targets KYW_DEFAULT command_type_identifier
     ; /* "command" definition statement */
 command_flag_optional_definition
     : short_flag_idenitifer long_flag_idenitifer SYM_QUESTION_MARK data_constant_idenitifer
@@ -168,6 +168,9 @@ flag_idenitifers
 command_type_identifier
     : TYPE_IDENTIFIER
     ; /* Command type identifiers */
+command_identifier
+    : COMMAND_IDENTIFIER
+    ; /* custom command identifiers */
 data_type_identifier
     : TYPE_NUMBER
     | TYPE_TEXT
