@@ -42,6 +42,20 @@ expressions_group
             expression_full* // All expressions are allowed here!
         SYM_PARENTHESIS_CLOSE // Close
     ; /* Parentheses grouping actually matters */
+output_capture_expressions_group
+    : SYM_DOLLAR
+        expressions_group
+    ; /* Used to capture command output values inside a zone */
+script_capture_expressions_group
+    : SYM_HASHTAG
+        expressions_group
+    ; /* Used to capture final command script string values inside a zone */
+command_element_expressions_group
+    : SYM_ASTERISK
+        SYM_PARENTHESIS_OPEN
+            // command_element_expression_full* // Only command element definitions are allowed in here!
+        SYM_PARENTHESIS_CLOSE
+    ; /* Used to group command definition elements */
 
 // Literals
 literal_boolean
