@@ -100,7 +100,7 @@
         },
         {
           "name": "keyword.control.source.polarfrankie",
-          "match": "\\b(import|from|use|group)\\b"
+          "match": "\\b(import|use|group)\\b"
         },
         {
           "name": "keyword.control.definition.polarfrankie",
