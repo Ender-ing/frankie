@@ -16,7 +16,10 @@ options {
 import LexerFragments, LexerIdentifiersFragments;
 
 // Identifiers
-// Identifiers cannot start/end with a dash!
+// Identifier names (expect for a flag's start) cannot start/end with a dash!
+RULE_IDENTIFIER
+    : '@' '@' VARIABLE_IDENTIFIER_CONTENT_
+    ; /* All rule function identifiers must start with double at (@@) signs! */
 FUNCTION_IDENTIFIER
     : '@' VARIABLE_IDENTIFIER_CONTENT_
     ; /* All function identifiers must start with an at (@) sign! */
