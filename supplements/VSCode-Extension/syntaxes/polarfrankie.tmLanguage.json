@@ -189,6 +189,10 @@
               "include": "#escapeSequences"
             },
             {
+              "name": "invalid.illegal.polarfrankie",
+              "match": "(\\$FALSE|\\$TRUE)"
+            },
+            {
               "include": "#value-identifiers"
             }
           ]
