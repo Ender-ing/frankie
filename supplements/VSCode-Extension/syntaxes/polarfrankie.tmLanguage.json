@@ -104,11 +104,11 @@
         },
         {
           "name": "keyword.control.definition.polarfrankie",
-          "match": "\\b(type|command-zone|command|function|rule)\\b"
+          "match": "\\b(type|instance-of|default|command|function|rule)\\b"
         },
         {
           "name": "keyword.control.target.polarfrankie",
-          "match": "\\b(bash|batch)\\b"
+          "match": "\\b(bash|batch|inject)\\b"
         }
       ]
     },

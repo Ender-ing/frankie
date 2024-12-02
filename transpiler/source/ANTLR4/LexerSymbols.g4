@@ -74,6 +74,9 @@ SYM_DOLLAR
 SYM_HASHTAG
     : '#'
     ; /* Marks script capture groups and command element strings */
+SYM_PIPE
+    : '|'
+    ; /* Separates components/elements! */
 
 /*SYM_COMMA
     : ','
