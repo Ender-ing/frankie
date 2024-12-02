@@ -52,36 +52,22 @@ literal_number
     : LIT_NUMBER
     ; /* Numbers! */
 literal_text_reference
-    :   LIT_STRING_REFERENCE_START
-            (
-                LIT_STRING_REFERENCE_CONSTANT |
-                LIT_STRING_REFERENCE_VARIABLE |
-                LIT_STRING_REFERENCE_TYPE_CONSTANT |
-                LIT_STRING_REFERENCE_TYPE_VARIABLE
-            )
+    :   LIT_STRING_REFERENCE_CONSTANT |
+        LIT_STRING_REFERENCE_VARIABLE |
+        LIT_STRING_REFERENCE_TYPE_CONSTANT |
+        LIT_STRING_REFERENCE_TYPE_VARIABLE
     ; /* Text value reference! */
-literal_text_reference_end
-    :   literal_text_reference
-        LIT_STRING_REFERENCE_END_STRING_END // Ends with a quote (end of string)
-    ; /* Text! (ends with a reference) */
-literal_text_reference_typical
-    :   literal_text_reference
-        (
-            LIT_STRING_REFERENCE_END_STRING_CONTENT | // Normal end
-            LIT_STRING_REFERENCE_ESCAPE_END_STRING_CONTENT // end with an escape character!
-        )
+literal_text_content
+    :   LIT_STRING_CONTENT_ESCAPED
+    | LIT_STRING_CONTENT
     ; /* Text! */
 literal_text
     :   LIT_STRING_START
             (
-                LIT_STRING_CONTENT_ESCAPED |
-                LIT_STRING_CONTENT |
-                literal_text_reference_typical
+                literal_text_content |
+                literal_text_reference
             )*
-        (
-            LIT_STRING_END | // Normal end
-            literal_text_reference_end // Ends with a reference
-        )
+        LIT_STRING_END
     ; /* Text! */
 literals
     : literal_boolean
