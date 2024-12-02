@@ -13,4 +13,4 @@ options {
     language=Cpp;
 }
 
-import LexerIgnores, LexerLiterals, LexerBuiltinTypes, LexerSymbols, LexerKeywords, LexerIdentifiers;
+import LexerIgnores, LexerLiterals, LexerBuiltinTypes, LexerKeywords, LexerIdentifiers, LexerSymbols;
