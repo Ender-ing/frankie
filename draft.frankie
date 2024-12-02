@@ -91,7 +91,7 @@ command "my-command" *(%f %%flag) *(%x %%extra "extra-input" ?"extra-input-2") "
     ;; flag
     $f="-f"
     $flag="--flag"
-    1; () ;; You should always create an input/presence zone for flags, even when not used, for easier code maintenance!
+    command-zone 1; () ;; You should always create an input/presence zone for flags, even when not used, for easier code maintenance!
     ;; (input/presence zones are marked by their unique number, starting from 1 and up!
     ;; The unique number is assigned according to the detection order, left-to-right!)
 
@@ -101,25 +101,25 @@ command "my-command" *(%f %%flag) *(%x %%extra "extra-input" ?"extra-input-2") "
     ;; flag
     $x="-x"
     $extra="--extra"
-    2; (
+    command-zone 2; (
         $extra-input ;; Usually, if you reference a value as part of a flag, you'd use it within the input zone for that
         ;; flag!
 
         ;; You can use an input/presence zone every before referencing the related value!
-        3;(
+        command-zone 3;(
             ""
             $extra-input-2 ;; Notice that this input is optional! Any optional input, just like how flags are optional,
                 ;; Must be followed by an input/presence zone!
         )
     )
 
-    3; (
+    command-zone 3; (
         $extra-input ;; You can use input/presence zones more than once!
     )
-    3; $extra-input ;; You can also do this with individual elements without a zone!
+    command-zone 3; $extra-input ;; You can also do this with individual elements without a zone!
 
     ;; You can do this without semicolons too!
-    3
+    command-zone 3
     $extra-input
 
     ;; custom input
@@ -132,12 +132,12 @@ command "my-command" *(%f %%flag) *(%x %%extra "extra-input" ?"extra-input-2") "
     ;; flag
     $f="-f2"
     $flag="--flag2"
-    1; ()
+    command-zone 1; ()
 
     ;; flag
     $x="-w"
     $extra="--w-extra"
-    2; (
+    command-zone 2; (
         $input1 ;; If you reference a value in an argument's scope, this means this value will be included in the
             ;; final command text only if the argument is present!
     )

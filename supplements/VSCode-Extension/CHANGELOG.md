@@ -18,9 +18,11 @@
     + Add type/namespace identifier
     + Add constant identifier
     + Add variable identifier
+    + Add command identifier
   + Add comments highlighting
     + Support comments (*all*) escape
     + Add linear and multilinear comments
+  + Add keywords
 + Add language snippets
   + Add a multilinear documentation comment template
   + Add a linear note comment template

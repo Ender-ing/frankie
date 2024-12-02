@@ -27,9 +27,12 @@ KYW_USE
 KYW_TYPE
     : 'type'
     ; /* Used to define action types (not values, actions) */
+KYW_COMMAND_ZONE
+    : 'command-zone'
+    ; /* Used to reference command optional zones! */
 KYW_COMMAND
     : 'command'
-    ; /* Used to'define commands! */
+    ; /* Used to define commands! */
 KYW_FUNCTION
     : 'function'
     ; /* Used to define functions! */
