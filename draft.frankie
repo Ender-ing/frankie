@@ -30,6 +30,13 @@ type (print) Error (
     ;; $clean-on-end=$TRUE ;; This will clean up logs after printing
 )
 
+;; You can make another version of the same type like this!
+import "#Default" ;; Notice that libraries that start with capital letters do not include commands! (only components)
+type (my-command) MyType base PolarFrankie:Default ( ;; Initialises a type that has all the values of type "Default"!
+    ;; You can modify existing values, or create new ones!
+    $$new-value="Oh hi!"
+)
+
 ;; You can define your own element groups/namespaces
 group System (
     ;;
