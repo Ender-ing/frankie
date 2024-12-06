@@ -27,6 +27,9 @@ KYW_INJECT
 KYW_TYPE
     : 'type'
     ; /* Used to define action types (not values, actions) */
+KYW_BASE
+    : 'base'
+    ; /* Used to base types on other types (not values, actions) */
 KYW_INSTANCE_OF
     : 'instance-of'
     ; /* Used to reference variables/constants type cases! */

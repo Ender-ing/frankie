@@ -8,6 +8,8 @@ command my-command ?*(-f --flag $FLAG) ?*(-x --extra $EXTRA; TEXT|NUMBER $EXTRA-
 ) batch (
     "sddsadafsa"
 ) default MyType
+;; If a command doesn't have a default type, this means it does not make use of "type values"! Any attemps to use a type
+;; with a "non-default"-ed command will fail the build!
 
 
 ;; Basic types
