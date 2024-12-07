@@ -64,3 +64,6 @@ KYW_ELSE
 KYW_RETURN
     : 'return'
     ; /* Used to return a function value! */
+KYW_END
+    : 'end'
+    ; /* Used to end the current script file! */

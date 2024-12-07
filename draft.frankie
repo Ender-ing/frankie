@@ -168,10 +168,10 @@ spawn CleanSpawn #( ;; You can capture the final string value of a command like 
     ;; In this npm command, NodeJS:Npm:$INSTALL is just a variable that holds the string "install"!
 ) follow @@rule-function match ( ;; If you fail to handle at least one of these match cases, the build will fail!
     print Error "Failed to install NPM dependencies!"
-    return $TRUE ;; Return true to indicate that this failure should end the script!
+    end ;; Safely ends the script execution!
 ) mismatch (
     print Error "Installed NPM dependencies successfully!"
-    return $TRUE ;; Return true to indicate that this success should end the script! (As an error!)
+    end ;; Safely ends the script execution!
 )
 ;; Make sure the function's output is as expected!
 
