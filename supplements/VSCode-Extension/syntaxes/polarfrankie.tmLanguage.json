@@ -96,7 +96,7 @@
       "patterns": [
         {
           "name": "keyword.control.logic.polarfrankie",
-          "match": "\\b(if|else|return)\\b"
+          "match": "\\b(if|else|return|end)\\b"
         },
         {
           "name": "keyword.control.source.polarfrankie",
