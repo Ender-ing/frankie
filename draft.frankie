@@ -7,7 +7,7 @@
 ;; Generate Bash and Batch files from the same source file!
 
 ;; This print (echo) style is defined by default in the print library
-import "#print" ;; print, Colors
+import "@print" ;; print, Colors
 use (System) ;; You can use the "use" keyword to negate the need to use the namespace that a library is under!
 ;; Note that the "System" namespace is only used by commands that are considered "system commands"
 type (print) Error (
@@ -31,7 +31,7 @@ type (print) Error (
 )
 
 ;; You can make another version of the same type like this!
-import "#Default" ;; Notice that libraries that start with capital letters do not include commands! (only components)
+import "@Default" ;; Notice that libraries that start with capital letters do not include commands! (only components)
 type (my-command) MyType base PolarFrankie:Default ( ;; Initialises a type that has all the values of type "Default"!
     ;; You can modify existing values, or create new ones!
     $$new-value="Oh hi!"
@@ -49,8 +49,8 @@ type (spawn) CleanSpawn (
 )
 
 ;; You can also import these types from the standard Frankie libraries
-import "#spawn" ;; CleanSpawn
-import "#print" ;; Error (print)
+import "@spawn" ;; CleanSpawn
+import "@print" ;; Error (print)
 
 ;; You can also import your own local Frankie files!
 import "./my-type.frankie" ;; MyType
@@ -162,7 +162,7 @@ rule @@rule-function (
 )
 
 ;; You can spawn child processes, and check their output!
-import "#extra.npm" ;; this command uses the NodeJS namespace! (npm, Npm)
+import "@extra.npm" ;; this command uses the NodeJS namespace! (npm, Npm)
 spawn CleanSpawn #( ;; You can capture the final string value of a command like this!
     NodeJS:npm -d --global NodeJS:Npm:$INSTALL
     ;; In this npm command, NodeJS:Npm:$INSTALL is just a variable that holds the string "install"!
