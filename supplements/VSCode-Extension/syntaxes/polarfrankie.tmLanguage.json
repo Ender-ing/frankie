@@ -202,8 +202,8 @@
     "operators": {
       "patterns": [
         {
-          "name": "keyword.operator.new.polarfrankie",
-          "match": "\\$|#|\\*|\\?|\\^|-"
+          "name": "keyword.operator.polarfrankie",
+          "match": "\\$|#|\\*|\\?|-"
         },
         {
           "name": "keyword.operator.polarfrankie",
