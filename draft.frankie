@@ -182,8 +182,6 @@ BOOLEAN ;; Booleans (true/false)
     $TRUE $FALSE
 TEXT ;; Text (chars, strings, etc.)
     "dasdas"
-COMMAND ;; Final text generated from commands!
-    #(my-command)
 ANY ;; Any value! (used when not sure of the type of the variable!)
 NONE ;; Used for functions to indicate that they do not return a value!
 ;; If you do not append variables with types on definition, the type of the variable
