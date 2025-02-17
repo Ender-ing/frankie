@@ -12,7 +12,7 @@
             "actionFile": "transpiler/source/ANTLR4/actions.debug.js",
             "startRule": "root",
             "printParseTree": true,
-            "visualParseTree": false
+            "visualParseTree": true
         }
     ]
 }
