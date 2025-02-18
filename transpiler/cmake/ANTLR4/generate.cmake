@@ -27,7 +27,7 @@ antlr4_generate(
 include_directories(${PROJECT_BINARY_DIR} ${ANTLR4_INCLUDE_DIR} ${ANTLR4_INCLUDE_DIR_antlrcpp_lexer} ${ANTLR4_INCLUDE_DIR_antlrcpp_parser})
 
 # add generated source files
-add_executable(FrankieANTLR4Parser main.cpp ${ANTLR4_SRC_FILES_antlrcpp_lexer} ${ANTLR4_SRC_FILES_antlrcpp_parser})
+add_executable(FrankieANTLR4Parser ${FRANKIE_ANTLR4_MAIN_CPP_PATH} ${ANTLR4_SRC_FILES_antlrcpp_lexer} ${ANTLR4_SRC_FILES_antlrcpp_parser})
 
 # add required runtime library
 add_dependencies(FrankieANTLR4Parser antlr4_shared)
