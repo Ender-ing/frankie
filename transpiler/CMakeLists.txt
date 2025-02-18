@@ -12,12 +12,9 @@ include(${FRANKIE_CMAKE_DIR}/micros.cmake)
 # Manage dependencies
 include(${FRANKIE_CMAKE_DIR}/dependencies.cmake)
 
-# ANTLR4 files generation configs
+# ANTLR4 files generation...
 # (applys to "FrankieANTLR4Parser")
 set(FRANKIE_ANTLR4_LEXER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieLexer.g4)
 set(FRANKIE_ANTLR4_PARSER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieParser.g4)
+set(FRANKIE_ANTLR4_MAIN_CPP_PATH ${FRANKIE_SOURCE_DIR}/parser/main-debug.cpp)
 include(${FRANKIE_CMAKE_DIR}/ANTLR4/generate.cmake)
-
-# Compile "FrankieANTLR4Parser" files
-message(STATUS "Building ANTLR4 parser...")
-add_executable(FrankieANTLR4Parser ${FRANKIE_SOURCE_DIR}/parser/main-debug.cpp)
