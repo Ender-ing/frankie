@@ -188,13 +188,21 @@ NONE ;; Used for functions to indicate that they do not return a value!
 ;; will be inferred! (If no type can be inferred, the type ANY will be assigned to said variable)
 
 ;; functions!
-function @my-function (NUMBER $input) NUMBER ( ;; If you choose to not specify a return type, the new inferred return type would be NONE!
+function @my-function (NUMBER $input) NUMBER ( ;; If you choose to not specify a return type, the new inferred return
+                                            ;; type would be NONE!
     return $input ;; This function returns a number!
 )
 
 @my-function 1 ;; this is how you call this function!
 
 NUMBER $val = $(@my-function 1) ;; This is how capture the value returned by the functions like this!
+
+;; You can use the "directory" keyword to change to another working directory and safely return to the previous
+;; directory when you are done!
+directory "/..." (
+    ;; You can run commands as usual here
+    ;; These commands will run from that directory
+)
 
 
 ;; $() - used to capture command output values inside a zone

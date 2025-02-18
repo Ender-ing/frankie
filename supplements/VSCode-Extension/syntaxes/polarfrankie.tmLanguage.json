@@ -104,7 +104,7 @@
         },
         {
           "name": "keyword.control.definition.polarfrankie",
-          "match": "\\b(type|base|instance-of|default|command|function|rule)\\b"
+          "match": "\\b(type|base|instance-of|default|command|function|rule|directory)\\b"
         },
         {
           "name": "keyword.control.target.polarfrankie",
