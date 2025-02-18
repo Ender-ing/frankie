@@ -58,7 +58,7 @@ int main (int argc, const char *argv[]) {
 
     // Print the parse tree!
     auto s = tree->toStringTree(&parser);
-    std::cout << "Parse Tree: " << s << std::endl;
+    std::cout << "Parse Tree: \n" << s << std::endl;
 
     return 0;
 }
