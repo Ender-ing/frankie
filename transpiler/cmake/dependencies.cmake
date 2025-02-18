@@ -1,5 +1,17 @@
 message(STATUS "[DEPENDENCIES] Checking dependencies...")
 
+# Check for Java
+find_package(Java REQUIRED)
+if(JAVA_VERSION VERSION_GREATER_EQUAL 11) # ANTLR4 jar requires Java 11 or higher 
+    message(STATUS "Java 21 or higher found: ${JAVA_VERSION}")
+    set(JAVA_11_FOUND TRUE) # Set a flag for later use
+elseif(JAVA_FOUND) # Java was found, but not the right version
+    message(FATAL_ERROR "Java ${JAVA_VERSION} found, but Java 11+ is required!")
+    set(JAVA_11_FOUND FALSE)
+else()
+    message(FATAL_ERROR "Java not found! Please install Java 21 or newer on your system.")
+endif()
+
 # ANTLR4 jar
 set(FRANKIE_DEPENDENCIES_ANTLR4_JAR_PATH ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/antlr4/antlr.jar)
 if(NOT EXISTS ${FRANKIE_DEPENDENCIES_ANTLR4_JAR_PATH})
