@@ -10,6 +10,14 @@ if(NOT (CXX_17_FLAG OR CXX_17_FLAG_MSVC))
     message(FATAL_ERROR "[DEPENDENCIES] C++17 is not supported by the compiler. Please use a compiler that supports C++17.")
 endif()
 
+# Check for VS
+# (MSVC)
+#find_package(Visual Studio)
+#if(MSVC)
+#    message(SEND_WARNING "[DEPENDENCIES] What version of Visual Studio version do you use? (Professional/Community - default is Community):")
+#    set(BUILD_VS_EDITION "Community" CACHE STRING "Professional" FORCE)
+#endif()
+
 # Check for Java
 find_package(Java REQUIRED)
 # Execute java -version and capture the output
@@ -90,7 +98,23 @@ endif()
 if(NOT EXISTS ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH})
     message(STATUS "[DEPENDENCIES] Extracting ANTLR4 C++ runtime...")
     extract_zip(${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_ZIP_PATH} ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH})
+else()
+    message(STATUS "[DEPENDENCIES] ANTLR4 C++ runtime is present!")
 endif()
-# TO-DO:
-# - Add a check for already-installed ANTLR4 C++ runtime
-# - Add appropriate ANTLR4 C++ runtime presence status messages
+# Deploy ANTLR4 C++ runtime
+#execute_process(
+#    COMMAND ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH}/deploy-windows.cmd ${BUILD_VS_EDITION}
+#    WORKING_DIRECTORY ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH}
+    # Optional arguments:
+    # ARGS arg1 arg2 ...
+    # OUTPUT_VARIABLE output
+    # ERROR_VARIABLE error
+    # RESULT_VARIABLE result
+#)
+#if(result EQUAL 0)
+#    message(FATAL_ERROR "[DEPENDENCIES] ANTLR4 C++ runtime deployment successful!")
+#else()
+#    message(FATAL_ERROR "[DEPENDENCIES] ANTLR4 C++ runtime deployment failed: ${result}")
+#endif()
+# Load ANTLR4 cmake files
+list(APPEND CMAKE_MODULE_PATH ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH}/cmake)
