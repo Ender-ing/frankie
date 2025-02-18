@@ -11,6 +11,8 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/dependencies.cmake)
 # C++ compiler must be 17
 set(CMAKE_CXX_STANDARD 17)
 
+# Compile files
+# target_include_directories(MyExecutable ...)
 # message(STATUS "Building transpiler...")
 # include_directories(${ANTLR4_RUNTIME_SRC_DIR})
 # add_executable(MyExecutable ${CMAKE_CURRENT_SOURCE_DIR}/source/parser/main-debug.cpp)
