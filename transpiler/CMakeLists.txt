@@ -3,10 +3,10 @@ cmake_minimum_required(VERSION 3.30)
 project(polar_frankie_transpiler)
 
 # Include micros
-include(${CMAKE_CURRENT_SOURCE_DIR}/micros.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/micros.cmake)
 
 # Manage dependencies
-include(${CMAKE_CURRENT_SOURCE_DIR}/dependencies.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/dependencies.cmake)
 
 # C++ compiler must be 17
 set(CMAKE_CXX_STANDARD 17)
