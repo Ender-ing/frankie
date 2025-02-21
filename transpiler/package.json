@@ -2,6 +2,6 @@
     "scripts": {
         "rebuild": "npm run clean && npm run build",
         "build": "mkdir build && cd build && cmake .. && cmake --build . --config Release -DCMAKE_BUILD_TYPE=Release",
-        "clean": "rd /s /q build"
+        "clean": "rm -f -q build || rd /s /q build"
     }
 }
