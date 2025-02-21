@@ -84,6 +84,7 @@ if(NOT DEFINED ANTLR4_WITH_STATIC_CRT)
 endif()
 
 if(ANTLR4_ZIP_REPOSITORY)
+  message(SEND_WARNING "[ANTLR4 Dependency] Patches are not applied to custom zip repositories!")
   ExternalProject_Add(
       antlr4_runtime
       PREFIX antlr4_runtime
@@ -108,6 +109,10 @@ else()
       GIT_REPOSITORY ${ANTLR4_GIT_REPOSITORY}
       GIT_TAG ${ANTLR4_TAG}
       DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
+      # <CUSTOM MODIFICATIONS
+      PATCH_COMMAND
+        ${GIT_PATCH_EXECUTABLE} ${ANTLR4_ROOT}/runtime/Cpp/runtime/src/atn/ProfilingATNSimulator.cpp < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__ProfilingATNSimulator.cpp.diff
+      # CUSTOM MODIFICATIONS>
       BUILD_COMMAND ""
       BUILD_IN_SOURCE 1
       SOURCE_DIR ${ANTLR4_ROOT}

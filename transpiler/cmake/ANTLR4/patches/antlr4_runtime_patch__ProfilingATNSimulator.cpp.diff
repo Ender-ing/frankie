@@ -1,0 +1,10 @@
+--- a/runtime/Cpp/runtime/src/atn/ProfilingATNSimulator.cpp
++++ b/runtime/Cpp/runtime/src/atn/ProfilingATNSimulator.cpp
+@@ -10,6 +10,7 @@
+ #include "support/CPPUtils.h"
+ 
+ #include "atn/ProfilingATNSimulator.h"
++#include <chrono> // The build fails on windows without this include...
+ 
+ using namespace antlr4;
+ using namespace antlr4::atn;
