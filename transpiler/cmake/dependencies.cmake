@@ -79,31 +79,6 @@ else()
     message(STATUS "[DEPENDENCIES] ANTLR4 jar is present!")
 endif()
 
-##### ANTLR4 C++ runtime
-######set(FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_ZIP_PATH ${FRANKIE_DEPENDENCIES_DIR}/antlr4/antlr4-cpp-runtime-source.zip)
-####set(FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH ${FRANKIE_DEPENDENCIES_DIR}/antlr4/antlr4-cpp-runtime-source)
-##### Download missing files
-####if((NOT EXISTS ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_ZIP_PATH}) AND (NOT EXISTS ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH}))
-####    message(STATUS "[DEPENDENCIES] Downloading ANTLR4 C++ runtime (v4.13.2)...")
-####    file(DOWNLOAD
-####        "https://www.antlr.org/download/antlr4-cpp-runtime-4.13.2-source.zip"
-####        ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_ZIP_PATH}
-####        EXPECTED_HASH "SHA256=0ed13668906e86dbc0dcddf30fdee68c10203dea4e83852b4edb810821bee3c4"
-####        TLS_VERIFY TRUE
-####        TIMEOUT 30
-####        STATUS download_status_2
-####    )
-####    if(NOT download_status_2 EQUAL 0)
-####        message(FATAL_ERROR "[DEPENDENCIES] Failed to download ANTLR4 jar: ${download_errors}")
-####    endif()
-####endif()
-##### extract the runtime files
-####if(NOT EXISTS ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH})
-####    message(STATUS "[DEPENDENCIES] Extracting ANTLR4 C++ runtime...")
-####    extract_zip(${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_ZIP_PATH} ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH})
-####endif()
-####list(APPEND CMAKE_MODULE_PATH ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH}/cmake)
-
 # Check for GIT Patch
 find_program(GIT_PATCH_EXECUTABLE NAMES patch) # Search for "patch" (case-insensitive)
 if(GIT_PATCH_EXECUTABLE)
