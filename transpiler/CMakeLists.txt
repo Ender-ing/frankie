@@ -16,7 +16,7 @@ include(${FRANKIE_CMAKE_DIR}/transpiler-build-dependencies.cmake)
 # (applys to "FrankieTranspiler" target)
 set(FRANKIE_ANTLR4_LEXER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieLexer.g4)
 set(FRANKIE_ANTLR4_PARSER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieParser.g4)
-set(FRANKIE_MAIN_CPP_PATH ${FRANKIE_SOURCE_DIR}/parser/main-debug.cpp)
+set(FRANKIE_MAIN_CPP_PATH ${FRANKIE_SOURCE_DIR}/parser/parser.cpp)
 
 # Build executable!
 include(${FRANKIE_CMAKE_DIR}/transpiler-build-executable.cmake)
