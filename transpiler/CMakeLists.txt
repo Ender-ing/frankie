@@ -6,6 +6,14 @@ project(polar_frankie_transpiler)
 set(FRANKIE_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(FRANKIE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
 
+# CMake modules path
+set(CMAKE_MODULE_PATH
+    # CMake files folder
+    ${FRANKIE_CMAKE_DIR}
+    # Append existing paths
+    ${CMAKE_MODULE_PATH}
+)
+
 # Include functions/micros
 include(${FRANKIE_CMAKE_DIR}/transpiler-build-extra.cmake)
 
