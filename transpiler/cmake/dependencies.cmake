@@ -128,11 +128,12 @@ if(fmt)
     message(STATUS "[DEPENDENCIES] {fmt} library is present!")
 else()
     # Download {fmt}
+    message(STATUS "[DEPENDENCIES] Fetching {fmt}...")
     FetchContent_Declare(
         fmt
         GIT_REPOSITORY https://github.com/fmtlib/fmt.git
         GIT_TAG ${FMT_LIB_VERSION}
         SOURCE_DIR   ${FRANKIE_DEPENDENCIES_DIR}/fmt
         )
-        FetchContent_MakeAvailable(fmt)
+    FetchContent_MakeAvailable(fmt)
 endif()
