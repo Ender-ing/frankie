@@ -4,6 +4,7 @@ project(polar_frankie_transpiler)
 
 # Directories
 set(FRANKIE_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(FRANKIE_DEPENDENCIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
 set(FRANKIE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
 
 # CMake modules path
@@ -15,16 +16,23 @@ set(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH}
 )
 
-# Include functions/micros
-include(${FRANKIE_CMAKE_DIR}/cmake-extra.cmake)
-
-# Manage dependencies
-include(${FRANKIE_CMAKE_DIR}/dependencies.cmake)
+# VERSION CONTROL
+# Manage the versions for used dependencies
+# {fmt} library
+set(FMT_LIB_VERSION 11.1.3)
+# ANTLR4
+set(ANTLR4_TAG 4.13.2)
 
 # ANTLR4 files generation configuration
 set(FRANKIE_ANTLR4_LEXER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieLexer.g4)
 set(FRANKIE_ANTLR4_PARSER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieParser.g4)
 set(FRANKIE_MAIN_CPP_PATH ${FRANKIE_SOURCE_DIR}/parser/parser.cpp)
+
+# Include functions/micros
+include(${FRANKIE_CMAKE_DIR}/cmake-extra.cmake)
+
+# Manage dependencies
+include(${FRANKIE_CMAKE_DIR}/dependencies.cmake)
 
 # Build executable!
 include(${FRANKIE_CMAKE_DIR}/build-executable.cmake)
