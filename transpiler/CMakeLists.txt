@@ -6,8 +6,8 @@ project(polar_frankie_transpiler)
 set(FRANKIE_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(FRANKIE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
 
-# Include micros
-include(${FRANKIE_CMAKE_DIR}/transpiler-build-micros.cmake)
+# Include functions/micros
+include(${FRANKIE_CMAKE_DIR}/transpiler-build-extra.cmake)
 
 # Manage dependencies
 include(${FRANKIE_CMAKE_DIR}/transpiler-build-dependencies.cmake)
