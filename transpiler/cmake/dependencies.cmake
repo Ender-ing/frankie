@@ -98,7 +98,10 @@ else()
 endif()
 
 # {fmt}
-find_package(fmt)
+option(USE_INSTALLED_FMT "Ignore or use installed FMT" OFF) # Default OFF - not using installed fmt
+if(USE_INSTALLED_FMT)
+    find_package(fmt)
+endif()
 if(fmt)
     message(STATUS "[DEPENDENCIES] {fmt} library is present!")
 else()
@@ -108,7 +111,7 @@ else()
         fmt
         GIT_REPOSITORY https://github.com/fmtlib/fmt.git
         GIT_TAG ${FMT_LIB_VERSION}
-        SOURCE_DIR   ${FRANKIE_DEPENDENCIES_DIR}/fmt
+        SOURCE_DIR ${FRANKIE_DEPENDENCIES_DIR}/fmt
         )
     FetchContent_MakeAvailable(fmt)
 endif()
