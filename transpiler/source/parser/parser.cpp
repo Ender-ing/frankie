@@ -4,7 +4,17 @@
 #include "PolarFrankieLexer.h"
 #include "PolarFrankieParser.h"
 
-// #include <Windows.h>
+// Include platform headers
+#ifdef _WIN32
+    #include <Windows.h>
+    #pragma execution_character_set("utf-8")
+#elif defined(__linux__) // Linux
+  #include <unistd.h>
+#elif defined(__APPLE__) // macOS (and other Apple platforms)
+  #include <mach/mach_time.h>
+#else
+  // ???
+#endif
 
 #include <iostream>
 #include <fstream>
@@ -53,6 +63,14 @@ int main (int argc, const char *argv[]) {
     PolarFrankieLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
 
+    // Print tokens
+    tokens.fill();
+    std::cout << "Tokens: \n" << std::endl;
+    for (auto token : tokens.getTokens()) {
+      std::cout << token->toString() << std::endl;
+    }
+    std::cout << "\n" << std::endl;
+  
     // Generate a parse tree
     PolarFrankieParser parser(&tokens);
     tree::ParseTree *tree = parser.root();
@@ -60,6 +78,7 @@ int main (int argc, const char *argv[]) {
     // Print the parse tree!
     auto s = tree->toStringTree(&parser);
     std::cout << "Parse Tree: \n" << s << std::endl;
+    std::cout << "\n" << std::endl;
 
     return 0;
 }
