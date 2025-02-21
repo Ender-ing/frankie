@@ -9,10 +9,10 @@ set(ANTLR4_WITH_STATIC_CRT OFF)
 # Make sure to update the patch files if the version changes!
 
 # Specify the version of the antlr4 library needed for this project.
+# ANTLR4_TAG SHOULD ALREADY BE SET!
 # By default the latest version of antlr4 will be used.  You can specify a
 # specific, stable version by setting a repository tag value or a link
 # to a zip file containing the libary source.
-set(ANTLR4_TAG 4.13.2)
 # set(ANTLR4_ZIP_REPOSITORY https://github.com/antlr/antlr4/archive/refs/tags/4.13.2.zip) # No need to set this! (if you do, the git patch won't apply!)
 # If the patching process fails, use this:
 # set(ANTLR4_ZIP_REPOSITORY https://github.com/0xENDER/antlr-4.13.2-chrono-patch/archive/refs/tags/4.13.2-crono-patch.zip)

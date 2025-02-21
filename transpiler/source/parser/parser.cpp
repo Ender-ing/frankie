@@ -16,10 +16,15 @@
   // ???
 #endif
 
+// Basic C++ headers
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
+
+// {fmt}
+#include <fmt/format.h>
+#include <fmt/color.h>
 
 #pragma execution_character_set("utf-8")
 
@@ -31,7 +36,7 @@ int main (int argc, const char *argv[]) {
 
     // Check args
     if (argc < 2) {
-        std::cerr << "Expecting a file path! " << std::endl;
+        std::cerr << fmt::format(fg(fmt::color::red), "Expecting a file path!") << std::endl;
         return 1; // Fail!
     }
 
@@ -52,7 +57,7 @@ int main (int argc, const char *argv[]) {
         // Close file
         file.close();
     } else {
-        std::cerr << "Error opening file: " << filename << std::endl; // Fail!
+        std::cerr << fmt::format(fg(fmt::color::red), "Error opening file: ") << filename << std::endl; // Fail!
         return 1;
     }
 
@@ -65,11 +70,10 @@ int main (int argc, const char *argv[]) {
 
     // Print tokens
     tokens.fill();
-    std::cout << "Tokens: \n" << std::endl;
+    std::cout << fmt::format(fg(fmt::color::blue), "Tokens: \n") << std::endl;
     for (auto token : tokens.getTokens()) {
       std::cout << token->toString() << std::endl;
     }
-    std::cout << "\n" << std::endl;
   
     // Generate a parse tree
     PolarFrankieParser parser(&tokens);
@@ -77,8 +81,8 @@ int main (int argc, const char *argv[]) {
 
     // Print the parse tree!
     auto s = tree->toStringTree(&parser);
-    std::cout << "Parse Tree: \n" << s << std::endl;
-    std::cout << "\n" << std::endl;
+    std::cout << fmt::format(fg(fmt::color::blue), "Parse Tree: \n") << std::endl;
+    std::cout << s << std::endl;
 
     return 0;
 }

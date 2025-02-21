@@ -1,5 +1,8 @@
 message(STATUS "[DEPENDENCIES] Checking dependencies...")
 
+# CMake
+include(FetchContent)
+
 # Check for C++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -58,7 +61,7 @@ else()
 endif()
 
 # ANTLR4 jar
-set(FRANKIE_DEPENDENCIES_ANTLR4_JAR_PATH ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/antlr4/antlr.jar)
+set(FRANKIE_DEPENDENCIES_ANTLR4_JAR_PATH ${FRANKIE_DEPENDENCIES_DIR}/antlr4/antlr.jar)
 if(NOT EXISTS ${FRANKIE_DEPENDENCIES_ANTLR4_JAR_PATH})
     message(STATUS "[DEPENDENCIES] Downloading ANTLR4 jar (v4.13.2)...")
     file(DOWNLOAD
@@ -77,8 +80,8 @@ else()
 endif()
 
 ##### ANTLR4 C++ runtime
-######set(FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_ZIP_PATH ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/antlr4/antlr4-cpp-runtime-source.zip)
-####set(FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/antlr4/antlr4-cpp-runtime-source)
+######set(FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_ZIP_PATH ${FRANKIE_DEPENDENCIES_DIR}/antlr4/antlr4-cpp-runtime-source.zip)
+####set(FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH ${FRANKIE_DEPENDENCIES_DIR}/antlr4/antlr4-cpp-runtime-source)
 ##### Download missing files
 ####if((NOT EXISTS ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_ZIP_PATH}) AND (NOT EXISTS ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH}))
 ####    message(STATUS "[DEPENDENCIES] Downloading ANTLR4 C++ runtime (v4.13.2)...")
@@ -117,4 +120,20 @@ else()
     else()
         message(FATAL_ERROR "[DEPENDENCIES] Git Patch executable not found. Add it to your PATH or install it!")
     endif()
+endif()
+
+# {fmt}
+find_package(fmt)
+if(fmt)
+    message(STATUS "[DEPENDENCIES] {fmt} library is present!")
+else()
+    # Download {fmt}
+    message(STATUS "[DEPENDENCIES] Fetching {fmt}...")
+    FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+        GIT_TAG ${FMT_LIB_VERSION}
+        SOURCE_DIR   ${FRANKIE_DEPENDENCIES_DIR}/fmt
+        )
+    FetchContent_MakeAvailable(fmt)
 endif()
