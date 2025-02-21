@@ -98,8 +98,6 @@ endif()
 if(NOT EXISTS ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH})
     message(STATUS "[DEPENDENCIES] Extracting ANTLR4 C++ runtime...")
     extract_zip(${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_ZIP_PATH} ${FRANKIE_DEPENDENCIES_ANTLR4_CPP_RUNTIME_PATH})
-else()
-    message(STATUS "[DEPENDENCIES] ANTLR4 C++ runtime is present!")
 endif()
 # Deploy ANTLR4 C++ runtime
 #execute_process(
