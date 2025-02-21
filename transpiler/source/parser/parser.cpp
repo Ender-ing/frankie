@@ -36,7 +36,7 @@ int main (int argc, const char *argv[]) {
 
     // Check args
     if (argc < 2) {
-        std::cerr << fmt::format(fg(fmt::color::red), "Expecting a file path! \n") << std::endl;
+        std::cerr << fmt::format(fg(fmt::color::red), "Expecting a file path!") << std::endl;
         return 1; // Fail!
     }
 
@@ -74,7 +74,6 @@ int main (int argc, const char *argv[]) {
     for (auto token : tokens.getTokens()) {
       std::cout << token->toString() << std::endl;
     }
-    std::cout << "\n" << std::endl;
   
     // Generate a parse tree
     PolarFrankieParser parser(&tokens);
@@ -84,7 +83,6 @@ int main (int argc, const char *argv[]) {
     auto s = tree->toStringTree(&parser);
     std::cout << fmt::format(fg(fmt::color::blue), "Parse Tree: \n") << std::endl;
     std::cout << s << std::endl;
-    std::cout << "\n" << std::endl;
 
     return 0;
 }
