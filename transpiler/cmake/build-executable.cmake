@@ -1,5 +1,5 @@
 # Generate ANTLR4 grammar C++ files
-include(${FRANKIE_CMAKE_DIR}/generateANTLR4Files.cmake)
+include(${FRANKIE_CMAKE_DIR}/generate-ANTLR4-files.cmake)
 
 # Add generated grammar to binary target
 add_executable(FrankieTranspiler ${FRANKIE_MAIN_CPP_PATH}

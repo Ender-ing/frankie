@@ -9,16 +9,17 @@ set(FRANKIE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
 # CMake modules path
 set(CMAKE_MODULE_PATH
     # CMake files folder
+    ${FRANKIE_CMAKE_DIR}/ANTLR4
     ${FRANKIE_CMAKE_DIR}
     # Append existing paths
     ${CMAKE_MODULE_PATH}
 )
 
 # Include functions/micros
-include(${FRANKIE_CMAKE_DIR}/transpiler-build-extra.cmake)
+include(${FRANKIE_CMAKE_DIR}/cmake-extra.cmake)
 
 # Manage dependencies
-include(${FRANKIE_CMAKE_DIR}/transpiler-build-dependencies.cmake)
+include(${FRANKIE_CMAKE_DIR}/dependencies.cmake)
 
 # ANTLR4 files generation configuration
 set(FRANKIE_ANTLR4_LEXER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieLexer.g4)
@@ -26,4 +27,4 @@ set(FRANKIE_ANTLR4_PARSER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieParser.g
 set(FRANKIE_MAIN_CPP_PATH ${FRANKIE_SOURCE_DIR}/parser/parser.cpp)
 
 # Build executable!
-include(${FRANKIE_CMAKE_DIR}/transpiler-build-executable.cmake)
+include(${FRANKIE_CMAKE_DIR}/build-executable.cmake)
