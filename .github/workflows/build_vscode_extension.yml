@@ -1,4 +1,4 @@
-name: Build the VSCode Extension
+name: VSCode Extension
 on:
   push:
     branches: [ "main" ]
