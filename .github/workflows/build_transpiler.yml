@@ -21,8 +21,12 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Install Visual Studio Build Tools
-      uses: ilammy/msvc-dev-cmd@v1
+    - name: Install Visual Studio 2022 Community with C++ support
+      uses: ilammy/vs-installer@v1
+      with:
+        vs-version: 2022
+        edition: Community
+        components: Microsoft.VisualStudio.Workload.DesktopBuildTools;Microsoft.VisualStudio.Component.VC.Tools.x64.x86 # Adjust as needed
 
     - name: Make the "transpiler/build" directory
       run: mkdir ${{github.workspace}}/transpiler/build
