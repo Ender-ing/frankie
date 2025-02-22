@@ -28,10 +28,10 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build && cd ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake ${{github.workspace}}/transpiler -DCMAKE_BUILD_TYPE=Release
+      run: cd ${{github.workspace}}/transpiler/build && cmake ${{github.workspace}}/transpiler -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/transpiler/build --config Release
+      run: cd ${{github.workspace}}/transpiler/build && cmake --build ${{github.workspace}}/transpiler/build --config Release
 
     #- name: Run Tests
     #  run: ctest --test-dir ${{github.workspace}}/build --config Release
