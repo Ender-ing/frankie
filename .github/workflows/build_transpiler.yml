@@ -35,8 +35,9 @@ jobs:
       run: cmake --build . --config Release
       working-directory: transpiler/build
 
-    #- name: Run Tests
-    #  run: ctest --test-dir ${{github.workspace}}/build --config Release
+    - name: Run Tests
+      run: ctest --config Release
+      working-directory: transpiler/build
 
   # Linux
   build-ubuntu-latest:
@@ -62,5 +63,6 @@ jobs:
       run: cmake --build . --config Release
       working-directory: transpiler/build
 
-    #- name: Run Tests
-    #  run: ctest --test-dir ${{github.workspace}}/build --config Release
+    - name: Run Tests
+      run: ctest --config Release
+      working-directory: transpiler/build
