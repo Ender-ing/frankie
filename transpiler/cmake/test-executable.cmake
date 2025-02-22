@@ -1,8 +1,8 @@
 # Define testing function
 function(frankie_file_test test_name file_path)
-    message(STATUS "[TESTS] Initiating \"frankie_file_test\" for the path: ${file_path}")
     add_test(NAME FrankieFileTest__${test_name}_find COMMAND ${CMAKE_COMMAND} -E file EXISTS ${file_path})
     add_test(NAME FrankieFileTest__${test_name}_execute COMMAND FrankieTranspiler ${file_path})
+    message(STATUS "[TESTS] Finished \"frankie_file_test\" for the path: ${file_path}")
 endfunction()
 
 # Include all .test.cmake files in the tests directory
