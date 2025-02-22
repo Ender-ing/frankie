@@ -1,23 +1,10 @@
-// Basic C++ headers
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-
-// ANTLR4
-#include "antlr4-runtime.h"
-#include "PolarFrankieLexer.h"
-#include "PolarFrankieParser.h"
-
-#include "../comms/comms.hpp"
-
 // using namespace antlrcpptest;
 using namespace antlr4;
 using namespace frankie_parser;
 
-namespace Parser {
+namespace FrankieParser {
     // TMP
-    int debug (std::string file_contents) {
+    void debug (std::string file_contents) {
         // Use the file's input
         ANTLRInputStream input(file_contents);
 
@@ -38,9 +25,6 @@ namespace Parser {
 
         // Print the parse tree!
         auto s = tree->toStringTree(&parser);
-        std::cout << fmt::format(fg(fmt::color::blue), "Parse Tree: \n") << std::endl;
-        std::cout << s << std::endl;
-
-        return 0;
+        std::cout << fmt::format(fg(fmt::color::blue), "Parse Tree: \n") << s << std::endl;
     }
 }

@@ -8,6 +8,12 @@
 #include <sstream>
 #include <string>
 
+// ANTLR4 imports
+// For SOME REASON, if you import these ANYWHERE ELSE, the build fails on WINDOWS..
+#include "antlr4-runtime.h"
+#include "PolarFrankieLexer.h"
+#include "PolarFrankieParser.h"
+
 // Include platform headers
 #ifdef _WIN32
     #include <Windows.h>
@@ -21,6 +27,8 @@
 
 // CLI basic imports
 #include "comms/comms.hpp"
+
+// Parser imports
 #include "parser/parser.cpp"
 
 int main (int argc, const char *argv[]) {
@@ -53,7 +61,7 @@ int main (int argc, const char *argv[]) {
     }
 
     // Debug
-    Parser::debug(file_contents);
+    FrankieParser::debug(file_contents);
 
     return 0;
 }

@@ -3,6 +3,6 @@
         "rebuild": "npm run clean && mkdir build && npm run build",
         "build": "cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build . --config Release",
         "clean": "rd /s /q build || rm -f -r build",
-        "test": "cd build && ctest"
+        "test": "cd build && ctest -C Release"
     }
 }

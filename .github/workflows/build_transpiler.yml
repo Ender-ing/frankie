@@ -36,7 +36,7 @@ jobs:
       working-directory: transpiler/build
 
     - name: Run Tests
-      run: ctest
+      run: ctest -C Release
       working-directory: transpiler/build
 
   # Linux
@@ -64,5 +64,5 @@ jobs:
       working-directory: transpiler/build
 
     - name: Run Tests
-      run: ctest
+      run: ctest -C Release
       working-directory: transpiler/build

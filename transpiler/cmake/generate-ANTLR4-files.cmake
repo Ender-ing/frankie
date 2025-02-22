@@ -35,7 +35,7 @@ antlr_target(FrankieGrammarParser ${FRANKIE_ANTLR4_PARSER_PATH} PARSER
              PACKAGE frankie_parser
              DEPENDS_ANTLR FrankieGrammarLexer
              COMPILE_FLAGS -lib ${ANTLR_FrankieGrammarLexer_OUTPUT_DIR})
-             
+
 # include generated files in project environment
 include_directories(${ANTLR_FrankieGrammarLexer_OUTPUT_DIR})
 include_directories(${ANTLR_FrankieGrammarParser_OUTPUT_DIR})
