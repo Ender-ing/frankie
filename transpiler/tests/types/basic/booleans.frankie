@@ -1,0 +1,8 @@
+;;?
+ ;  @INFO
+ ;  Test all boolean forms
+?;;
+
+$TRUE
+
+$FALSE

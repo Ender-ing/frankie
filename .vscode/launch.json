@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "configurations": [
         {
-            "name": "PolarFrankie Debug (ANTLR4 grammar)",
+            "name": "PolarFrankie Parser Debug (ANTLR4 grammar)",
             "type": "antlr-debug",
             "request": "launch",
             "input": "${file}",

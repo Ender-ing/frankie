@@ -1,0 +1,40 @@
+name: VSCode Extension
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  # Windows
+  build-vscode-extension-on-windows-latest:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install NodeJS dependencies
+      run: npm i
+      working-directory: supplements/VSCode-Extension
+
+    - name: Package the VSCode Extension
+      run: npm run win-package
+      working-directory: supplements/VSCode-Extension
+
+  # Linux
+  build-vscode-extension-on-ubuntu-latest:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install NodeJS dependencies
+      run: npm i
+      working-directory: supplements/VSCode-Extension
+
+    - name: Package the VSCode Extension
+      run: npm run lix-package
+      working-directory: supplements/VSCode-Extension
