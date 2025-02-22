@@ -22,10 +22,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Install Visual Studio 2022 Community with C++ support
-      uses: microsoft/setup-msbuild@v2
-      with:
-        vs-version: 2022
-        vs-prerelease: false
+    - uses: ilammy/msvc-dev-cmd@v1.4.1
 
     - name: Make the "transpiler/build" directory
       run: mkdir ${{github.workspace}}/transpiler/build
