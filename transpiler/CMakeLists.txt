@@ -6,6 +6,7 @@ project(polar_frankie_transpiler)
 set(FRANKIE_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(FRANKIE_DEPENDENCIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
 set(FRANKIE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
+set(FRANKIE_TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 
 # CMake modules path
 set(CMAKE_MODULE_PATH
@@ -31,5 +32,8 @@ set(FRANKIE_MAIN_CPP_PATH ${FRANKIE_SOURCE_DIR}/main.cpp)
 # Manage dependencies
 include(${FRANKIE_CMAKE_DIR}/dependencies.cmake)
 
-# Build executable!
+# Build the transpiler executable!
 include(${FRANKIE_CMAKE_DIR}/build-executable.cmake)
+
+# Run tests on the transpiler executable!
+include(${FRANKIE_CMAKE_DIR}/test-executable.cmake)
