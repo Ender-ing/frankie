@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install NodeJS dependencies
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release
+      run: npm i
       working-directory: supplements/VSCode-Extension
 
     - name: Package the VSCode Extension
@@ -32,7 +32,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install NodeJS dependencies
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release
+      run: npm i
       working-directory: supplements/VSCode-Extension
 
     - name: Package the VSCode Extension
