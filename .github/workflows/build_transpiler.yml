@@ -8,7 +8,7 @@ on:
 jobs:
 
   # Windows
-  build:
+  build-windows-latest:
     runs-on: windows-latest
 
     steps:
@@ -31,7 +31,7 @@ jobs:
     #  run: ctest --test-dir ${{github.workspace}}/build --config Release
 
   # Linux
-  build:
+  build-ubuntu-latest:
     runs-on: ubuntu-latest
 
     steps:
