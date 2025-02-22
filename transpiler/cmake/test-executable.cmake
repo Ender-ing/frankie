@@ -1,8 +1,10 @@
 # Define testing function
 function(frankie_file_test test_name file_path)
-    add_test(NAME FrankieFileTest__${test_name} COMMAND echo "[TESTS] Running \"frankie_file_test\" for the path: ${file_path}")
-    add_test(NAME FrankieFileTest__${test_name}_find COMMAND ${CMAKE_COMMAND} -E file EXISTS ${file_path})
-    add_test(NAME FrankieFileTest__${test_name}_execute COMMAND FrankieTranspiler ${file_path})
+    if(EXISTS ${file_path})
+        add_test(NAME FrankieFileTest__${test_name}_execute COMMAND FrankieTranspiler ${file_path})
+    else()
+        message(SEND_WARNING "[TESTS] Failed to locate a Frankie test file! (${file_path}) The relative test is likely to fail!")
+    endif()
 endfunction()
 
 # Include all .test.cmake files in the tests directory
