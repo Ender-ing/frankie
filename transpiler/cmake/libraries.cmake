@@ -24,7 +24,7 @@ add_library(parser_library SHARED
     ${FRANKIE_SOURCE_DIR}/parser/parser.cpp
 )
 # ANTLR4
-target_link_libraries(parser_library PRIVATE antlr4_shared)
+target_link_libraries(parser_library PUBLIC antlr4_shared)
 add_dependencies(parser_library antlr4_shared)
 add_custom_command(TARGET parser_library
                    POST_BUILD
