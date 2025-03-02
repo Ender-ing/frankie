@@ -1,3 +1,6 @@
+# PIC
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # Create a library from / (the root directory of /transpiler)
 add_library(root_library SHARED
     ${FRANKIE_SOURCE_DIR}/config.cpp
