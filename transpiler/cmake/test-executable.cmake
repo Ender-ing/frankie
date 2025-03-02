@@ -1,7 +1,7 @@
 # Define testing function
 function(frankie_file_test test_name file_path)
     if(EXISTS ${file_path})
-        add_test(NAME FrankieFileTest__${test_name}_execute COMMAND FrankieTranspiler ${file_path})
+        add_test(NAME FrankieFileTest__${test_name}_execute COMMAND FrankieTranspiler --debug-parser-print-test ${file_path})
     else()
         message(SEND_WARNING "[TESTS] Failed to locate a Frankie test file! (${file_path}) The relative test is likely to fail!")
     endif()

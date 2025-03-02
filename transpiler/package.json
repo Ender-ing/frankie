@@ -3,6 +3,7 @@
         "rebuild": "npm run clean && mkdir build && npm run build",
         "build": "cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build . --config Release",
         "clean": "rd /s /q build || rm -f -r build",
-        "test": "cd build && ctest -C Release"
+        "test": "cd build && ctest -C Release",
+        "tmp-win-debug": "npm run rebuild && npm run test && .\\build\\Release\\FrankieTranspiler.exe --debug-parser-print-test .\\..\\debug.frankie"
     }
 }
