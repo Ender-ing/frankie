@@ -35,9 +35,27 @@ message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
 message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
 add_custom_command(TARGET parser_library
                    POST_BUILD
+                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(TARGET parser_library
+                   POST_BUILD
+                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(TARGET parser_library
+                   POST_BUILD
                    COMMAND ${CMAKE_COMMAND}
                            -E copy ${ANTLR4_RUNTIME_LIBRARIES} .
                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+                   add_custom_command(TARGET parser_library
+                   POST_BUILD
+                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(TARGET parser_library
+                   POST_BUILD
+                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
+                   add_custom_command(TARGET parser_library
+                   POST_BUILD
+                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(TARGET parser_library
+                   POST_BUILD
+                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
 message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
 message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
 message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
