@@ -20,7 +20,7 @@ int main (int argc, const char *argv[]) {
     // Update initial configurations
     if(!(InitialConfigs::updateUsingArgs (argc, argv))){
         // This process failed!
-        std::cerr << fmt::format(fg(fmt::color::red), "COULDN'T PROCESS TRANSPILER ARGUMENTS!") << std::endl;
+        std::cerr << CLI::format("COULDN'T PROCESS TRANSPILER ARGUMENTS!", CLI::Color::red) << std::endl;
         return 1;
     }
 
@@ -43,13 +43,13 @@ int main (int argc, const char *argv[]) {
             // Close file
             file.close();
         } else {
-            std::cerr << fmt::format(fg(fmt::color::red), "Error opening file: ") << filename << std::endl; // Fail!
+            std::cerr << CLI::format("Error opening file: ", CLI::Color::red) << filename << std::endl; // Fail!
             return 1;
         }
         // Debug
         FrankieParser::debug(file_contents);
     }
 
-    std::cout << fmt::format(fg(fmt::color::green), "Done!") << std::endl;
+    std::cout << CLI::format("Done!", CLI::Color::green) << std::endl;
     return 0;
 }

@@ -4,3 +4,9 @@
 **/
 
 #include "comms.hpp"
+
+namespace ProcessReport {
+    void reportError() {
+        //
+    }
+}

@@ -8,6 +8,7 @@ set(FRANKIE_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(FRANKIE_DEPENDENCIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
 set(FRANKIE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
 set(FRANKIE_TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+set(FRANKIE_BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dist)
 
 # CMake modules path
 set(CMAKE_MODULE_PATH
@@ -29,6 +30,15 @@ set(ANTLR4_TAG 4.13.2)
 set(FRANKIE_ANTLR4_LEXER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieLexer.g4)
 set(FRANKIE_ANTLR4_PARSER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieParser.g4)
 set(FRANKIE_MAIN_CPP_PATH ${FRANKIE_SOURCE_DIR}/main.cpp)
+
+include(FetchContent)
+
+# Force PIC generation
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+
+# Manage binary output
+include(${FRANKIE_CMAKE_DIR}/build-output.cmake)
 
 # Manage dependencies
 include(${FRANKIE_CMAKE_DIR}/dependencies.cmake)

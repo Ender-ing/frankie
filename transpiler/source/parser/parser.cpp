@@ -27,7 +27,7 @@ namespace FrankieParser {
 
         // Print tokens
         tokens.fill();
-        std::cout << fmt::format(fg(fmt::color::blue), "Tokens: \n") << std::endl;
+        std::cout << CLI::format("Tokens: \n", CLI::Color::blue) << std::endl;
         for (auto token : tokens.getTokens()) {
             std::cout << token->toString() << std::endl;
         }
@@ -38,6 +38,6 @@ namespace FrankieParser {
 
         // Print the parse tree!
         auto s = tree->toStringTree(&parser);
-        std::cout << fmt::format(fg(fmt::color::blue), "Parse Tree: \n") << s << std::endl;
+        std::cout << CLI::format("Parse Tree: \n", CLI::Color::blue) << s << std::endl;
     }
 }
