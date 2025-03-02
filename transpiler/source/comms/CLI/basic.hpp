@@ -59,5 +59,5 @@ namespace CLI {
         extern uint32_t white;
         extern uint32_t yellow;
     }
-    auto format (std::string text, uint32_t color) ;
+    std::string format (std::string text, uint32_t color) ;
 }

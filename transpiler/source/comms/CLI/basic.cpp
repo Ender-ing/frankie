@@ -63,7 +63,7 @@ namespace CLI {
         fmt::v11::color white = fmt::color::white;
         fmt::v11::color yellow = fmt::color::yellow;
     }
-    auto format (std::string text, fmt::v11::color color) {
+    std::string format (std::string text, fmt::v11::color color) {
         return fmt::format(fg(color), text);
     }
 }
