@@ -10,8 +10,6 @@ add_executable(
 )
 
 # Link C++ libraries
-# {fmt}
-set_property(TARGET fmt::fmt PROPERTY POSITION_INDEPENDENT_CODE ON)
 # Basic in-house libraries
 foreach(LIB ${PROJECT_LIBRARIES})
     # Add the library
