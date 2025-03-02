@@ -14,8 +14,6 @@ add_executable(
 set_property(TARGET fmt::fmt PROPERTY POSITION_INDEPENDENT_CODE ON)
 # Basic in-house libraries
 foreach(LIB ${PROJECT_LIBRARIES})
-    # Link other public libraries to the library
-    target_link_libraries(${LIB} fmt::fmt)
     # Add the library
     target_link_libraries(FrankieTranspiler ${LIB})
     # Mark the library as a dependency of the executable

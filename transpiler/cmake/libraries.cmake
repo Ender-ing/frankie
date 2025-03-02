@@ -10,6 +10,8 @@ add_library(root_library SHARED
 add_library(comms_library SHARED
     ${FRANKIE_SOURCE_DIR}/comms/comms.cpp
 )
+# Link other public libraries to the library
+target_link_libraries(comms_library PUBLIC fmt::fmt)
 
 # Create a library from /common
 add_library(common_library SHARED
