@@ -22,8 +22,8 @@ add_dependencies(common_library comms_library) # ANTLR4
 
 # Create a library from /parser
 add_library(parser_library SHARED
-    ${ANTLR_FrankieGrammarLexer_CXX_OUTPUTS} # ANTLR4
-    ${ANTLR_FrankieGrammarParser_CXX_OUTPUTS} # ANTLR4
+    #${ANTLR_FrankieGrammarLexer_CXX_OUTPUTS} # ANTLR4
+    #${ANTLR_FrankieGrammarParser_CXX_OUTPUTS} # ANTLR4
     ${FRANKIE_SOURCE_DIR}/parser/parser.cpp
 )
 # ANTLR4
