@@ -3,44 +3,22 @@
  * PolarFrankie Transpiler
 **/
 
-// Basic configurations
-#pragma execution_character_set("utf-8")
+#include "common/headers.hpp"
 
 // Basic C++ headers
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
-
-// ANTLR4 imports
-// For SOME REASON, if you import these ANYWHERE ELSE, the build fails on WINDOWS..
-#include "antlr4-runtime.h"
-#include "PolarFrankieLexer.h"
-#include "PolarFrankieParser.h"
-
-// Include platform headers
-#ifdef _WIN32
-    #include <Windows.h>
-#elif defined(__linux__) // Linux
-  #include <unistd.h>
-#elif defined(__APPLE__) // macOS (and other Apple platforms)
-  #include <mach/mach_time.h>
-#else
-  // ???
-#endif
-
-// CLI basic imports
-#include "comms/comms.hpp"
 
 // Configs
-#include "config.cpp"
+#include "config.hpp"
 
 // Parser imports
-#include "parser/parser.cpp"
+#include "parser/parser.hpp"
 
 int main (int argc, const char *argv[]) {
     // Update initial configurations
-    if(InitialConfigs::updateUsingArgs (argc, argv)){
+    if(!(InitialConfigs::updateUsingArgs (argc, argv))){
         // This process failed!
         std::cerr << fmt::format(fg(fmt::color::red), "COULDN'T PROCESS TRANSPILER ARGUMENTS!") << std::endl;
         return 1;
