@@ -2,17 +2,20 @@
 add_library(root_library SHARED
     ${FRANKIE_SOURCE_DIR}/config.cpp
 )
+set_target_properties(root_library PROPERTIES CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Create a library from /comms
 add_library(comms_library SHARED
     ${FRANKIE_SOURCE_DIR}/comms/comms.cpp
 )
+set_target_properties(comms_library PROPERTIES CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Create a library from /common
 add_library(common_library SHARED
     ${FRANKIE_SOURCE_DIR}/common/files.cpp
 )
 add_dependencies(common_library comms_library) # ANTLR4
+set_target_properties(common_library PROPERTIES CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Create a library from /parser
 add_library(parser_library SHARED
@@ -20,6 +23,7 @@ add_library(parser_library SHARED
     ${ANTLR_FrankieGrammarParser_CXX_OUTPUTS} # ANTLR4
     ${FRANKIE_SOURCE_DIR}/parser/parser.cpp
 )
+set_target_properties(parser_library PROPERTIES CMAKE_POSITION_INDEPENDENT_CODE ON)
 # ANTLR4
 target_link_libraries(parser_library PRIVATE antlr4_shared)
 add_dependencies(parser_library antlr4_shared)
