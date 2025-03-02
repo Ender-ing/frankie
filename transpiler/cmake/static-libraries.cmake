@@ -19,6 +19,7 @@ add_library(static_parser_library STATIC
     ${ANTLR_FrankieGrammarParser_CXX_OUTPUTS} # ANTLR4
     ${FRANKIE_SOURCE_DIR}/parser/parser.cpp
 )
+add_dependencies(static_parser_library antlr4_static) # ANTLR4
 
 # Set the project static libraries
 set(PROJECT_STATIC_LIBRARIES

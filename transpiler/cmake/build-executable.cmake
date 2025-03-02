@@ -16,8 +16,10 @@ target_link_libraries(FrankieTranspiler fmt::fmt)
 target_link_libraries(FrankieTranspiler antlr4_static)
 # Basic in-house libraries
 foreach(LIB ${PROJECT_STATIC_LIBRARIES})
-    # Add the library
-    target_link_libraries(FrankieTranspiler ${LIB})
     # Link other public libraries to the library
     target_link_libraries(${LIB} PUBLIC fmt::fmt)
+    # Add the library
+    target_link_libraries(FrankieTranspiler ${LIB})
+    # Mark the library as a dependency of the executable
+    add_dependencies(FrankieTranspiler ${LIB})
 endforeach()
