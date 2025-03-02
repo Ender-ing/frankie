@@ -3,20 +3,19 @@
  * Manage transpiler arguments and starting state
 **/
 
-// Basic C++ headers
-#include <string>
+#include "config.hpp"
 
 // All state-related members should be contained under one namepsace
 namespace InitialConfigs {
     // Starting Path
-    std::string runPath;
+    std::string runPath = "";
 
     // Debug-related
     namespace Debug {
         // --debug-parser-print-test <path>
         namespace ParserBasicPrintTest {
             bool active = false;
-            std::string path;
+            std::string path = "";
         }
     }
 
