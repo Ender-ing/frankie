@@ -5,6 +5,7 @@
 
 // Basic C++ headers
 #include <string>
+#include <cstdint>
 
 namespace CLI {
     namespace Color {
