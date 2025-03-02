@@ -31,6 +31,12 @@ set(FRANKIE_ANTLR4_LEXER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieLexer.g4)
 set(FRANKIE_ANTLR4_PARSER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieParser.g4)
 set(FRANKIE_MAIN_CPP_PATH ${FRANKIE_SOURCE_DIR}/main.cpp)
 
+include(FetchContent)
+
+# Force PIC generation
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+
 # Manage binary output
 include(${FRANKIE_CMAKE_DIR}/build-output.cmake)
 
