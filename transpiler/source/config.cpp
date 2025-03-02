@@ -20,8 +20,8 @@ namespace InitialConfigs {
     }
 
     // Process and update values through program arguments!
-    // [0 - sucess, 1 - failure]
-    int updateUsingArgs (int argc, const char *argv[]) {
+    // [true - sucess, false - failure]
+    bool updateUsingArgs (int argc, const char *argv[]) {
         // Get the starting path
         std::string runPath (argv[0]);
 
@@ -42,16 +42,16 @@ namespace InitialConfigs {
                 } else {
                     // Missing input argument!
                     // PRINT AN ERROR!
-                    return 1;
+                    return false;
                 }
             } else {
                 // Unknown argument!
                 // PRINT AN ERROR!
-                return 1;
+                return false;
             }
         }
 
         // Success!
-        return 0;
+        return true;
     }
 }

@@ -18,7 +18,7 @@
 
 int main (int argc, const char *argv[]) {
     // Update initial configurations
-    if(InitialConfigs::updateUsingArgs (argc, argv)){
+    if(!(InitialConfigs::updateUsingArgs (argc, argv))){
         // This process failed!
         std::cerr << fmt::format(fg(fmt::color::red), "COULDN'T PROCESS TRANSPILER ARGUMENTS!") << std::endl;
         return 1;
