@@ -8,6 +8,7 @@ add_library(root_library SHARED
 
 # Create a library from /comms
 add_library(comms_library SHARED
+    ${FRANKIE_SOURCE_DIR}/comms/CLI/basic.cpp
     ${FRANKIE_SOURCE_DIR}/comms/comms.cpp
 )
 # Link other public libraries to the library
