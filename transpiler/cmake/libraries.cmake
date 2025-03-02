@@ -26,43 +26,11 @@ add_library(parser_library SHARED
 # ANTLR4
 target_link_libraries(parser_library PRIVATE antlr4_shared)
 add_dependencies(parser_library antlr4_shared)
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-add_custom_command(TARGET parser_library
-                   POST_BUILD
-                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
-add_custom_command(TARGET parser_library
-                   POST_BUILD
-                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
 add_custom_command(TARGET parser_library
                    POST_BUILD
                    COMMAND ${CMAKE_COMMAND}
                            -E copy ${ANTLR4_RUNTIME_LIBRARIES} .
-                   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-                   add_custom_command(TARGET parser_library
-                   POST_BUILD
-                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
-add_custom_command(TARGET parser_library
-                   POST_BUILD
-                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
-                   add_custom_command(TARGET parser_library
-                   POST_BUILD
-                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
-add_custom_command(TARGET parser_library
-                   POST_BUILD
-                   COMMAND echo ${ANTLR4_RUNTIME_LIBRARIES} to ${CMAKE_CURRENT_BINARY_DIR})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
-message(WARNING ${ANTLR4_RUNTIME_LIBRARIES})
+                   WORKING_DIRECTORY ${FRANKIE_BINARY_DIR})
 
 # Set the project libraries
 set(PROJECT_LIBRARIES

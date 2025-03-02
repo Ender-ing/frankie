@@ -39,5 +39,6 @@ node_modules
 supplements/VSCode-Extension/LICENSE
 
 # Generated transpiler build files
+transpiler/dist
 transpiler/build
 transpiler/dependencies
