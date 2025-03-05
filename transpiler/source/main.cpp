@@ -4,7 +4,7 @@
 **/
 
 #include "common/headers.hpp"
-#include "../comms/comms.hpp"
+#include "comms/comms.hpp"
 
 // Basic C++ headers
 #include <iostream>

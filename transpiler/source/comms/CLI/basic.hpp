@@ -3,8 +3,10 @@
  * Include all used CLI headers
 **/
 
+#include "../common/headers.hpp"
+
 // Basic C++ headers
-#include <string>
+//#include <string>
 #include <cstdint>
 
 namespace CLI {

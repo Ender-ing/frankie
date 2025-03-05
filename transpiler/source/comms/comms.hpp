@@ -4,6 +4,7 @@
 **/
 
 // Include console messages
+#include "../common/headers.hpp"
 #include "CLI/basic.hpp"
 
 namespace ProcessReport {

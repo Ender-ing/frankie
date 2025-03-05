@@ -6,8 +6,9 @@
 #ifndef TRANSPILER_CONFIG_HPP // Unique identifier for the header
 #define TRANSPILER_CONFIG_HPP
 
+#include "common/headers.hpp"
 // Basic C++ headers
-#include <string>
+//#include <string>
 
 // All state-related members should be contained under one namepsace
 namespace InitialConfigs {
