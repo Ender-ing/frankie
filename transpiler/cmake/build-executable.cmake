@@ -13,7 +13,7 @@ add_executable(
 # Link C++ libraries
 # Basic in-house libraries
 foreach(LIB ${PROJECT_LIBRARIES})
-    message(STATUS "[BUILD] Linking '${LIB}' to executable target 'FrankieTranspiler'...")
+    message(STATUS "[BUILD] Adding linking target '${LIB}' to executable target 'FrankieTranspiler'...")
     # Add the library
     target_link_libraries(FrankieTranspiler ${LIB})
     # Mark the library as a dependency of the executable
