@@ -6,12 +6,16 @@ set(BUILD_SHARED_LIBS ON)
 add_library(root_library SHARED
     ${FRANKIE_SOURCE_DIR}/config.cpp
 )
+# Expose library exports
+target_compile_definitions(root_library PRIVATE BUILDING_DYNAMIC_LIBRARY)
 
 # Create a library from /comms
 add_library(comms_library SHARED
     ${FRANKIE_SOURCE_DIR}/comms/CLI/basic.cpp
     ${FRANKIE_SOURCE_DIR}/comms/comms.cpp
 )
+# Expose library exports
+target_compile_definitions(comms_library PRIVATE BUILDING_DYNAMIC_LIBRARY)
 # Link other libraries to the library
 add_dependencies(comms_library fmt::fmt)
 target_link_libraries(comms_library PUBLIC fmt::fmt)
@@ -20,6 +24,8 @@ target_link_libraries(comms_library PUBLIC fmt::fmt)
 add_library(common_library SHARED
     ${FRANKIE_SOURCE_DIR}/common/files.cpp
 )
+# Expose library exports
+target_compile_definitions(common_library PRIVATE BUILDING_DYNAMIC_LIBRARY)
 
 # Create a library from /parser
 add_library(parser_library SHARED
@@ -27,6 +33,8 @@ add_library(parser_library SHARED
     ${ANTLR_FrankieGrammarParser_CXX_OUTPUTS} # ANTLR4
     ${FRANKIE_SOURCE_DIR}/parser/parser.cpp
 )
+# Expose library exports
+target_compile_definitions(parser_library PRIVATE BUILDING_DYNAMIC_LIBRARY)
 # ANTLR4
 add_dependencies(parser_library antlr4_shared)
 target_link_libraries(parser_library PUBLIC antlr4_shared)

@@ -6,6 +6,10 @@
 // Basic configurations
 #pragma execution_character_set("utf-8")
 
+// Handle dynamic library imports and exports
+#include "dynamic.hpp" // DYNAMIC_API
+// Note: only use the "DYNAMIC_API" keyword within HEADER FILES please!
+
 // Basic C++ headers
 //#include <iostream>
 //#include <fstream>

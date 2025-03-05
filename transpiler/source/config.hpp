@@ -13,20 +13,20 @@
 // All state-related members should be contained under one namepsace
 namespace InitialConfigs {
     // Starting Path
-    extern std::string runPath;
+    extern DYNAMIC_API std::string runPath;
 
     // Debug-related
     namespace Debug {
         // --debug-parser-print-test <path>
         namespace ParserBasicPrintTest {
-            extern bool active;
-            extern std::string path;
+            extern DYNAMIC_API bool active;
+            extern DYNAMIC_API std::string path;
         }
     }
 
     // Process and update values through program arguments!
     // [true - sucess, false - failure]
-    bool updateUsingArgs (int argc, const char *argv[]) ;
+    DYNAMIC_API bool updateUsingArgs (int argc, const char *argv[]) ;
 }
 
 #endif

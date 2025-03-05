@@ -8,5 +8,5 @@
 
 namespace FrankieParser {
     // TMP
-    void debug (std::string file_contents);
+    DYNAMIC_API void debug (std::string file_contents);
 }

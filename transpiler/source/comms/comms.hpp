@@ -9,5 +9,5 @@
 
 namespace ProcessReport {
     // Function definition outside the class declaration (optional)
-    void reportError();
+    DYNAMIC_API void reportError();
 }
