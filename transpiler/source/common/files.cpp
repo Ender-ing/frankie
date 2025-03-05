@@ -1,5 +1,5 @@
 /**
- * @brief 
+ * @brief
  * File-related functions
 **/
 
