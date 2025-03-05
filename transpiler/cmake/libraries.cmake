@@ -33,9 +33,9 @@ add_custom_command(TARGET parser_library
                    POST_BUILD
                    COMMAND ${CMAKE_COMMAND}
                            -E copy ${ANTLR4_RUNTIME_LIBRARIES} .
-                   WORKING_DIRECTORY ${FRANKIE_BINARY_DIR}/bin)
+                   WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 # Link other libraries to the library
-target_link_libraries(parser_library PRIVATE comms_library) # TMP
+target_link_libraries(parser_library PUBLIC comms_library) # TMP
 add_dependencies(parser_library comms_library) # TMP
 
 # Set the project libraries
