@@ -20,6 +20,23 @@ add_library(common_library SHARED
     ${FRANKIE_SOURCE_DIR}/common/files.cpp
 )
 
+
+
+GET_TARGET_PROPERTY(library_type antlr4_shared TYPE)
+GET_TARGET_PROPERTY(library_suffix antlr4_shared SUFFIX)
+GET_TARGET_PROPERTY(library_imported antlr4_shared IMPORTED)
+message(STATUS "antlr4_shared type: ${library_type}")
+message(STATUS "antlr4_shared suffix: ${library_suffix}")
+message(STATUS "antlr4_shared imported: ${library_imported}")
+GET_TARGET_PROPERTY(library_type_1 comms_library TYPE)
+GET_TARGET_PROPERTY(library_suffix_1 comms_library SUFFIX)
+GET_TARGET_PROPERTY(library_imported_1 comms_library IMPORTED)
+message(STATUS "comms_library type: ${library_type_1}")
+message(STATUS "comms_library suffix: ${library_suffix_1}")
+message(STATUS "comms_library imported: ${library_imported_1}")
+
+
+
 # Create a library from /parser
 add_library(parser_library SHARED
     ${ANTLR_FrankieGrammarLexer_CXX_OUTPUTS} # ANTLR4
