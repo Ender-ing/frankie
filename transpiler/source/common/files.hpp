@@ -3,15 +3,12 @@
  * File-related functions
 **/
 
-#include "files.hpp"
+#include "headers.hpp"
 
 // Basic C++ headers
 //#include <string>
 
 namespace Common {
     // Check if a file is accessible
-    bool fileAccessible (std::string path) {
-        //...
-        return false;
-    }
+    DYNAMIC_API bool fileAccessible (std::string path) ;
 }
