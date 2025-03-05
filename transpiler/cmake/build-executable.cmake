@@ -14,8 +14,8 @@ add_executable(
 # Basic in-house libraries
 foreach(LIB ${PROJECT_LIBRARIES})
     message(STATUS "[BUILD] Adding linking target '${LIB}' to executable target 'FrankieTranspiler'...")
-    # Add the library
-    target_link_libraries(FrankieTranspiler PUBLIC ${LIB})
     # Mark the library as a dependency of the executable
     add_dependencies(FrankieTranspiler ${LIB})
+    # Add the library
+    target_link_libraries(FrankieTranspiler PUBLIC ${LIB})
 endforeach()
