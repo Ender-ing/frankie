@@ -35,8 +35,8 @@ add_custom_command(TARGET parser_library
                            -E copy ${ANTLR4_RUNTIME_LIBRARIES} .
                    WORKING_DIRECTORY ${FRANKIE_BINARY_DIR}/bin)
 # Link other libraries to the library
-target_link_libraries(parser_library PRIVATE comms_library)
-add_dependencies(parser_library comms_library)
+target_link_libraries(parser_library PRIVATE comms_library) # TMP
+add_dependencies(parser_library comms_library) # TMP
 
 # Set the project libraries
 set(PROJECT_LIBRARIES
