@@ -11,14 +11,14 @@ add_library(comms_library SHARED
     ${FRANKIE_SOURCE_DIR}/comms/CLI/basic.cpp
     ${FRANKIE_SOURCE_DIR}/comms/comms.cpp
 )
-# Link other public libraries to the library
+# Link other libraries to the library
 target_link_libraries(comms_library PRIVATE fmt::fmt)
+add_dependencies(comms_library fmt::fmt)
 
 # Create a library from /common
 add_library(common_library SHARED
     ${FRANKIE_SOURCE_DIR}/common/files.cpp
 )
-add_dependencies(common_library comms_library) # ANTLR4
 
 # Create a library from /parser
 add_library(parser_library SHARED

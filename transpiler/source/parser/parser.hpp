@@ -4,6 +4,7 @@
 **/
 
 #include "../common/headers.hpp"
+#include "../comms/comms.hpp"
 
 namespace FrankieParser {
     // TMP
