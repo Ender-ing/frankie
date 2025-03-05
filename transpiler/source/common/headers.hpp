@@ -3,6 +3,10 @@
  * Commnly used headers
 **/
 
+#ifndef COMMON_HEADER
+#define COMMON_HEADER
+
+
 // Basic configurations
 #pragma execution_character_set("utf-8")
 
@@ -25,4 +29,7 @@
   #include <mach/mach_time.h>
 #else
   // ???
+#endif
+
+
 #endif
