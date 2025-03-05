@@ -12,7 +12,7 @@ add_library(comms_library SHARED
     ${FRANKIE_SOURCE_DIR}/comms/comms.cpp
 )
 # Link other public libraries to the library
-target_link_libraries(comms_library PUBLIC fmt::fmt)
+target_link_libraries(comms_library PRIVATE fmt::fmt)
 
 # Create a library from /common
 add_library(common_library SHARED
@@ -22,12 +22,12 @@ add_dependencies(common_library comms_library) # ANTLR4
 
 # Create a library from /parser
 add_library(parser_library SHARED
-    ${ANTLR_FrankieGrammarLexer_CXX_OUTPUTS} # ANTLR4
-    ${ANTLR_FrankieGrammarParser_CXX_OUTPUTS} # ANTLR4
     ${FRANKIE_SOURCE_DIR}/parser/parser.cpp
+    ${ANTLR4_SRC_FILES_FrankieGrammarLexer} # ANTLR4
+    ${ANTLR4_SRC_FILES_FrankieGrammarParser} # ANTLR4
 )
 # ANTLR4
-target_link_libraries(parser_library PUBLIC antlr4_shared)
+target_link_libraries(parser_library PRIVATE antlr4_shared)
 add_dependencies(parser_library antlr4_shared)
 add_custom_command(TARGET parser_library
                    POST_BUILD
