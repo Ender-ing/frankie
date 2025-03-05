@@ -1,5 +1,5 @@
 /**
- * @brief 
+ * @brief
  * PolarFrankie Transpiler
 **/
 

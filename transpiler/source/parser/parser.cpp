@@ -1,5 +1,5 @@
 /**
- * @brief 
+ * @brief
  * Parser implementations
 **/
 
