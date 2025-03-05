@@ -22,6 +22,7 @@ target_link_libraries(FrankieCommsLibrary PUBLIC fmt::fmt)
 
 # Create a library from /common
 add_library(FrankieCommonLibrary SHARED
+    ${FRANKIE_SOURCE_DIR}/common/debug.cpp
     ${FRANKIE_SOURCE_DIR}/common/files.cpp
 )
 # Expose library exports
