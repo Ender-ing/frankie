@@ -61,5 +61,5 @@ namespace CLI {
         extern DYNAMIC_API uint32_t white;
         extern DYNAMIC_API uint32_t yellow;
     }
-    DYNAMIC_API std::string format (std::string text, uint32_t color) ;
+    extern DYNAMIC_API std::string format (std::string text, uint32_t color) ;
 }

@@ -26,7 +26,7 @@ namespace InitialConfigs {
 
     // Process and update values through program arguments!
     // [true - sucess, false - failure]
-    DYNAMIC_API bool updateUsingArgs (int argc, const char *argv[]) ;
+    extern DYNAMIC_API bool updateUsingArgs (int argc, const char *argv[]) ;
 }
 
 #endif

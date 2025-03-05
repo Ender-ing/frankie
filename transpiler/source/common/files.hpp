@@ -10,5 +10,5 @@
 
 namespace Common {
     // Check if a file is accessible
-    DYNAMIC_API bool fileAccessible (std::string path) ;
+    extern DYNAMIC_API bool fileAccessible (std::string path) ;
 }
