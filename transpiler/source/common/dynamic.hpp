@@ -10,13 +10,13 @@
 
 
 #ifdef _WIN32
-#  ifdef BUILD_DYNAMIC_LIBRARY // Exporting on Windows
-#    define DYNAMIC_API __declspec(dllexport)
-#  else // Importing on Windows
-#    define DYNAMIC_API __declspec(dllimport)
-#  endif
+#   ifdef BUILD_DYNAMIC_LIBRARY // Exporting on Windows
+#       define DYNAMIC_API __declspec(dllexport)
+#   else // Importing on Windows
+#       define DYNAMIC_API __declspec(dllimport)
+#   endif
 #else // Linux
-#  define DYNAMIC_API __attribute__((visibility("default")))
+#   define DYNAMIC_API __attribute__((visibility("default")))
 #endif
 
 

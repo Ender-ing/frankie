@@ -1,7 +1,17 @@
+# Used commands
+find_program(VALGRIND_EXECUTABLE valgrind)
+set(TEST_VALGRIND_COMMAND valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --undef-value-errors=yes --errors-for-leak-kinds=definite,indirect,possible,reachable)
+set(TEST_FRANKIE_DEBUG_COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FrankieTranspiler --debug-parser-print-test)
+
 # Define testing function
 function(frankie_file_test test_name file_path)
     if(EXISTS ${file_path})
-        add_test(NAME FrankieFileTest__${test_name}_execute COMMAND FrankieTranspiler --debug-parser-print-test ${file_path})
+        add_test(NAME FrankieFileTest__${test_name}_execute COMMAND ${TEST_FRANKIE_DEBUG_COMMAND} ${file_path})
+        if(VALGRIND_EXECUTABLE)
+            add_test(NAME FrankieFileTest__${test_name}_valgrind COMMAND ${TEST_VALGRIND_COMMAND} ${TEST_FRANKIE_DEBUG_COMMAND} ${file_path})
+        else()
+            message(WARNING "[TESTS] Memory leak tests have been disabled! (Please install Valgrind to enable said tests...)")
+        endif()
     else()
         message(SEND_WARNING "[TESTS] Failed to locate a Frankie test file! (${file_path}) The relative test is likely to fail!")
     endif()
