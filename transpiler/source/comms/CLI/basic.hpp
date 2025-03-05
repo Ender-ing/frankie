@@ -3,6 +3,8 @@
  * Include all used CLI headers
 **/
 
+#pragma once
+
 #include "../../common/headers.hpp"
 
 // Basic C++ headers

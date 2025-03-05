@@ -3,6 +3,8 @@
  * Manage Windows DLL exports and imports
 **/
 
+#pragma once
+
 #ifndef COMMON_DLL_API_HEADER
 #define COMMON_DLL_API_HEADER
 

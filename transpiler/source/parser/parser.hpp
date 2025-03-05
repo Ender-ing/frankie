@@ -3,6 +3,8 @@
  * Parser implementations
 **/
 
+#pragma once
+
 #include "../common/headers.hpp"
 #include "../comms/comms.hpp"
 

@@ -3,8 +3,7 @@
  * Manage transpiler arguments and starting state
 **/
 
-#ifndef TRANSPILER_CONFIG_HPP // Unique identifier for the header
-#define TRANSPILER_CONFIG_HPP
+#pragma once
 
 #include "common/headers.hpp"
 // Basic C++ headers
@@ -28,5 +27,3 @@ namespace InitialConfigs {
     // [true - sucess, false - failure]
     extern DYNAMIC_API bool updateUsingArgs (int argc, const char *argv[]) ;
 }
-
-#endif

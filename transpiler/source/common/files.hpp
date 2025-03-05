@@ -3,6 +3,8 @@
  * File-related functions
 **/
 
+#pragma once
+
 #include "headers.hpp"
 
 // Basic C++ headers
