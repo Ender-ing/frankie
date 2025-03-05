@@ -63,6 +63,6 @@ namespace CLI {
         uint32_t yellow = static_cast<uint32_t>(fmt::color::yellow);
     }
     std::string format (std::string text, uint32_t color) {
-        return fmt::format(fg(fmt::v11::color(color)), text);
+        return fmt::format(fg(static_cast<fmt::v11::color>(color)), text);
     }
 }
