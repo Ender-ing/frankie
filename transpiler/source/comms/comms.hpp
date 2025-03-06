@@ -11,7 +11,9 @@
 // Include console messages
 #include "CLI/basic.hpp"
 
-namespace ProcessReport {
-    // Function definition outside the class declaration (optional)
-    extern FRANKIE_COMMS_LIB void reportError();
+namespace Comms {
+    namespace ProcessReport {
+        // Function definition outside the class declaration (optional)
+        extern FRANKIE_COMMS_LIB void reportError();
+    }
 }

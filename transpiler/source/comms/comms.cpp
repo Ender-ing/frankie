@@ -5,8 +5,10 @@
 
 #include "comms.hpp"
 
-namespace ProcessReport {
-    void reportError() {
-        //
+namespace Comms {
+    namespace ProcessReport {
+        void reportError() {
+            //
+        }
     }
 }

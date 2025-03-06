@@ -26,15 +26,15 @@ int main (int argc, const char *argv[]) {
     Common::CrtDebug::initiateCrtMemoryChecks();
 
     // Update initial configurations
-    if(!(InitialConfigs::updateUsingArgs (argc, argv))){
+    if(!(Base::InitialConfigs::updateUsingArgs (argc, argv))){
         // This process failed!
-        std::cerr << CLI::format("COULDN'T PROCESS TRANSPILER ARGUMENTS!", CLI::Color::red) << std::endl;
+        std::cerr << Comms::CLI::format("COULDN'T PROCESS TRANSPILER ARGUMENTS!", Comms::CLI::Color::red) << std::endl;
         return 1;
     }
 
     // TMP
-    if (InitialConfigs::Debug::ParserBasicPrintTest::active) {
-        auto filename = InitialConfigs::Debug::ParserBasicPrintTest::path;
+    if (Base::InitialConfigs::Debug::ParserBasicPrintTest::active) {
+        auto filename = Base::InitialConfigs::Debug::ParserBasicPrintTest::path;
         // Check first input argument path
         std::ifstream file(filename);
 
@@ -51,14 +51,14 @@ int main (int argc, const char *argv[]) {
             // Close file
             file.close();
         } else {
-            std::cerr << CLI::format("Error opening file: ", CLI::Color::red) << filename << std::endl; // Fail!
+            std::cerr << Comms::CLI::format("Error opening file: ", Comms::CLI::Color::red) << filename << std::endl; // Fail!
             return 1;
         }
         // Debug
-        FrankieParser::debug(file_contents);
+        Parser::debug(file_contents);
     }
 
-    std::cout << CLI::format("Done!", CLI::Color::green) << std::endl;
+    std::cout << Comms::CLI::format("Done!", Comms::CLI::Color::green) << std::endl;
 
     // Handle memory check results
     if(Common::CrtDebug::processCrtMemoryReports()){
