@@ -3,11 +3,11 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(BUILD_SHARED_LIBS ON)
 
 # Create a library from / (the root directory of /transpiler)
-add_library(FrankieRootLibrary SHARED
+add_library(FrankieBaseLibrary SHARED
     ${FRANKIE_SOURCE_DIR}/config.cpp
 )
 # Expose library exports
-target_compile_definitions(FrankieRootLibrary PRIVATE FRANKIEROOTLIBRARY_EXPORTS)
+target_compile_definitions(FrankieBaseLibrary PRIVATE FRANKIEBASELIBRARY_EXPORTS)
 
 # Create a library from /comms
 add_library(FrankieCommsLibrary SHARED
@@ -50,7 +50,7 @@ target_link_libraries(FrankieParserLibrary PUBLIC FrankieCommsLibrary) # TMP
 
 # Set the project libraries
 set(PROJECT_LIBRARIES
-    FrankieRootLibrary
+    FrankieBaseLibrary
     FrankieCommonLibrary
     FrankieCommsLibrary
     FrankieParserLibrary
