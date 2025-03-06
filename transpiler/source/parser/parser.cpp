@@ -10,11 +10,13 @@
 
 #include "parser.hpp"
 
+#include "../comms/comms.hpp"
+
 // using namespace antlrcpptest;
 using namespace antlr4;
 using namespace frankie_parser;
 
-namespace FrankieParser {
+namespace Parser {
     // TMP
     void debug (std::string file_contents) {
         // Use the file's input
@@ -26,7 +28,7 @@ namespace FrankieParser {
 
         // Print tokens
         tokens.fill();
-        std::cout << CLI::format("Tokens: \n", CLI::Color::blue) << std::endl;
+        std::cout << Comms::CLI::format("Tokens: \n", Comms::CLI::Color::blue) << std::endl;
         for (auto token : tokens.getTokens()) {
             std::cout << token->toString() << std::endl;
         }
@@ -37,6 +39,6 @@ namespace FrankieParser {
 
         // Print the parse tree!
         auto s = tree->toStringTree(&parser);
-        std::cout << CLI::format("Parse Tree: \n", CLI::Color::blue) << s << std::endl;
+        std::cout << Comms::CLI::format("Parse Tree: \n", Comms::CLI::Color::blue) << s << std::endl;
     }
 }
