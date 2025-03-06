@@ -5,11 +5,13 @@
 
 #pragma once
 
-// Include console messages
 #include "../common/headers.hpp"
+#include "dynamic.hpp" // FRANKIE_COMMS_LIB
+
+// Include console messages
 #include "CLI/basic.hpp"
 
 namespace ProcessReport {
     // Function definition outside the class declaration (optional)
-    extern DYNAMIC_API void reportError();
+    extern FRANKIE_COMMS_LIB void reportError();
 }

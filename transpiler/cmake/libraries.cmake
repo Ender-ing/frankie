@@ -7,7 +7,7 @@ add_library(FrankieRootLibrary SHARED
     ${FRANKIE_SOURCE_DIR}/config.cpp
 )
 # Expose library exports
-target_compile_definitions(FrankieRootLibrary PUBLIC BUILD_DYNAMIC_LIBRARY)
+target_compile_definitions(FrankieRootLibrary PRIVATE FRANKIEROOTLIBRARY_EXPORTS)
 
 # Create a library from /comms
 add_library(FrankieCommsLibrary SHARED
@@ -15,7 +15,7 @@ add_library(FrankieCommsLibrary SHARED
     ${FRANKIE_SOURCE_DIR}/comms/comms.cpp
 )
 # Expose library exports
-target_compile_definitions(FrankieCommsLibrary PUBLIC BUILD_DYNAMIC_LIBRARY)
+target_compile_definitions(FrankieCommsLibrary PRIVATE FRANKIECOMMSLIBRARY_EXPORTS)
 # Link other libraries to the library
 add_dependencies(FrankieCommsLibrary fmt::fmt)
 target_link_libraries(FrankieCommsLibrary PUBLIC fmt::fmt)
@@ -26,7 +26,7 @@ add_library(FrankieCommonLibrary SHARED
     ${FRANKIE_SOURCE_DIR}/common/files.cpp
 )
 # Expose library exports
-target_compile_definitions(FrankieCommonLibrary PUBLIC BUILD_DYNAMIC_LIBRARY)
+target_compile_definitions(FrankieCommonLibrary PRIVATE FRANKIECOMMONLIBRARY_EXPORTS)
 
 # Create a library from /parser
 add_library(FrankieParserLibrary SHARED
@@ -35,7 +35,7 @@ add_library(FrankieParserLibrary SHARED
     ${FRANKIE_SOURCE_DIR}/parser/parser.cpp
 )
 # Expose library exports
-target_compile_definitions(FrankieParserLibrary PUBLIC BUILD_DYNAMIC_LIBRARY)
+target_compile_definitions(FrankieParserLibrary PRIVATE FRANKIEPARSERLIBRARY_EXPORTS)
 # ANTLR4
 add_dependencies(FrankieParserLibrary antlr4_shared)
 target_link_libraries(FrankieParserLibrary PUBLIC antlr4_shared)

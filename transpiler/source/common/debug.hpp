@@ -6,6 +6,7 @@
 #pragma once
 
 #include "headers.hpp"
+#include "dynamic.hpp" // FRANKIE_COMMON_LIB
 
 // Crt Debug headers
 #ifdef _WIN32
@@ -19,13 +20,13 @@
 namespace Common {
     namespace CrtDebug {
         // Set the flags for the memory check mode!
-        extern DYNAMIC_API void initiateCrtMemoryChecks() ;
+        extern FRANKIE_COMMON_LIB void initiateCrtMemoryChecks() ;
         
         // Get all memory leak report dumps in one string variable
-        extern DYNAMIC_API std::string captureCrtDumpMemoryLeaks() ;
+        extern FRANKIE_COMMON_LIB std::string captureCrtDumpMemoryLeaks() ;
         
         // Process the string for leaks
         // [true - leaks found, false - everything is fine!]
-        extern DYNAMIC_API bool processCrtMemoryReports() ;
+        extern FRANKIE_COMMON_LIB bool processCrtMemoryReports() ;
     }
 }
