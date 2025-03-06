@@ -5,7 +5,7 @@
         "build": "cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build . --config Release",
         "win-clean": "rd /s /q build && rd /s /q dist",
         "lix-clean": "rm -f -r build && rm -f -r dist",
-        "test": "cd build && ctest -C Release",
+        "test": "cd build && ctest -VV -C Release",
         "tmp-win-debug": "npm run win-rebuild && npm run test && .\\dist\\bin\\FrankieTranspiler.exe --debug-parser-print-test .\\..\\debug.frankie"
     }
 }

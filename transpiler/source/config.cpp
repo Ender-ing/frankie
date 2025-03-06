@@ -1,5 +1,5 @@
 /**
- * @brief 
+ * @brief
  * Manage transpiler arguments and starting state
 **/
 

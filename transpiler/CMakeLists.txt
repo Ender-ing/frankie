@@ -15,6 +15,8 @@ set(CMAKE_MODULE_PATH
     # CMake files folder
     ${FRANKIE_CMAKE_DIR}/ANTLR4
     ${FRANKIE_CMAKE_DIR}
+    # Build folder
+    ${CMAKE_BINARY_DIR}
     # Append existing paths
     ${CMAKE_MODULE_PATH}
 )

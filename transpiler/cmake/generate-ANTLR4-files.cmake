@@ -1,3 +1,7 @@
+# PIC
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(BUILD_SHARED_LIBS ON)
+
 # required if linking to static library
 # add_definitions(-DANTLR4CPP_STATIC)
 

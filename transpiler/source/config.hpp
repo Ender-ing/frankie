@@ -3,29 +3,29 @@
  * Manage transpiler arguments and starting state
 **/
 
-#ifndef TRANSPILER_CONFIG_HPP // Unique identifier for the header
-#define TRANSPILER_CONFIG_HPP
+#pragma once
+
+#include "common/headers.hpp"
+#include "dynamic.hpp" // FRANKIE_ROOT_LIB
 
 // Basic C++ headers
-#include <string>
+//#include <string>
 
 // All state-related members should be contained under one namepsace
 namespace InitialConfigs {
     // Starting Path
-    extern std::string runPath;
+    extern FRANKIE_ROOT_LIB std::string runPath;
 
     // Debug-related
     namespace Debug {
         // --debug-parser-print-test <path>
         namespace ParserBasicPrintTest {
-            extern bool active;
-            extern std::string path;
+            extern FRANKIE_ROOT_LIB bool active;
+            extern FRANKIE_ROOT_LIB std::string path;
         }
     }
 
     // Process and update values through program arguments!
     // [true - sucess, false - failure]
-    bool updateUsingArgs (int argc, const char *argv[]) ;
+    extern FRANKIE_ROOT_LIB bool updateUsingArgs (int argc, const char *argv[]) ;
 }
-
-#endif

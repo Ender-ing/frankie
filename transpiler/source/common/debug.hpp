@@ -1,0 +1,32 @@
+/**
+ * @brief
+ * Memory leak checks (Windows)
+**/
+
+#pragma once
+
+#include "headers.hpp"
+#include "dynamic.hpp" // FRANKIE_COMMON_LIB
+
+// Crt Debug headers
+#ifdef _WIN32
+#   include <crtdbg.h>
+#   ifdef _DEBUG
+#       define _CRTDBG_MAP_ALLOC
+#       include <stdlib.h>
+#   endif
+#endif
+
+namespace Common {
+    namespace CrtDebug {
+        // Set the flags for the memory check mode!
+        extern FRANKIE_COMMON_LIB void initiateCrtMemoryChecks() ;
+        
+        // Get all memory leak report dumps in one string variable
+        extern FRANKIE_COMMON_LIB std::string captureCrtDumpMemoryLeaks() ;
+        
+        // Process the string for leaks
+        // [true - leaks found, false - everything is fine!]
+        extern FRANKIE_COMMON_LIB bool processCrtMemoryReports() ;
+    }
+}

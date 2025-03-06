@@ -3,6 +3,8 @@
  * Commnly used headers
 **/
 
+#pragma once
+
 // Basic configurations
 #pragma execution_character_set("utf-8")
 
@@ -22,6 +24,3 @@
 #else
   // ???
 #endif
-
-// CLI basic imports
-#include "../comms/comms.hpp"

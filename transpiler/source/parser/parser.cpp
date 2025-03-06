@@ -1,15 +1,14 @@
 /**
- * @brief 
+ * @brief
  * Parser implementations
 **/
 
 // ANTLR4 imports
-// For SOME REASON, if you import these ANYWHERE ELSE, the build fails on WINDOWS..
 #include "antlr4-runtime.h"
 #include "PolarFrankieLexer.h"
 #include "PolarFrankieParser.h"
 
-#include "../common/headers.hpp"
+#include "parser.hpp"
 
 // using namespace antlrcpptest;
 using namespace antlr4;

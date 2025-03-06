@@ -36,7 +36,7 @@ jobs:
       working-directory: transpiler/build
 
     - name: Run Tests
-      run: ctest -C Release
+      run: ctest -VV -C Release
       working-directory: transpiler/build
 
   # Linux
@@ -50,7 +50,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential cmake
+        sudo apt-get install -y build-essential cmake valgrind
 
     - name: Make the "transpiler/build" directory
       run: mkdir ${{github.workspace}}/transpiler/build
@@ -64,5 +64,5 @@ jobs:
       working-directory: transpiler/build
 
     - name: Run Tests
-      run: ctest -C Release
+      run: ctest -VV -C Release
       working-directory: transpiler/build

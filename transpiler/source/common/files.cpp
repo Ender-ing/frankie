@@ -1,10 +1,12 @@
 /**
- * @brief 
+ * @brief
  * File-related functions
 **/
 
+#include "files.hpp"
+
 // Basic C++ headers
-#include <string>
+//#include <string>
 
 namespace Common {
     // Check if a file is accessible
