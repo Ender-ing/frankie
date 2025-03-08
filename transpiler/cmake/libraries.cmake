@@ -4,6 +4,7 @@ set(BUILD_SHARED_LIBS ON)
 
 # Create a library from / (the root directory of /transpiler)
 add_library(FrankieBaseLibrary SHARED
+    ${FRANKIE_SOURCE_DIR}/actions.cpp
     ${FRANKIE_SOURCE_DIR}/config.cpp
 )
 # Expose library exports
@@ -24,6 +25,7 @@ target_link_libraries(FrankieCommsLibrary PUBLIC fmt::fmt)
 add_library(FrankieCommonLibrary SHARED
     ${FRANKIE_SOURCE_DIR}/common/debug.cpp
     ${FRANKIE_SOURCE_DIR}/common/files.cpp
+    ${FRANKIE_SOURCE_DIR}/common/strings.cpp
 )
 # Expose library exports
 target_compile_definitions(FrankieCommonLibrary PRIVATE FRANKIECOMMONLIBRARY_EXPORTS)
