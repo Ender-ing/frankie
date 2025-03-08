@@ -1,7 +1,7 @@
 {
     "scripts": {
-        "win-rebuild-cmake": "npm run win-clean && mkdir build && npm run build",
-        "lix-rebuild-cmake": "npm run lix-clean && mkdir build && npm run build",
+        "win-rebuild-cmake": "npm run win-clean && mkdir build && npm run build-cmake",
+        "lix-rebuild-cmake": "npm run lix-clean && mkdir build && npm run build-cmake",
         "build-cmake": "cd build && cmake .. -DCMAKE_BUILD_TYPE=Release",
         "build-binary": "cd build && cmake --build . --config Release",
         "win-clean": "rd /s /q build && rd /s /q dist",
