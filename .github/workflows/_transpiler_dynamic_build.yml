@@ -93,7 +93,7 @@ jobs:
     - name: Extract version (optional)
       if: inputs.bundle_binaries
       run: |
-        VERSION=$(grep "^version" ${{github.workspace}}/transpiler/manifest.ini | sed 's/version *= *//')
+        VERSION=$(grep "VERSION=" "${{github.workspace}}/transpiler/manifest.ini" | cut -d '=' -f 2 | tr -d '"' | xargs)
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Upload Binaries Artifact (optional)
@@ -135,7 +135,7 @@ jobs:
     - name: Extract version (optional)
       if: inputs.bundle_binaries
       run: |
-        VERSION=$(grep "^version" ${{github.workspace}}/transpiler/manifest.ini | sed 's/version *= *//')
+        VERSION=$(grep "VERSION=" "${{github.workspace}}/transpiler/manifest.ini" | cut -d '=' -f 2 | tr -d '"' | xargs)
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Upload Binaries Artifact (optional)
