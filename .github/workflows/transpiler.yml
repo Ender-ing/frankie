@@ -11,16 +11,17 @@ on:
 
 jobs:
 
-  # Release
-  build-transpiler-release:
-    name: Release
-    uses: ./.github/workflows/_transpiler_dynamic_build.yml
-    with:
-      build_mode: "Release"
-
   # Debug
   build-transpiler-debug:
     name: Debug
     uses: ./.github/workflows/_transpiler_dynamic_build.yml
     with:
       build_mode: "Debug"
+
+  # Release
+  build-transpiler-release:
+    name: Release
+    needs: build-transpiler-debug
+    uses: ./.github/workflows/_transpiler_dynamic_build.yml
+    with:
+      build_mode: "Release"
