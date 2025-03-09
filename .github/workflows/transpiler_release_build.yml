@@ -19,7 +19,7 @@ jobs:
 
   # Windows
   build-transpiler-release-on-windows-latest-x86-64:
-    name: Windows 32-bits
+    name: Windows 64-bits
     runs-on: windows-latest
 
     steps:
@@ -58,8 +58,9 @@ jobs:
     - name: Extract version (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
       run: |
-        VERSION=$(grep -oP '(?<=VERSION=").*?(?=")' ${{github.workspace}}/transpiler/manifest.ini)
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        for /f "tokens=2 delims==" %%i in ('findstr /C:"VERSION=" ${{github.workspace}}/transpiler/manifest.ini') do (
+          echo "VERSION=%%i" >> $GITHUB_ENV
+        )
 
     - name: Upload Binaries Artifact (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
@@ -95,6 +96,24 @@ jobs:
     - name: Run Tests
       run: ctest -VV -C Release
       working-directory: transpiler/build
+
+    - name: Bundle Binaries (only on workflow_call) AAAAAAAA
+#      if: github.event_name == 'workflow_call'
+      run: |
+        Compress-Archive -Path ${{github.workspace}}/transpiler/dist/Release/x86_64/* -DestinationPath ${{github.workspace}}/transpiler/dist/bundle.zip
+
+    - name: Extract version (only on workflow_call) AAAAAAAA
+#      if: github.event_name == 'workflow_call'
+      run: |
+        VERSION=$(grep -oP '(?<=VERSION=").*?(?=")' ${{github.workspace}}/transpiler/manifest.ini)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Upload Binaries Artifact (only on workflow_call) AAAAAAAA
+#      if: github.event_name == 'workflow_call'
+      uses: actions/upload-artifact@v4
+      with:
+        name: PolarFrankie-v${{env.VERSION}}-Windows-x86_64.zip
+        path: ${{github.workspace}}/transpiler/dist/bundle.zip
 
   # macOS
   build-transpiler-release-on-macos-latest:
