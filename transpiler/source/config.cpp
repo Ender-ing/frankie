@@ -40,7 +40,7 @@ namespace Base {
 
                 // Use this function to get the next argument
                 // Skips by default
-                const Actions::ActionNextFunction getNextArg = [&i, &argc, &argv](std::string &store, bool skip = true) {
+                const Actions::ActionNextFunction getNextArg = [&i, &argc, &argv](std::string &store, bool skip) {
                     // Check for the next argument
                     if (i + 1 < argc) {
                         // Get the next argument (and skip it when necessary!)
