@@ -22,7 +22,7 @@ jobs:
   # Release
   build-transpiler-release:
     name: Release
-    needs: build-transpiler-debug
+#    needs: build-transpiler-debug
     uses: ./.github/workflows/_transpiler_dynamic_build.yml
     with:
       build_mode: "Release"
