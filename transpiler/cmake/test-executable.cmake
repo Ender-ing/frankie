@@ -9,24 +9,26 @@ set(TEST_FRANKIE_DEBUG_COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FrankieTranspil
 # arm54: "aarch64"
 # arm32: "armv7l"
 set(NATIVE_SYSTEM_SUPPORTS_BINARIES FALSE)
-if(${FRANKIE_BINARY_MODE} STREQUAL "x86_32")
+if(${FRANKIE_BINARY_PLATFORM} STREQUAL "x86_32")
     # Supports x86_32
     if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86" OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_32" OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386")
         set(NATIVE_SYSTEM_SUPPORTS_BINARIES TRUE)
     endif()
-elseif(${FRANKIE_BINARY_MODE} STREQUAL "x86_64")
+elseif(${FRANKIE_BINARY_PLATFORM} STREQUAL "x86_64")
     # Supports x86_64, and x86_32
     if((${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64") or (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86" OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_32" OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386"))
         set(NATIVE_SYSTEM_SUPPORTS_BINARIES TRUE)
     endif()
-elseif(${FRANKIE_BINARY_MODE} STREQUAL "arm32")
+elseif(${FRANKIE_BINARY_PLATFORM} STREQUAL "arm32")
     # Supports arm32, and x86_32
     if((${CMAKE_SYSTEM_PROCESSOR} STREQUAL "armv7l") or (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86" OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_32" OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386"))
         set(NATIVE_SYSTEM_SUPPORTS_BINARIES TRUE)
     endif()
-elseif(${FRANKIE_BINARY_MODE} STREQUAL "arm64")
+elseif(${FRANKIE_BINARY_PLATFORM} STREQUAL "arm64")
     # Supports x86_64, x86_32, arm32, and arm64
     set(NATIVE_SYSTEM_SUPPORTS_BINARIES TRUE)
+else()
+    message(FATAL_ERROR "[TESTS] Couldn't determine the build target")
 endif()
 
 # Define testing function
@@ -43,10 +45,10 @@ function(frankie_file_test test_name file_path)
                 message(WARNING "[TESTS] Extra memory leak tests have been disabled! (Please install Valgrind to enable said tests...)")
             endif()
         else()
-            message(WARNING "[TESTS] Native system does not support binaries! (${CMAKE_SYSTEM_PROCESSOR}) The relative test is likely to fail!")
+            message(FATAL_ERROR "[TESTS] Native system does not support binaries! (${CMAKE_SYSTEM_PROCESSOR}) The relative test is likely to fail!")
         endif()
     else()
-        message(WARNING "[TESTS] Failed to locate a Frankie test file! (${file_path}) The relative test is likely to fail!")
+        message(FATAL_ERROR "[TESTS] Failed to locate a Frankie test file! (${file_path}) The relative test is likely to fail!")
     endif()
 endfunction()
 
