@@ -1,9 +1,17 @@
 name: Transpiler (Debug)
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+    - "main"
   pull_request:
-    branches: [ "main" ]
+    branches: 
+    - "main"
+  workflow_call: # Added this line to make it reusable
+    # Add inputs here if needed. Example:
+    # inputs:
+    #   some_input:
+    #     required: false
+    #     type: string
 
 jobs:
 
