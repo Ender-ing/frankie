@@ -53,7 +53,7 @@ jobs:
     - name: Bundle Binaries (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
       run: |
-        Compress-Archive -Path ${{github.workspace}}/transpiler/dist/Release/x86_64/* -DestinationPath ${{github.workspace}}/transpiler/dist/bundle.zip
+        tar -czvf ${{github.workspace}}/transpiler/dist/Release/x86_64/* -DestinationPath ${{github.workspace}}/transpiler/dist/bundle.tar
 
     - name: Extract version (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
@@ -70,11 +70,12 @@ jobs:
 #      if: github.event_name == 'workflow_call'
       uses: actions/upload-artifact@v4
       with:
-        name: PolarFrankie-v${{env.VERSION}}-Windows-x86_64.zip
-        path: ${{github.workspace}}/transpiler/dist/bundle.zip
+        name: PolarFrankie-v${{env.VERSION}}-Windows-x86_64
+        path: ${{github.workspace}}/transpiler/dist/bundle.tar
 
   # Linux
-  build-transpiler-release-on-ubuntu-latest:
+  build-transpiler-release-on-ubuntu-latest-x86-64:
+    name: Linux 64-bits
     runs-on: ubuntu-latest
 
     steps:
@@ -90,7 +91,7 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release
+      run: cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_GENERATOR_PLATFORM x64
       working-directory: transpiler/build
 
     - name: Build
@@ -101,26 +102,27 @@ jobs:
       run: ctest -VV -C Release
       working-directory: transpiler/build
 
-    - name: Bundle Binaries (only on workflow_call) AAAAAAAA
+    - name: Bundle Binaries (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
       run: |
-        Compress-Archive -Path ${{github.workspace}}/transpiler/dist/Release/x86_64/* -DestinationPath ${{github.workspace}}/transpiler/dist/bundle.zip
+        tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/Release/x86_64/*
 
-    - name: Extract version (only on workflow_call) AAAAAAAA
+    - name: Extract version (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
       run: |
         VERSION=$(grep "^version" ${{github.workspace}}/transpiler/manifest.ini | sed 's/version *= *//')
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-    - name: Upload Binaries Artifact (only on workflow_call) AAAAAAAA
+    - name: Upload Binaries Artifact (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
       uses: actions/upload-artifact@v4
       with:
-        name: PolarFrankie-v${{env.VERSION}}-Windows-x86_64.zip
-        path: ${{github.workspace}}/transpiler/dist/bundle.zip
+        name: PolarFrankie-v${{env.VERSION}}-Linux-x86_64
+        path: ${{github.workspace}}/transpiler/dist/bundle.tar
 
   # macOS
-  build-transpiler-release-on-macos-latest:
+  build-transpiler-release-on-macos-latest-x86-64:
+    name: macOS 64-bits
     runs-on: macos-latest
 
     steps:
@@ -136,7 +138,7 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release
+      run: cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_GENERATOR_PLATFORM x64
       working-directory: transpiler/build
 
     - name: Build
@@ -146,3 +148,21 @@ jobs:
     - name: Run Tests
       run: ctest -VV -C Release
       working-directory: transpiler/build
+
+    - name: Bundle Binaries (only on workflow_call)
+#      if: github.event_name == 'workflow_call'
+      run: |
+        tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/Release/x86_64/*
+
+    - name: Extract version (only on workflow_call)
+#      if: github.event_name == 'workflow_call'
+      run: |
+        VERSION=$(grep "^version" ${{github.workspace}}/transpiler/manifest.ini | sed 's/version *= *//')
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Upload Binaries Artifact (only on workflow_call)
+#      if: github.event_name == 'workflow_call'
+      uses: actions/upload-artifact@v4
+      with:
+        name: PolarFrankie-v${{env.VERSION}}-macOS-x86_64
+        path: ${{github.workspace}}/transpiler/dist/bundle.tar
