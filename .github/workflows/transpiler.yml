@@ -13,12 +13,12 @@ jobs:
 
   # Release
   build-transpiler-release:
-    uses: ./.github/workflows/transpiler/transpiler_dynamic_build.yml
+    uses: ./.github/workflows/_transpiler_dynamic_build.yml
     with:
       build_mode: "Release"
 
   # Debug
   build-transpiler-debug:
-    uses: ./.github/workflows/transpiler/transpiler_dynamic_build.yml
+    uses: ./.github/workflows/_transpiler_dynamic_build.yml
     with:
       build_mode: "Debug"
