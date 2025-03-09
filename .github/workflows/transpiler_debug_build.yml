@@ -1,0 +1,96 @@
+name: Transpiler (Debug build)
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  # Windows
+  build-transpiler-debug-on-windows-latest:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 11 (or later)
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Install Visual Studio Build Tools
+      uses: ilammy/msvc-dev-cmd@v1.13.0
+
+    - name: Make the "transpiler/build" directory
+      run: mkdir ${{github.workspace}}/transpiler/build
+
+    - name: Configure CMake
+      run: cmake .. -DCMAKE_BUILD_TYPE=Debug
+      working-directory: transpiler/build
+
+    - name: Build
+      run: cmake --build . --config Debug
+      working-directory: transpiler/build
+
+    - name: Run Tests
+      run: ctest -VV -C Debug
+      working-directory: transpiler/build
+
+  # Linux
+  build-transpiler-debug-on-ubuntu-latest:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake valgrind
+
+    - name: Make the "transpiler/build" directory
+      run: mkdir ${{github.workspace}}/transpiler/build
+
+    - name: Configure CMake
+      run: cmake .. -DCMAKE_BUILD_TYPE=Debug
+      working-directory: transpiler/build
+
+    - name: Build
+      run: cmake --build . --config Debug
+      working-directory: transpiler/build
+
+    - name: Run Tests
+      run: ctest -VV -C Debug
+      working-directory: transpiler/build
+
+  # macOS
+  build-transpiler-debug-on-macos-latest:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        brew update
+        brew install cmake
+
+    - name: Make the "transpiler/build" directory
+      run: mkdir ${{github.workspace}}/transpiler/build
+
+    - name: Configure CMake
+      run: cmake .. -DCMAKE_BUILD_TYPE=Debug
+      working-directory: transpiler/build
+
+    - name: Build
+      run: cmake --build . --config Debug
+      working-directory: transpiler/build
+
+    - name: Run Tests
+      run: ctest -VV -C Debug
+      working-directory: transpiler/build

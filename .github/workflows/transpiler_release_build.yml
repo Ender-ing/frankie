@@ -1,4 +1,4 @@
-name: Transpiler
+name: Transpiler (Release build)
 on:
   push:
     branches: [ "main" ]
@@ -8,7 +8,7 @@ on:
 jobs:
 
   # Windows
-  build-transpiler-on-windows-latest:
+  build-transpiler-release-on-windows-latest:
     runs-on: windows-latest
 
     steps:
@@ -40,7 +40,7 @@ jobs:
       working-directory: transpiler/build
 
   # Linux
-  build-transpiler-on-ubuntu-latest:
+  build-transpiler-release-on-ubuntu-latest:
     runs-on: ubuntu-latest
 
     steps:
@@ -68,7 +68,7 @@ jobs:
       working-directory: transpiler/build
 
   # macOS
-  build-transpiler-on-macos-latest:
+  build-transpiler-release-on-macos-latest:
     runs-on: macos-latest
 
     steps:
