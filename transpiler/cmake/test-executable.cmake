@@ -3,23 +3,29 @@ find_program(VALGRIND_EXECUTABLE valgrind)
 set(TEST_VALGRIND_COMMAND valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --undef-value-errors=yes --errors-for-leak-kinds=definite,indirect,possible,reachable)
 set(TEST_FRANKIE_DEBUG_COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FrankieTranspiler --debug-parser-antlr-print-test -i)
 
+# Check if the native system supports the generated binaries
+# x86_64: "x86_64"
+# x86_32: "x86_32", "x86", or "i386"
+# arm54: "aarch64"
+# arm32: "armv7l"
 set(NATIVE_SYSTEM_SUPPORTS_BINARIES TRUE)
 if(${FRANKIE_BINARY_MODE} STREQUAL "x86_32")
-    if(not (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86" OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "i386"))
+    # Supports x86_32
+    if(not (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86" OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_32" OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "i386"))
         set(NATIVE_SYSTEM_SUPPORTS_BINARIES FALSE)
     endif()
 elseif(${FRANKIE_BINARY_MODE} STREQUAL "x86_64")
-    if(not (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64" or (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86" OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "i386")))
+    # Supports x86_64, and x86_32
+    if(not ((${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64") or (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86" OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_32" OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "i386")))
         set(NATIVE_SYSTEM_SUPPORTS_BINARIES FALSE)
     endif()
 elseif(${FRANKIE_BINARY_MODE} STREQUAL "arm32")
-    if(not (${CMAKE_SYSTEM_PROCESSOR} MATCHES "armv7l"))
+    # Supports x86_32, and arm32
+    if((${CMAKE_SYSTEM_PROCESSOR} MATCHES "aarch64") or (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64"))
         set(NATIVE_SYSTEM_SUPPORTS_BINARIES FALSE)
     endif()
 elseif(${FRANKIE_BINARY_MODE} STREQUAL "arm64")
-    if(not ((${CMAKE_SYSTEM_PROCESSOR} MATCHES "aarch64") or (${CMAKE_SYSTEM_PROCESSOR} MATCHES "armv7l")))
-        set(NATIVE_SYSTEM_SUPPORTS_BINARIES FALSE)
-    endif()
+    # Supports x86_64, x86_32, arm32, and arm64
 else()
     set(NATIVE_SYSTEM_SUPPORTS_BINARIES FALSE)
 endif()
