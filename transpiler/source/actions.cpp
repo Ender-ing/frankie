@@ -24,14 +24,7 @@ namespace Base {
             ActionFunction,
             ActionInfoHash_internal
             > map = {
-            /*{
-                {"-i", "--input"},
-                [](const ActionNextFunction getNextArg) {
-                    std::cout << "Opening file..." << std::endl;
-                    return true;
-                },
-                "Set a path for the main user input file."
-            },
+            /*
             {
                 {"-frc-stdo", "--force-standard-output"},
                 [](const ActionNextFunction getNextArg) {
@@ -39,29 +32,34 @@ namespace Base {
                 },
                 "Forcefully feed all output (status, warnings, or errors) into the normal standard output stream!"
             },*/
-            {
+            DEFINE_ACTION(
+                "i", "input",
+                "Set a path for the main user input file.",
                 {
-                    "-dbg-antlr-print", "--debug-parser-antlr-print-test",
-                    "Print the parser's tokens list and initial parser output."
-                },
-                [](const ActionNextFunction getNextArg) {
-                    // Enable the test
-                    InitialConfigs::Debug::ParserBasicPrintTest::active = true;
-
                     // Get the next argument and save it!
-                    bool success = getNextArg(InitialConfigs::Debug::ParserBasicPrintTest::path, true);
+                    bool success = getNextArg(Base::InitialConfigs::mainPath, true);
 
                     // Check if the action was successful!
                     if (!success) {
                         // Missing input argument!
                         // PRINT AN ERROR!
-                        return false;
+                        ACTION_FAILURE;
                     }
 
-                    return true;
+                    ACTION_SUCCESS;
                 }
-            }
-        };
+            ),
+            DEFINE_ACTION(
+                "dbg-antlr-print", "debug-parser-antlr-print-test",
+                "Print the parser's tokens list and initial parser output.",
+                {
+                    // Enable the test
+                    InitialConfigs::Debug::Parser::activateBasicPrintTest = true;
+
+                    ACTION_SUCCESS;
+                }
+            )
+    };
 
         // Get an action function using one flag
         // [true - success, false - failure]

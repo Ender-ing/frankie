@@ -12,7 +12,18 @@
 #include <unordered_map>
 #include <functional>
 
-// WORK IN PROGRESS
+// Shorten the syntax for defining an action
+#define DEFINE_ACTION(FLAG1, FLAG2, DESCRIPTION, FUNCTION){         \
+    {                                                               \
+        "-" FLAG1, "--" FLAG2,                                      \
+        #DESCRIPTION                                                \
+    },                                                              \
+    [](const ActionNextFunction getNextArg) FUNCTION                \
+}                                                                   \
+
+// Hide the return keyword to avoid confusion
+#define ACTION_FAILURE              return false
+#define ACTION_SUCCESS              return true
 
 namespace Base {
     namespace Actions {
