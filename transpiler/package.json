@@ -1,11 +1,12 @@
 {
     "scripts": {
-        "win-rebuild": "npm run win-clean && mkdir build && npm run build",
-        "lix-rebuild": "npm run lix-clean && mkdir build && npm run build",
-        "build": "cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build . --config Release",
+        "win-rebuild-cmake": "npm run win-clean && mkdir build && npm run build-cmake",
+        "lix-rebuild-cmake": "npm run lix-clean && mkdir build && npm run build-cmake",
+        "build-cmake": "cd build && cmake .. -DCMAKE_BUILD_TYPE=Release",
+        "build-binary": "cd build && cmake --build . --config Release",
         "win-clean": "rd /s /q build && rd /s /q dist",
         "lix-clean": "rm -f -r build && rm -f -r dist",
         "test": "cd build && ctest -VV -C Release",
-        "tmp-win-debug": "npm run win-rebuild && npm run test && .\\dist\\bin\\FrankieTranspiler.exe --debug-parser-print-test .\\..\\debug.frankie"
+        "tmp-win-debug": "npm run win-rebuild-cmake && npm run build-binary && npm run test && .\\dist\\bin\\FrankieTranspiler.exe --debug-parser-antlr-print-test .\\..\\debug.frankie"
     }
 }

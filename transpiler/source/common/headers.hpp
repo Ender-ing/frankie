@@ -13,6 +13,8 @@
 //#include <fstream>
 //#include <sstream>
 #include <string>
+#include <iostream>
+#include <ostream>
 
 // Include platform headers
 #ifdef _WIN32

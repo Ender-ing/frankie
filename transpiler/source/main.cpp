@@ -4,7 +4,6 @@
 **/
 
 // Basic C++ headers
-#include <iostream>
 #include <fstream>
 #include <sstream>
 
@@ -33,8 +32,8 @@ int main (int argc, const char *argv[]) {
     }
 
     // TMP
-    if (Base::InitialConfigs::Debug::ParserBasicPrintTest::active) {
-        auto filename = Base::InitialConfigs::Debug::ParserBasicPrintTest::path;
+    if (Base::InitialConfigs::Debug::Parser::activateBasicPrintTest) {
+        auto filename = Base::InitialConfigs::mainPath;
         // Check first input argument path
         std::ifstream file(filename);
 

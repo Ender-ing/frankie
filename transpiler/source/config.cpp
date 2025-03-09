@@ -4,6 +4,9 @@
 **/
 
 #include "config.hpp"
+#include "common/strings.hpp"
+
+// WORK IN PROGRESS
 
 namespace Base {
     // All state-related members should be contained under one namepsace
@@ -11,12 +14,14 @@ namespace Base {
         // Starting Path
         std::string runPath = "";
 
+        // Main source file
+        std::string mainPath = "";
+
         // Debug-related
         namespace Debug {
-            // --debug-parser-print-test <path>
-            namespace ParserBasicPrintTest {
-                bool active = false;
-                std::string path = "";
+            // --debug-parser-antlr-print-test <path>
+            namespace Parser {
+                bool activateBasicPrintTest;
             }
         }
 
@@ -28,21 +33,31 @@ namespace Base {
 
             // Loop through all arguments (skipping the first one)
             for (int i = 1; i < argc; i++) {
-                // Enable the test
-                Debug::ParserBasicPrintTest::active = true;
-
                 // Get the current argument
                 std::string arg (argv[i]);
+                // Convert the flag into lowercase format
+                Common::Strings::toLowerCase(arg);
 
-                if (arg == "--debug-parser-print-test") {
+                // Use this function to get the next argument
+                // [true - success, false = failure]
+                const Actions::ActionNextFunction getNextArg = [&i, &argc, &argv](std::string &store, bool skip) {
                     // Check for the next argument
                     if (i + 1 < argc) {
-                        // Get the next argument and skip it!
-                        std::string inputArg (argv[++i]);
-                        Debug::ParserBasicPrintTest::path = inputArg;
+                        // Get the next argument (and skip it when necessary!)
+                        store = std::string(argv[(skip) ? ++i : i + 1]);
+                        return true;
                     } else {
-                        // Missing input argument!
-                        // PRINT AN ERROR!
+                        return false;
+                    }
+                };
+
+                // Check current flag
+                Actions::ActionFunction action;
+                if (Actions::getActionFunctionByFlag(arg, action)) {
+                    // Execute action, and check for failure
+                    if (!action(getNextArg)) {
+                        // Action-related error!
+                        // Error message is handled by the action!
                         return false;
                     }
                 } else {
