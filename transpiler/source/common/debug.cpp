@@ -44,7 +44,7 @@ namespace Common {
         bool processCrtMemoryReports() {
             #ifdef _CRTDBG_MAP_ALLOC
                 std::string leakReport = captureCrtDumpMemoryLeaks();
-                std::cout << Comms::CLI::format("Leak Report:\n", CLI::Color::red) << leakReport << std::endl;
+                std::cout << Comms::CLI::format("Leak Report:\n", Comms::CLI::Color::red) << leakReport << std::endl;
                 return false;
             #else
                 return false; // Always return a success state! (Non-windows machines)
