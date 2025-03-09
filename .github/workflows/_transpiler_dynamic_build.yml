@@ -17,8 +17,8 @@ jobs:
     with:
       build_platform: x64
       build_platform_name: x86_64
-      build_mode: Debug
-      bundle_binaries: false
+      build_mode: ${{inputs.build_mode}}
+      bundle_binaries: ${{inputs.bundle_binaries}}
 
   # Unix-like (Windows, macOS)
   build-transpiler-on-unix-like-latest-x86-64:
@@ -27,5 +27,5 @@ jobs:
     with:
       build_platform: x64
       build_platform_name: x86_64
-      build_mode: Debug
-      bundle_binaries: false
+      build_mode: ${{inputs.build_mode}}
+      bundle_binaries: ${{inputs.bundle_binaries}}
