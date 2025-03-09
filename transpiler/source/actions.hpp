@@ -11,6 +11,7 @@
 // Basic C++ headers
 #include <unordered_map>
 #include <functional>
+#include <array>
 
 // Shorten the syntax for defining an action
 #define DEFINE_ACTION(FLAG1, FLAG2, DESCRIPTION, FUNCTION){         \
