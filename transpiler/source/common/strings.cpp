@@ -18,7 +18,7 @@ namespace Common {
             // Copy the string
             std::string result (str);
             // Transform it
-            toLowerCase(&result);
+            toLowerCase(result);
             // Return the new string
             return result;
         }
