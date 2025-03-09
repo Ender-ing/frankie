@@ -46,7 +46,8 @@ jobs:
     - name: Bundle Binaries (optional)
       if: inputs.bundle_binaries
       run: |
-        tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/*
+        tar -cvf ${{github.workspace}}/transpiler-bundle.tar *
+      working-directory: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/
 
     - name: Extract version (optional)
       if: inputs.bundle_binaries
@@ -98,7 +99,8 @@ jobs:
     - name: Bundle Binaries (optional)
       if: inputs.bundle_binaries
       run: |
-        tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/*
+        tar -cvf ${{github.workspace}}/transpiler-bundle.tar *
+      working-directory: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/
 
     - name: Extract version (optional)
       if: inputs.bundle_binaries
@@ -145,7 +147,8 @@ jobs:
     - name: Bundle Binaries (optional)
       if: inputs.bundle_binaries
       run: |
-        tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/*
+        tar -cvf ${{github.workspace}}/transpiler-bundle.tar *
+      working-directory: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/
 
     - name: Extract version (optional)
       if: inputs.bundle_binaries
