@@ -27,7 +27,7 @@ endif()
 # Define testing function
 function(frankie_file_test test_name file_path)
     if(EXISTS ${file_path})
-        if(NATIVE_SYSTEM_SUPPORTS_BINARIES)
+        if(DEFINED NATIVE_SYSTEM_SUPPORTS_BINARIES)
             # Normal test
             add_test(NAME FrankieFileTest__${test_name}_execute COMMAND ${TEST_FRANKIE_DEBUG_COMMAND} ${file_path})
             # Valgrind memory leaks test
