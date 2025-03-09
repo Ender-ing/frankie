@@ -8,6 +8,7 @@ set(TEST_FRANKIE_DEBUG_COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FrankieTranspil
 # x86_32: "x86_32", "x86", or "i386"
 # arm54: "aarch64"
 # arm32: "armv7l"
+set(NATIVE_SYSTEM_SUPPORTS_BINARIES FALSE)
 if(${FRANKIE_BINARY_MODE} STREQUAL "x86_32")
     # Supports x86_32
     if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86" OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_32" OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "i386")
@@ -31,7 +32,7 @@ endif()
 # Define testing function
 function(frankie_file_test test_name file_path)
     if(EXISTS ${file_path})
-        if(DEFINED NATIVE_SYSTEM_SUPPORTS_BINARIES)
+        if(NATIVE_SYSTEM_SUPPORTS_BINARIES)
             message(STATUS "[TESTS] Add a '${test_name}' ${CMAKE_SYSTEM_PROCESSOR} binary test...)")
             # Normal test
             add_test(NAME FrankieFileTest__${test_name}_execute COMMAND ${TEST_FRANKIE_DEBUG_COMMAND} ${file_path})
