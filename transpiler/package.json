@@ -2,6 +2,8 @@
     "scripts": {
         "win-rebuild-cmake": "npm run win-clean && mkdir build && npm run build-cmake",
         "lix-rebuild-cmake": "npm run lix-clean && mkdir build && npm run build-cmake",
+        "win-debug-rebuild-cmake": "npm run win-clean && mkdir build && npm run debug-build-cmake",
+        "lix-debug-rebuild-cmake": "npm run lix-clean && mkdir build && npm run debug-build-cmake",
         "build-cmake": "cd build && cmake .. -DCMAKE_BUILD_TYPE=Release",
         "build-binary": "cd build && cmake --build . --config Release",
         "debug-build-cmake": "cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug",
