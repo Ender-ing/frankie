@@ -14,12 +14,14 @@ namespace Base {
         // Starting Path
         std::string runPath = "";
 
+        // Main source file
+        std::string mainPath = "";
+
         // Debug-related
         namespace Debug {
             // --debug-parser-antlr-print-test <path>
-            namespace ParserBasicPrintTest {
-                bool active = false;
-                std::string path = "";
+            namespace Parser {
+                bool activateBasicPrintTest;
             }
         }
 

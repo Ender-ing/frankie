@@ -21,12 +21,14 @@ namespace Base {
         // Starting Path
         extern FRANKIE_BASE_LIB std::string runPath;
 
+        // Main source file
+        extern FRANKIE_BASE_LIB std::string mainPath;
+
         // Debug-related
         namespace Debug {
             // --debug-parser-antlr-print-test <path>
-            namespace ParserBasicPrintTest {
-                extern FRANKIE_BASE_LIB bool active;
-                extern FRANKIE_BASE_LIB std::string path;
+            namespace Parser {
+                extern FRANKIE_BASE_LIB bool activateBasicPrintTest;
             }
         }
 
