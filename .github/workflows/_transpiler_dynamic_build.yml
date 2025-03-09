@@ -12,135 +12,20 @@ jobs:
 
   # Windows
   build-transpiler-on-windows-latest-x86-64:
-    name: Windows 64-bits
-    runs-on: windows-latest
+    name: Windows
+    uses: ./.github/workflows/_transpiler_windows_build.yml
+    with:
+      build_platform: x64
+      build_platform_name: x86_64
+      build_mode: Debug
+      bundle_binaries: false
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up JDK 11 (or later)
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-
-    - name: Install Visual Studio Build Tools
-      uses: ilammy/msvc-dev-cmd@v1.13.0
-
-    - name: Make the "transpiler/build" directory
-      run: mkdir ${{github.workspace}}/transpiler/build
-
-    - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -A x64
-      working-directory: transpiler/build
-
-    - name: Build
-      run: cmake --build . --config ${{inputs.build_mode}}
-      working-directory: transpiler/build
-
-    - name: Run Tests
-      run: ctest -VV -C ${{inputs.build_mode}}
-      working-directory: transpiler/build
-
-    - name: Extract version (optional)
-      if: inputs.bundle_binaries
-      run: |
-        $version = Get-Content "${{github.workspace}}/transpiler/manifest.ini" | Where-Object { $_ -match 'VERSION=' } | ForEach-Object { ($_ -split '=')[1].Trim('"') }
-        if ($version) {
-          echo "VERSION=$version" >> $env:GITHUB_ENV
-        } else {
-          Write-Error "VERSION not found in manifest.ini"
-          exit 1
-        }
-
-    - name: Upload Binaries Artifact (optional)
-      if: inputs.bundle_binaries
-      uses: actions/upload-artifact@v4
-      with:
-        name: PolarFrankie-v${{env.VERSION}}-Windows-x86_64-${{inputs.build_mode}}
-        path: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/
-
-  # Linux
-  build-transpiler-on-ubuntu-latest-x86-64:
-    name: Linux 64-bits
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential cmake valgrind
-
-    - name: Make the "transpiler/build" directory
-      run: mkdir ${{github.workspace}}/transpiler/build
-
-    - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -DCMAKE_UNIX_GENERATOR_PLATFORM=x64
-      working-directory: transpiler/build
-
-    - name: Build
-      run: cmake --build . --config ${{inputs.build_mode}}
-      working-directory: transpiler/build
-
-    - name: Run Tests
-      run: ctest -VV -C ${{inputs.build_mode}}
-      working-directory: transpiler/build
-
-    - name: Extract version (optional)
-      if: inputs.bundle_binaries
-      run: |
-        VERSION=$(grep "VERSION=" "${{github.workspace}}/transpiler/manifest.ini" | cut -d '=' -f 2 | tr -d '"' | xargs)
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-    - name: Upload Binaries Artifact (optional)
-      if: inputs.bundle_binaries
-      uses: actions/upload-artifact@v4
-      with:
-        name: PolarFrankie-v${{env.VERSION}}-Linux-x86_64-${{inputs.build_mode}}
-        path: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/
-
-  # macOS
-  build-transpiler-on-macos-latest-x86-64:
-    name: macOS 64-bits
-    runs-on: macos-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Install dependencies
-      run: |
-        brew update
-        brew install cmake
-
-    - name: Make the "transpiler/build" directory
-      run: mkdir ${{github.workspace}}/transpiler/build
-
-    - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -DCMAKE_UNIX_GENERATOR_PLATFORM=x64
-      working-directory: transpiler/build
-
-    - name: Build
-      run: cmake --build . --config ${{inputs.build_mode}}
-      working-directory: transpiler/build
-
-    - name: Run Tests
-      run: ctest -VV -C ${{inputs.build_mode}}
-      working-directory: transpiler/build
-
-    - name: Extract version (optional)
-      if: inputs.bundle_binaries
-      run: |
-        VERSION=$(grep "VERSION=" "${{github.workspace}}/transpiler/manifest.ini" | cut -d '=' -f 2 | tr -d '"' | xargs)
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-    - name: Upload Binaries Artifact (optional)
-      if: inputs.bundle_binaries
-      uses: actions/upload-artifact@v4
-      with:
-        name: PolarFrankie-v${{env.VERSION}}-macOS-x86_64-${{inputs.build_mode}}
-        path: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/
+  # Unix-like (Windows, macOS)
+  build-transpiler-on-unix-like-latest-x86-64:
+    name: Unix-like
+    uses: ./.github/workflows/_transpiler_unix_like_build.yml
+    with:
+      build_platform: x64
+      build_platform_name: x86_64
+      build_mode: Debug
+      bundle_binaries: false
