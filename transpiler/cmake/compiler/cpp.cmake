@@ -10,10 +10,10 @@ check_c_compiler_flag("-fsanitize=undefined" CPP_COMPILER_SUPPORTS_FSANITIZE_UND
 set(CMAKE_REQUIRED_FLAGS "-fsanitize=thread")
 check_c_compiler_flag("-fsanitize=thread" CPP_COMPILER_SUPPORTS_FSANITIZE_THREAD)
 # Test for memory sanitizer support
-set(CMAKE_REQUIRED_FLAGS("-fsanitize=memory")
+set(CMAKE_REQUIRED_FLAGS "-fsanitize=memory")
 check_c_compiler_flag("-fsanitize=memory" CPP_COMPILER_SUPPORTS_FSANITIZE_MEMORY)
 # Test for leak sanitizer support
-set(CMAKE_REQUIRED_FLAGS("-fsanitize=leak")
+set(CMAKE_REQUIRED_FLAGS "-fsanitize=leak")
 check_c_compiler_flag("-fsanitize=leak" CPP_COMPILER_SUPPORTS_FSANITIZE_LEAK)
 # Test for address and undefined sanitizer support combined.
 set(CMAKE_REQUIRED_FLAGS "-fsanitize=address,undefined")
