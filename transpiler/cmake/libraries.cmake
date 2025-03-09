@@ -9,6 +9,9 @@ add_library(FrankieBaseLibrary SHARED
 )
 # Expose library exports
 target_compile_definitions(FrankieBaseLibrary PRIVATE FRANKIEBASELIBRARY_EXPORTS)
+# Link other libraries to the library
+add_dependencies(FrankieBaseLibrary FrankieCommonLibrary)
+target_link_libraries(FrankieBaseLibrary PUBLIC FrankieCommonLibrary)
 
 # Create a library from /comms
 add_library(FrankieCommsLibrary SHARED

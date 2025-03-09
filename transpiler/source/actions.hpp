@@ -11,6 +11,7 @@
 // Basic C++ headers
 #include <unordered_map>
 #include <functional>
+#include <array>
 
 // Shorten the syntax for defining an action
 #define DEFINE_ACTION(FLAG1, FLAG2, DESCRIPTION, FUNCTION){         \
@@ -37,7 +38,7 @@ namespace Base {
             // Note: might need to modify this!
             std::size_t operator()(const ActionInfo& info) const {
                 std::size_t hash = 0;
-                for (const auto& str : info) {
+                for (const std::string& str : info) {
                     hash ^= std::hash<std::string>{}(str);
                 }
                 return hash;
