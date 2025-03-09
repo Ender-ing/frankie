@@ -25,6 +25,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Setup NodeJS
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+
     - name: Install NodeJS dependencies
       run: npm i
       working-directory: ${{github.workspace}}/supplements/VSCode-Extension
@@ -46,7 +51,7 @@ jobs:
         }
 
     - name: Upload Binaries Artifact (optional)
-      if: inputs.upload_artifact
+      if: inputs.upload_artifact == true
       uses: actions/upload-artifact@v4
       with:
         name: PolarFrankie-VSCode-v${{env.EXT_VERSION_FILE_NAME}}
