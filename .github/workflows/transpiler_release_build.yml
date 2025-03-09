@@ -1,4 +1,4 @@
-name: Transpiler (Release build)
+name: Transpiler (Release)
 on:
   push:
     branches: [ "main" ]

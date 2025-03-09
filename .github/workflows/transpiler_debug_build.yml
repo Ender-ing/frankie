@@ -1,4 +1,4 @@
-name: Transpiler (Debug build)
+name: Transpiler (Debug)
 on:
   push:
     branches: [ "main" ]
