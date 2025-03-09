@@ -20,6 +20,18 @@ namespace Base {
         typedef std::function<bool(std::string&, bool)> ActionNextFunction;
         typedef std::array<std::string, 3> ActionInfo;
         typedef std::function<bool(const ActionNextFunction)> ActionFunction;
+
+        // Custom hash function for ActionInfo
+        struct ActionInfoHash_internal {
+            std::size_t operator()(const ActionInfo& info) const {
+                std::size_t hash = 0;
+                for (const auto& str : info) {
+                    hash ^= std::hash<std::string>{}(str);
+                }
+                return hash;
+            }
+        };
+
         // List of actions and their respective functions
         // [
         //  string[
@@ -32,7 +44,8 @@ namespace Base {
         // ]
         extern FRANKIE_BASE_LIB std::unordered_map<
             ActionInfo,
-            ActionFunction
+            ActionFunction,
+            ActionInfoHash_internal
             > map;
 
         // Get an action function using one flag

@@ -21,7 +21,8 @@ namespace Base {
         // ]
         std::unordered_map<
             ActionInfo,
-            ActionFunction
+            ActionFunction,
+            ActionInfoHash_internal
             > map = {
             /*{
                 {"-i", "--input"},
