@@ -4,7 +4,6 @@
 **/
 
 // Basic C++ headers
-#include <iostream>
 #include <fstream>
 #include <sstream>
 

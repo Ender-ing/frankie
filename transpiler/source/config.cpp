@@ -4,7 +4,7 @@
 **/
 
 #include "config.hpp"
-#include "strings.hpp"
+#include "common/strings.hpp"
 
 // WORK IN PROGRESS
 
@@ -34,11 +34,13 @@ namespace Base {
                 // Get the current argument
                 std::string arg (argv[i]);
                 // Convert the flag into lowercase format
-                Common::Strings::toLowerCase(&arg)
+                Common::Strings::toLowerCase(arg);
+
+                std::cout << "DOING SOMETHING!" << std::endl;
 
                 // Use this function to get the next argument
                 // Skips by default
-                Actions::ActionNextFunction getNextArg = [&i, &argc, &argv](std::string &store, bool skip = true) {
+                const Actions::ActionNextFunction getNextArg = [&i, &argc, &argv](std::string &store, bool skip = true) {
                     // Check for the next argument
                     if (i + 1 < argc) {
                         // Get the next argument (and skip it when necessary!)
