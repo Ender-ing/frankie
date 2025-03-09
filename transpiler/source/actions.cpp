@@ -49,10 +49,10 @@ namespace Base {
                     InitialConfigs::Debug::ParserBasicPrintTest::active = true;
 
                     // Get the next argument and save it!
-                    bool failed = getNextArg(InitialConfigs::Debug::ParserBasicPrintTest::path, true);
+                    bool success = getNextArg(InitialConfigs::Debug::ParserBasicPrintTest::path, true);
 
                     // Check if the action was successful!
-                    if (failed) {
+                    if (!success) {
                         // Missing input argument!
                         // PRINT AN ERROR!
                         return false;

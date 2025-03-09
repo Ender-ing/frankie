@@ -36,10 +36,8 @@ namespace Base {
                 // Convert the flag into lowercase format
                 Common::Strings::toLowerCase(arg);
 
-                std::cout << "DOING SOMETHING!" << std::endl;
-
                 // Use this function to get the next argument
-                // Skips by default
+                // [true - success, false = failure]
                 const Actions::ActionNextFunction getNextArg = [&i, &argc, &argv](std::string &store, bool skip) {
                     // Check for the next argument
                     if (i + 1 < argc) {
