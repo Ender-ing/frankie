@@ -65,7 +65,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: PolarFrankie-v${{env.VERSION}}-Windows-x86_64-${{inputs.build_mode}}
-        path: ${{github.workspace}}/transpiler/dist/bundle.tar
+        path: ${{github.workspace}}/transpiler-bundle.tar
 
   # Linux
   build-transpiler-on-ubuntu-latest-x86-64:
@@ -113,7 +113,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: PolarFrankie-v${{env.VERSION}}-Linux-x86_64-${{inputs.build_mode}}
-        path: ${{github.workspace}}/transpiler/dist/bundle.tar
+        path: ${{github.workspace}}/transpiler-bundle.tar
 
   # macOS
   build-transpiler-on-macos-latest-x86-64:
@@ -161,4 +161,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: PolarFrankie-v${{env.VERSION}}-macOS-x86_64-${{inputs.build_mode}}
-        path: ${{github.workspace}}/transpiler/dist/bundle.tar
+        path: ${{github.workspace}}/transpiler-bundle.tar
