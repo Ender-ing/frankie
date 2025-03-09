@@ -53,7 +53,7 @@ namespace Base {
 
                 // Check current flag
                 Actions::ActionFunction action;
-                if (action = Actions::getActionFunctionByFlag(arg, &action)) {
+                if (Actions::getActionFunctionByFlag(arg, action)) {
                     // Execute action, and check for failure
                     if (!action(getNextArg)) {
                         // Action-related error!
