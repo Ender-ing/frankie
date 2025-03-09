@@ -35,7 +35,7 @@ endif()
 function(frankie_file_test test_name file_path)
     if(EXISTS ${file_path})
         if(NATIVE_SYSTEM_SUPPORTS_BINARIES)
-            message(STATUS "[TESTS] Add a '${test_name}' ${CMAKE_SYSTEM_PROCESSOR} binary test...)")
+            message(STATUS "[TESTS] Add a '${test_name}' (native ${CMAKE_SYSTEM_PROCESSOR}, binary ${FRANKIE_BINARY_PLATFORM}) test...)")
             # Normal test
             add_test(NAME FrankieFileTest__${test_name}_execute COMMAND ${TEST_FRANKIE_DEBUG_COMMAND} ${file_path})
             # Valgrind memory leaks test
