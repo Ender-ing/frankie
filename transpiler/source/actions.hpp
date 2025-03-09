@@ -34,6 +34,7 @@ namespace Base {
 
         // Custom hash function for ActionInfo
         struct ActionInfoHash_internal {
+            // Note: might need to modify this!
             std::size_t operator()(const ActionInfo& info) const {
                 std::size_t hash = 0;
                 for (const auto& str : info) {
