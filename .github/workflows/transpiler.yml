@@ -11,7 +11,6 @@ on:
 
 jobs:
 
-  # Debug
 #  tmp:
 #    name: TMP
 #    uses: ./.github/workflows/build_vscode_extension.yml
@@ -29,8 +28,7 @@ jobs:
   # Release
   build-transpiler-release:
     name: Release
-#    needs: build-transpiler-debug
     uses: ./.github/workflows/_transpiler_dynamic_build.yml
     with:
       build_mode: Release
-      bundle_binaries: true
+      bundle_binaries: false
