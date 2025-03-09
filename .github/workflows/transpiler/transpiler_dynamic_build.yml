@@ -1,25 +1,15 @@
-name: Transpiler (Release)
 on:
-  push:
-    branches: 
-    - "main"
-  pull_request:
-    branches: 
-    - "main"
   workflow_call: # Added this line to make it reusable
-    # Add inputs here if needed. Example:
-    # inputs:
-    #   some_input:
-    #     required: false
-    #     type: string
-
-# -win32-arm64 -win32-ia32 -win32-x64 -darwin-arm64 -darwin-x64 -linux-arm64 -linux-armv7l -linux-x64 -mas-arm64 -mas-x64
+    inputs:
+      build_mode:
+        required: true
+        type: string
 
 jobs:
 
   # Windows
-  build-transpiler-release-on-windows-latest-x86-64:
-    name: Windows 64-bits
+  build-transpiler-on-windows-latest-x86-64:
+    name: Windows 64-bits (${{inputs.build_mode}})
     runs-on: windows-latest
 
     steps:
@@ -39,21 +29,21 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release -A x64
+      run: cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -A x64
       working-directory: transpiler/build
 
     - name: Build
-      run: cmake --build . --config Release
+      run: cmake --build . --config ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Run Tests
-      run: ctest -VV -C Release
+      run: ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Bundle Binaries (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
       run: |
-        tar -cvf ${{github.workspace}}/transpiler/dist/Release/x86_64/* -DestinationPath ${{github.workspace}}/transpiler/dist/bundle.tar
+        tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/*
 
     - name: Extract version (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
@@ -74,8 +64,8 @@ jobs:
         path: ${{github.workspace}}/transpiler/dist/bundle.tar
 
   # Linux
-  build-transpiler-release-on-ubuntu-latest-x86-64:
-    name: Linux 64-bits
+  build-transpiler-on-ubuntu-latest-x86-64:
+    name: Linux 64-bits (${{inputs.build_mode}})
     runs-on: ubuntu-latest
 
     steps:
@@ -91,21 +81,21 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNIX_GENERATOR_PLATFORM=x64
+      run: cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -DCMAKE_UNIX_GENERATOR_PLATFORM=x64
       working-directory: transpiler/build
 
     - name: Build
-      run: cmake --build . --config Release
+      run: cmake --build . --config ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Run Tests
-      run: ctest -VV -C Release
+      run: ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Bundle Binaries (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
       run: |
-        tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/Release/x86_64/*
+        tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/*
 
     - name: Extract version (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
@@ -121,7 +111,7 @@ jobs:
         path: ${{github.workspace}}/transpiler/dist/bundle.tar
 
   # macOS
-  build-transpiler-release-on-macos-latest-x86-64:
+  build-transpiler-on-macos-latest-x86-64:
     name: macOS 64-bits
     runs-on: macos-latest
 
@@ -138,21 +128,21 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNIX_GENERATOR_PLATFORM=x64
+      run: cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -DCMAKE_UNIX_GENERATOR_PLATFORM=x64
       working-directory: transpiler/build
 
     - name: Build
-      run: cmake --build . --config Release
+      run: cmake --build . --config ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Run Tests
-      run: ctest -VV -C Release
+      run: ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Bundle Binaries (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
       run: |
-        tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/Release/x86_64/*
+        tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/*
 
     - name: Extract version (only on workflow_call)
 #      if: github.event_name == 'workflow_call'
