@@ -9,7 +9,7 @@ jobs:
 
   # Windows
   build-transpiler-on-windows-latest-x86-64:
-    name: Windows 64-bits (${{inputs.build_mode}})
+    name: Windows 64-bits
     runs-on: windows-latest
 
     steps:
@@ -65,7 +65,7 @@ jobs:
 
   # Linux
   build-transpiler-on-ubuntu-latest-x86-64:
-    name: Linux 64-bits (${{inputs.build_mode}})
+    name: Linux 64-bits
     runs-on: ubuntu-latest
 
     steps:
