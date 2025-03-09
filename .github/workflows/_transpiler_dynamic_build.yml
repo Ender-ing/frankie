@@ -27,6 +27,22 @@ jobs:
       build_platform_name: x86_32
       build_mode: ${{inputs.build_mode}}
       bundle_binaries: ${{inputs.bundle_binaries}}
+  build-transpiler-on-windows-latest-arm64:
+    name: Windows ARM64
+    uses: ./.github/workflows/_transpiler_windows_build.yml
+    with:
+      build_platform: ARM64
+      build_platform_name: arm64
+      build_mode: ${{inputs.build_mode}}
+      bundle_binaries: ${{inputs.bundle_binaries}}
+  build-transpiler-on-windows-latest-arm32:
+    name: Windows ARM
+    uses: ./.github/workflows/_transpiler_windows_build.yml
+    with:
+      build_platform: ARM
+      build_platform_name: arm32
+      build_mode: ${{inputs.build_mode}}
+      bundle_binaries: ${{inputs.bundle_binaries}}
 
   # Unix-like (Windows, macOS)
   build-transpiler-on-unix-like-latest-x86-64:
