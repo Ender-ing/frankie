@@ -1,4 +1,4 @@
-name: Transpiler
+name: Transpiler (Debug)
 on:
   push:
     branches: [ "main" ]
@@ -8,7 +8,7 @@ on:
 jobs:
 
   # Windows
-  build-transpiler-on-windows-latest:
+  build-transpiler-debug-on-windows-latest:
     runs-on: windows-latest
 
     steps:
@@ -28,19 +28,19 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release
+      run: cmake .. -DCMAKE_BUILD_TYPE=Debug
       working-directory: transpiler/build
 
     - name: Build
-      run: cmake --build . --config Release
+      run: cmake --build . --config Debug
       working-directory: transpiler/build
 
     - name: Run Tests
-      run: ctest -VV -C Release
+      run: ctest -VV -C Debug
       working-directory: transpiler/build
 
   # Linux
-  build-transpiler-on-ubuntu-latest:
+  build-transpiler-debug-on-ubuntu-latest:
     runs-on: ubuntu-latest
 
     steps:
@@ -56,19 +56,19 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release
+      run: cmake .. -DCMAKE_BUILD_TYPE=Debug
       working-directory: transpiler/build
 
     - name: Build
-      run: cmake --build . --config Release
+      run: cmake --build . --config Debug
       working-directory: transpiler/build
 
     - name: Run Tests
-      run: ctest -VV -C Release
+      run: ctest -VV -C Debug
       working-directory: transpiler/build
 
   # macOS
-  build-transpiler-on-macos-latest:
+  build-transpiler-debug-on-macos-latest:
     runs-on: macos-latest
 
     steps:
@@ -84,13 +84,13 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release
+      run: cmake .. -DCMAKE_BUILD_TYPE=Debug
       working-directory: transpiler/build
 
     - name: Build
-      run: cmake --build . --config Release
+      run: cmake --build . --config Debug
       working-directory: transpiler/build
 
     - name: Run Tests
-      run: ctest -VV -C Release
+      run: ctest -VV -C Debug
       working-directory: transpiler/build

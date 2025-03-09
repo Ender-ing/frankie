@@ -19,3 +19,6 @@ foreach(LIB ${PROJECT_LIBRARIES})
     # Add the library
     target_link_libraries(FrankieTranspiler PUBLIC ${LIB})
 endforeach()
+
+# Add debug flags
+include(${FRANKIE_CMAKE_DIR}/debug-mode.cmake)
