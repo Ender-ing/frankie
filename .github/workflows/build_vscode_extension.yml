@@ -45,7 +45,7 @@ jobs:
         if ($FilePath) {
           $FileName = Split-Path -Path $FilePath -Leaf
           $VersionWithExt = $FileName.Replace("polarfrankie-", "")
-          echo "EXT_VERSION_FILE_NAME=$$VersionWithExt" >> $env:GITHUB_ENV
+          echo "EXT_VERSION_FILE_NAME=$VersionWithExt" >> $env:GITHUB_ENV
         } else {
           Write-Error "No .vsix files found in ${{github.workspace}}/supplements/VSCode-Extension/"
         }
