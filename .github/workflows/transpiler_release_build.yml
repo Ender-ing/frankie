@@ -39,7 +39,7 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=Release
+      run: cmake .. -DCMAKE_BUILD_TYPE=Release -A x64
       working-directory: transpiler/build
 
     - name: Build
@@ -65,7 +65,7 @@ jobs:
 #      if: github.event_name == 'workflow_call'
       uses: actions/upload-artifact@v4
       with:
-        name: PolarFrankie-v${{env.VERSION}}-arch-x86_64.zip
+        name: PolarFrankie-v${{env.VERSION}}-Windows-x86_64.zip
         path: ${{github.workspace}}/transpiler/dist/bundle.zip
 
   # Linux
