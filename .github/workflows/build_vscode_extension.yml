@@ -41,21 +41,24 @@ jobs:
     - name: Get VSCode Extension version
       id: get-file
       run: |
-        $FilePath = Get-ChildItem -Path "${{github.workspace}}/supplements/VSCode-Extension/" -Filter "*.vsix" | Select-Object -First 1 | Select-Object -ExpandProperty FullName
+        $FilePath = Get-ChildItem -Path "./" -Filter "*.vsix" | Select-Object -First 1 | Select-Object -ExpandProperty FullName
         if ($FilePath) {
           $FileName = Split-Path -Path $FilePath -Leaf
           $VersionWithExt = $FileName.Replace("polarfrankie-", "")
-          echo "EXT_VERSION_FILE_NAME=$VersionWithExt" >> $env:GITHUB_ENV
+          $NewFileName = "PolarFrankie-VSCode-v$VersionWithExt";
+          mv $FileName $NewFileName # Rename the file
+          echo "VSCODE_EXT_FILE_NAME=$NewFileName" >> $env:GITHUB_ENV
         } else {
           Write-Error "No .vsix files found in ${{github.workspace}}/supplements/VSCode-Extension/"
         }
+      working-directory: ${{github.workspace}}/supplements/VSCode-Extension
 
     - name: Upload Binaries Artifact (optional)
       if: inputs.upload_artifact
       uses: actions/upload-artifact@v4
       with:
-        name: PolarFrankie-VSCode-v${{env.EXT_VERSION_FILE_NAME}}
-        path: ${{github.workspace}}/supplements/VSCode-Extension/polarfrankie-*.vsix
+        name: ${{env.VSCODE_EXT_FILE_NAME}}
+        path: ${{github.workspace}}/supplements/VSCode-Extension/${{env.VSCODE_EXT_FILE_NAME}}
 
 #  # Linux
 #  build-vscode-extension-on-ubuntu-latest:
