@@ -4,12 +4,10 @@ set(TEST_VALGRIND_COMMAND valgrind --leak-check=full --show-leak-kinds=all --tra
 set(TEST_FRANKIE_DEBUG_COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FrankieTranspiler --debug-parser-antlr-print-test -i)
 
 # Check if the native system supports the generated binaries
-set(X64_PROCESSORS "x86_64 x64")
+set(X64_PROCESSORS "x86_64 x64 AMD64")
 set(X32_PROCESSORS "x86_32 x86 i386 x32")
 set(ARM64_PROCESSORS "arm64 aarch64 armv8")
 set(ARM32_PROCESSORS "arm32 arm armv7")
-# arm32: "armv7l"
-set(NATIVE_SYSTEM_SUPPORTS_BINARIES FALSE)
 if(${FRANKIE_BINARY_PLATFORM} STREQUAL "arm64")
     # Supports x86_64, x86_32, arm32, and arm64
     set(NATIVE_SYSTEM_SUPPORTS_BINARIES TRUE)
@@ -36,7 +34,7 @@ endif()
 function(frankie_file_test test_name file_path)
     message(STATUS "[TESTS] Add a '${test_name}' test... (native ${CMAKE_SYSTEM_PROCESSOR}, binary ${FRANKIE_BINARY_PLATFORM})")
     if(EXISTS ${file_path})
-        if(NATIVE_SYSTEM_SUPPORTS_BINARIES)
+        if(DEFINED NATIVE_SYSTEM_SUPPORTS_BINARIES)
             # Normal test
             add_test(NAME FrankieFileTest__${test_name}_execute COMMAND ${TEST_FRANKIE_DEBUG_COMMAND} ${file_path})
             # Valgrind memory leaks test
