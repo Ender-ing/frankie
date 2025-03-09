@@ -1,25 +1,14 @@
 message(STATUS "[DEPENDENCIES] Checking dependencies...")
 
+# VERSION CONTROL
+# Manage the versions for used dependencies
+# {fmt} library
+set(FMT_LIB_VERSION 11.1.3)
+# ANTLR4
+set(ANTLR4_TAG 4.13.2)
+
 # CMake
 include(FetchContent)
-
-# Check for C++17
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-include(CheckCXXCompilerFlag)
-CHECK_CXX_COMPILER_FLAG("-std=c++17" CXX_17_FLAG)
-CHECK_CXX_COMPILER_FLAG("-std:c++17" CXX_17_FLAG_MSVC)
-if(NOT (CXX_17_FLAG OR CXX_17_FLAG_MSVC))
-    message(FATAL_ERROR "[DEPENDENCIES] C++17 is not supported by the compiler. Please use a compiler that supports C++17.")
-endif()
-
-# Check for VS
-# (MSVC)
-#find_package(Visual Studio)
-#if(MSVC)
-#    message(SEND_WARNING "[DEPENDENCIES] What version of Visual Studio version do you use? (Professional/Community - default is Community):")
-#    set(BUILD_VS_EDITION "Community" CACHE STRING "Professional" FORCE)
-#endif()
 
 # Check for Java
 find_package(Java REQUIRED)
