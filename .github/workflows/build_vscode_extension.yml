@@ -38,3 +38,19 @@ jobs:
     - name: Package the VSCode Extension
       run: npm run lix-package
       working-directory: supplements/VSCode-Extension
+
+  # macOS
+  build-vscode-extension-on-macos-latest:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install NodeJS dependencies
+      run: npm i
+      working-directory: supplements/VSCode-Extension
+
+    - name: Package the VSCode Extension
+      run: npm run lix-package
+      working-directory: supplements/VSCode-Extension
