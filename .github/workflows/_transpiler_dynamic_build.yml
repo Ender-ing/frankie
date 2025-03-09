@@ -4,6 +4,9 @@ on:
       build_mode:
         required: true
         type: string
+      bundle_binaries:
+        required: true
+        type: boolean
 
 jobs:
 
@@ -40,13 +43,13 @@ jobs:
       run: ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
-    - name: Bundle Binaries (only on workflow_call)
-#      if: github.event_name == 'workflow_call'
+    - name: Bundle Binaries (optional)
+      if: inputs.bundle_binaries
       run: |
         tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/*
 
-    - name: Extract version (only on workflow_call)
-#      if: github.event_name == 'workflow_call'
+    - name: Bundle Binaries (optional)
+      if: inputs.bundle_binaries
       run: |
         $version = Get-Content "${{github.workspace}}/transpiler/manifest.ini" | Where-Object { $_ -match 'VERSION=' } | ForEach-Object { ($_ -split '=')[1].Trim('"') }
         if ($version) {
@@ -56,8 +59,8 @@ jobs:
           exit 1
         }
 
-    - name: Upload Binaries Artifact (only on workflow_call)
-#      if: github.event_name == 'workflow_call'
+    - name: Bundle Binaries (optional)
+      if: inputs.bundle_binaries
       uses: actions/upload-artifact@v4
       with:
         name: PolarFrankie-v${{env.VERSION}}-Windows-x86_64-${{inputs.build_mode}}
@@ -92,19 +95,19 @@ jobs:
       run: ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
-    - name: Bundle Binaries (only on workflow_call)
-#      if: github.event_name == 'workflow_call'
+    - name: Bundle Binaries (optional)
+      if: inputs.bundle_binaries
       run: |
         tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/*
 
-    - name: Extract version (only on workflow_call)
-#      if: github.event_name == 'workflow_call'
+    - name: Bundle Binaries (optional)
+      if: inputs.bundle_binaries
       run: |
         VERSION=$(grep "^version" ${{github.workspace}}/transpiler/manifest.ini | sed 's/version *= *//')
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-    - name: Upload Binaries Artifact (only on workflow_call)
-#      if: github.event_name == 'workflow_call'
+    - name: Bundle Binaries (optional)
+      if: inputs.bundle_binaries
       uses: actions/upload-artifact@v4
       with:
         name: PolarFrankie-v${{env.VERSION}}-Linux-x86_64-${{inputs.build_mode}}
@@ -139,19 +142,19 @@ jobs:
       run: ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
-    - name: Bundle Binaries (only on workflow_call)
-#      if: github.event_name == 'workflow_call'
+    - name: Bundle Binaries (optional)
+      if: inputs.bundle_binaries
       run: |
         tar -cvf ${{github.workspace}}/transpiler/dist/bundle.tar ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/x86_64/*
 
-    - name: Extract version (only on workflow_call)
-#      if: github.event_name == 'workflow_call'
+    - name: Bundle Binaries (optional)
+      if: inputs.bundle_binaries
       run: |
         VERSION=$(grep "^version" ${{github.workspace}}/transpiler/manifest.ini | sed 's/version *= *//')
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-    - name: Upload Binaries Artifact (only on workflow_call)
-#      if: github.event_name == 'workflow_call'
+    - name: Bundle Binaries (optional)
+      if: inputs.bundle_binaries
       uses: actions/upload-artifact@v4
       with:
         name: PolarFrankie-v${{env.VERSION}}-macOS-x86_64-${{inputs.build_mode}}
