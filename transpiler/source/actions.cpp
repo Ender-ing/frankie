@@ -11,14 +11,17 @@ namespace Base {
     namespace Actions {
         // List of actions and their respective functions
         // [
-        //  string[] (flag name(s)) // Members must be in lower case and only contain english letters and dashes (-)
+        //  string[
+        //      // flag name members must be in lower case and only contain english letters and dashes (-)
+        //      string (short flag name)
+        //      string (long flag name)
+        //      string (flag/action description)
+        //  ]
         //  function (true - normal -> continue, false - error -> terminate) // Must always return a boolean value
-        //  string (flag/action description)
         // ]
         std::unordered_map<
-            ActionArgs,
-            ActionFunction,
-            std::string
+            ActionInfo,
+            ActionFunction
             > map = {
             /*{
                 {"-i", "--input"},
@@ -36,7 +39,10 @@ namespace Base {
                 "Forcefully feed all output (status, warnings, or errors) into the normal standard output stream!"
             },*/
             {
-                {"-dbg-antlr-print", "--debug-parser-antlr-print-test"},
+                {
+                    "-dbg-antlr-print", "--debug-parser-antlr-print-test",
+                    "Print the parser's tokens list and initial parser output."
+                },
                 [](const ActionNextFunction getNextArg) {
                     // Enable the test
                     InitialConfigs::Debug::ParserBasicPrintTest::active = true;
@@ -52,23 +58,16 @@ namespace Base {
                     }
 
                     return true;
-                },
-                "Print the parser's tokens list and initial parser output."
+                }
             }
         };
 
         // Get an action function using one flag
         // [true - success, false - failure]
         bool getActionFunctionByFlag(const std::string& flag, ActionFunction &store) {
-            std::cout << "DOING SOMETHING!" << std::endl;
-            std::cout << "DOING SOMETHING!" << std::endl;
-            std::cout << "DOING SOMETHING!" << std::endl;
             for (const auto& pair : map) {
                 if (pair.first[0] == flag || pair.first[1] == flag) {
                     store = pair.second;
-                    std::cout << "FOUND A FUNCTION!" << std::endl;
-                    std::cout << "FOUND A FUNCTION!" << std::endl;
-                    std::cout << "FOUND A FUNCTION!" << std::endl;
                     return true;
                 }
             }
