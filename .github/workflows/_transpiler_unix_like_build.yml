@@ -2,13 +2,11 @@ on:
   workflow_call: # Added this line to make it reusable
     inputs:
       linux_system:
-        required: false
+        required: true
         type: string
-        default: ubuntu-latest
       mac_system:
-        required: false
+        required: true
         type: string
-        default: macos-latest
       build_platform:
         required: true
         type: string
@@ -27,7 +25,7 @@ jobs:
   # Linux
   build-transpiler-on-ubuntu-latest:
     name: Linux ${{inputs.build_platform_name}}
-    runs-on: ${{inputs.linux_system || ubuntu-latest}}
+    runs-on: ${{inputs.linux_system}}
 
     steps:
     - name: Checkout code
@@ -69,7 +67,7 @@ jobs:
   # macOS
   build-transpiler-on-macos-latest:
     name: macOS ${{inputs.build_platform_name}}
-    runs-on: ${{inputs.mac_system || macos-latest}}
+    runs-on: ${{inputs.mac_system}}
 
     steps:
     - name: Checkout code
