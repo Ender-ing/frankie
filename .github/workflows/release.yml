@@ -8,26 +8,28 @@ jobs:
 
   # VSCode
   build-vscode-extension:
-    name: 
+    name: Build VSCode package
     uses: ./.github/workflows/build_vscode_extension.yml
     with:
       upload_artifact: true
 
   # Transpiler binaries
   build-transpiler-debug:
-    name: Debug
+    name: Generate 'Debug' binaries
     uses: ./.github/workflows/_transpiler_dynamic_build.yml
     with:
       build_mode: Debug
       bundle_binaries: true
   build-transpiler-release:
-    name: Release
+    name: Generate 'Release' binaries
+    needs: build-transpiler-debug
     uses: ./.github/workflows/_transpiler_dynamic_build.yml
     with:
       build_mode: Release
       bundle_binaries: true
 
   create-github-release:
+    name: Create GitHub Release
     runs-on: ubuntu-latest
     needs:
     - build-vscode-extension
