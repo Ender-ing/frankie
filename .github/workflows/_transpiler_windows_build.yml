@@ -19,7 +19,7 @@ jobs:
   # Windows
   build-transpiler-on-windows-latest:
     name: Windows ${{inputs.build_platform_name}}
-    runs-on: windows-arm64-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
