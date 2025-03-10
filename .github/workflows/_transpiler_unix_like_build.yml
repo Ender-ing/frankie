@@ -2,11 +2,13 @@ on:
   workflow_call: # Added this line to make it reusable
     inputs:
       linux_system:
-        required: true
+        required: false
         type: string
+        default: ubuntu-latest
       mac_system:
-        required: true
+        required: false
         type: string
+        default: macos-latest
       build_platform:
         required: true
         type: string
