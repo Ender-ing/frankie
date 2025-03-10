@@ -78,7 +78,7 @@ jobs:
     - name: Install dependencies
       run: |
         brew update
-        brew install cmake
+        brew install --formula cmake
 
     - name: Make the "transpiler/build" directory
       run: mkdir ${{github.workspace}}/transpiler/build
