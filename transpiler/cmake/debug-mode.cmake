@@ -1,5 +1,3 @@
-include(${FRANKIE_CMAKE_DIR}/compiler/cpp.cmake)
-
 # Add debug-specific configurations to all targets
 if(${FRANKIE_BINARY_MODE} STREQUAL "Debug")
     message(STATUS "[BUILD] Adding debug compilation flags...")
@@ -7,7 +5,7 @@ if(${FRANKIE_BINARY_MODE} STREQUAL "Debug")
     if(WIN32)
         add_global_compile_definition("FRANKIE_WINDOWS_CRTDEBUG")
     # (Unix-like) Clang AddressSanitizer
-    elseif(CPP_COMPILER_SUPPORTS_FSANITIZE_ADDRESS)
+    elseif(CMAKE_CXX_SUPPORTS_FSANITIZE_ADDRESS)
         add_c_cpp_global_flag("-fsanitize=address")
     else()
         message(FATAL_ERROR "[BUILD] Current setup does not allow for debug binaries generation.")
