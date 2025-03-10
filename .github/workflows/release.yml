@@ -54,18 +54,36 @@ jobs:
 
       - name: List Artifacts
         run: |
-          gh api repos/${{github.repository}}/actions/runs/${{github.run_id}}/artifacts --jq '.artifacts[] | .name' | tr -d '"' > artifacts.txt
+          gh api repos/${{github.repository}}/actions/runs/${{github.run_id}}/artifacts --jq '.artifacts[] | .name' | tr -d '"' | tee artifacts.txt
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Attach Artifacts
         run: |
           while IFS= read -r artifact_name; do
+            # Download (archive contents)
             echo "Downloading and uploading artifact: $artifact_name"
-            mkdir -p artifacts
-            gh run download ${{github.run_id}} -n "$artifact_name" -D artifacts
-            zip -r "$artifact_name.zip" artifacts/"$artifact_name"
-            rm -rf artifacts/"$artifact_name"
-            gh release upload ${{github.ref_name}} "$artifact_name.zip" --repo ${{github.repository}}
-            rm "$artifact_name.zip"
+            $dir="c__$artifact_name"
+            gh run download ${{github.run_id}} -n "$artifact_name" -D "$dir" --repo ${{github.repository}}
+
+            # Check archive type
+            if [ $(expr index "$artifact_name" ".vsix") -gt 0 ]; then
+              # Upload a plain package file
+              gh release upload ${{github.ref_name}} "$dir/$artifact_name" --repo ${{github.repository}}
+            else
+              # .zip
+              $zip="$artifact_name.zip"
+              zip "$zip" "$dir/*"
+              gh release upload ${{github.ref_name}} "$zip" --repo ${{github.repository}}
+              # .tar
+              $tar="$artifact_name.tar"
+              tar -czvf "$tar" "$dir/*"
+              gh release upload ${{github.ref_name}} "$tar" --repo ${{github.repository}}
+              # .tar.gz
+              $targz="$artifact_name.tar.gz"
+              tar -czvf "$targz" "$dir/*"
+              gh release upload ${{github.ref_name}} "$targz" --repo ${{github.repository}}
+            fi
           done < artifacts.txt
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
