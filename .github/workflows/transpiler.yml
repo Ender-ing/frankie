@@ -11,12 +11,6 @@ on:
 
 jobs:
 
-#  tmp:
-#    name: TMP
-#    uses: ./.github/workflows/build_vscode_extension.yml
-#    with:
-#      upload_artifact: true
-
   # Debug
   build-transpiler-debug:
     name: Debug
