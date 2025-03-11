@@ -57,6 +57,7 @@ jobs:
           #!/bin/bash
           set -e
           gh api repos/${{github.repository}}/actions/runs/${{github.run_id}}/artifacts --jq '.artifacts[] | .name' | tr -d '"' | tee artifacts.txt
+        working-directory: ${{github.workspace}}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -90,7 +91,10 @@ jobs:
               tar -czvf $artifact_targz $artifact_dir/*
               echo "Uploading $artifact_targz..."
               gh release upload ${{github.ref_name}} "$artifact_targz" --repo ${{github.repository}}
+              echo "Viewing directory files..."
+              ls -l
             fi
           done < artifacts.txt
+        working-directory: ${{github.workspace}}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
