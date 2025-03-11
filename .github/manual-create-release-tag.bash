@@ -15,4 +15,4 @@ git tag -a "v0.0.0-prerelease-00" -m "Prerelease-00 v0.0.0"
 git tag -a "v0.0.0-release" -m " Release v0.0.0"
 
 
-git push --tags
+git push origin "v0.0.0-?"
