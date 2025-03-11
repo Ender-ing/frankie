@@ -1,0 +1,89 @@
+name: Release
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+
+  # VSCode
+  build-vscode-extension:
+    name: Build VSCode package
+    uses: ./.github/workflows/build_vscode_extension.yml
+    with:
+      upload_artifact: true
+
+  # Transpiler binaries
+  build-transpiler-debug:
+    name: Generate 'Debug' binaries
+    uses: ./.github/workflows/_transpiler_dynamic_build.yml
+    with:
+      build_mode: Debug
+      bundle_binaries: true
+  build-transpiler-release:
+    name: Generate 'Release' binaries
+    needs: build-transpiler-debug
+    uses: ./.github/workflows/_transpiler_dynamic_build.yml
+    with:
+      build_mode: Release
+      bundle_binaries: true
+
+  create-github-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs:
+    - build-vscode-extension
+    - build-transpiler-debug
+    - build-transpiler-release
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          tag_name: ${{github.ref_name}}
+          release_name: PolarFrankie ${{github.ref_name}}
+          draft: true
+          prerelease: true # For now, all releases are pre-releases
+          body: |
+            Automatically generated release from tag ${{github.ref_name}}
+
+      - name: List Artifacts
+        run: |
+          gh api repos/${{github.repository}}/actions/runs/${{github.run_id}}/artifacts --jq '.artifacts[] | .name' | tr -d '"' | tee artifacts.txt
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Attach Artifacts
+        run: |
+          while IFS= read -r artifact_name; do
+            # Download (archive contents)
+            echo "Downloading and uploading artifact: $artifact_name"
+            artifact_dir="c__$artifact_name"
+            gh run download ${{github.run_id}} -n "$artifact_name" -D "$artifact_dir" --repo ${{github.repository}}
+
+            # Check archive type
+            if [[ "$artifact_name" == *.vsix ]]; then
+              # Upload a plain package file
+              gh release upload ${{github.ref_name}} "$artifact_dir/$artifact_name" --repo ${{github.repository}}
+            else
+              # .zip
+              artifact_zip="$artifact_name.zip"
+              zip $artifact_zip $artifact_dir/*
+              gh release upload ${{github.ref_name}} "$artifact_zip" --repo ${{github.repository}}
+              # .tar
+              artifact_tar="$artifact_name.tar"
+              tar -czvf $artifact_tar $artifact_dir/*
+              gh release upload ${{github.ref_name}} "$artifact_tar" --repo ${{github.repository}}
+              # .tar.gz
+              artifact_targz="$artifact_name.tar.gz"
+              tar -czvf $artifact_targz $artifact_dir/*
+              gh release upload ${{github.ref_name}} "$artifact_targz" --repo ${{github.repository}}
+            fi
+          done < artifacts.txt
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
