@@ -67,21 +67,21 @@ jobs:
             gh run download ${{github.run_id}} -n "$artifact_name" -D "$artifact_dir" --repo ${{github.repository}}
 
             # Check archive type
-            if [ $(expr index "$artifact_name" ".vsix") -gt 0 ]; then
+            if [[ "$artifact_name" == *.vsix ]]; then
               # Upload a plain package file
               gh release upload ${{github.ref_name}} "$artifact_dir/$artifact_name" --repo ${{github.repository}}
             else
               # .zip
               artifact_zip="$artifact_name.zip"
-              zip "$artifact_zip" "$artifact_dir/*"
+              zip $artifact_zip $artifact_dir/*
               gh release upload ${{github.ref_name}} "$artifact_zip" --repo ${{github.repository}}
               # .tar
               artifact_tar="$artifact_name.tar"
-              tar -czvf "$artifact_tar" "$artifact_dir/*"
+              tar -czvf $artifact_tar $artifact_dir/*
               gh release upload ${{github.ref_name}} "$artifact_tar" --repo ${{github.repository}}
               # .tar.gz
               artifact_targz="$artifact_name.tar.gz"
-              tar -czvf "$artifact_targz" "$artifact_dir/*"
+              tar -czvf $artifact_targz $artifact_dir/*
               gh release upload ${{github.ref_name}} "$artifact_targz" --repo ${{github.repository}}
             fi
           done < artifacts.txt
