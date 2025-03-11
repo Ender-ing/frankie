@@ -9,7 +9,7 @@ jobs:
   # VSCode
   build-vscode-extension:
     name: Build VSCode package
-    uses: ./.github/workflows/build_vscode_extension.yml
+    uses: ./.github/workflows/vscode_extension.yml
     with:
       upload_artifact: true
 
