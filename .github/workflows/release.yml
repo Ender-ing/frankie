@@ -68,28 +68,28 @@ jobs:
             # Download (archive contents)
             echo "Downloading and uploading artifact: $artifact_name"
             artifact_dir="c__$artifact_name"
-            gh run download ${{github.run_id}} -n "$artifact_name" -D "$artifact_dir" --repo ${{github.repository}}
+            gh --verbose run download ${{github.run_id}} -n "$artifact_name" -D "$artifact_dir" --repo ${{github.repository}}
 
             # Check archive type
             if [[ "$artifact_name" == *.vsix ]]; then
               # Upload a plain package file
-              gh release upload ${{github.ref_name}} "$artifact_dir/$artifact_name" --repo ${{github.repository}}
+              gh --verbose release upload ${{github.ref_name}} "$artifact_dir/$artifact_name" --repo ${{github.repository}}
             else
               # .zip
               artifact_zip="$artifact_name.zip"
               zip $artifact_zip $artifact_dir/*
               echo "Uploading $artifact_zip..."
-              gh release upload ${{github.ref_name}} "$artifact_zip" --repo ${{github.repository}}
+              gh --verbose release upload ${{github.ref_name}} "$artifact_zip" --repo ${{github.repository}}
               # .tar
               artifact_tar="$artifact_name.tar"
               tar -czvf $artifact_tar $artifact_dir/*
               echo "Uploading $artifact_tar..."
-              gh release upload ${{github.ref_name}} "$artifact_tar" --repo ${{github.repository}}
+              gh --verbose release upload ${{github.ref_name}} "$artifact_tar" --repo ${{github.repository}}
               # .tar.gz
               artifact_targz="$artifact_name.tar.gz"
               tar -czvf $artifact_targz $artifact_dir/*
               echo "Uploading $artifact_targz..."
-              gh release upload ${{github.ref_name}} "$artifact_targz" --repo ${{github.repository}}
+              gh --verbose release upload ${{github.ref_name}} "$artifact_targz" --repo ${{github.repository}}
             fi
           done < artifacts.txt
         env:
