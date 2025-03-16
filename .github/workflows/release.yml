@@ -55,7 +55,7 @@ jobs:
       - name: List Artifacts
         run: |
           #!/bin/bash
-          set -e
+          set -ex
           gh api repos/${{github.repository}}/actions/runs/${{github.run_id}}/artifacts --jq '.artifacts[] | .name' | tr -d '"' | tee artifacts.txt
         working-directory: ${{github.workspace}}
         env:
@@ -64,35 +64,56 @@ jobs:
       - name: Attach Artifacts
         run: |
           #!/bin/bash
-          set -e
+          set -ex
           while IFS= read -r artifact_name; do
             # Download (archive contents)
-            echo "Downloading and uploading artifact: $artifact_name"
+            echo "Downloading artifact: $artifact_name"
             artifact_dir="c__$artifact_name"
             gh run download ${{github.run_id}} -n "$artifact_name" -D "$artifact_dir" --repo ${{github.repository}}
 
             # Check archive type
             if [[ "$artifact_name" == *.vsix ]]; then
               # Upload a plain package file
-              gh release upload ${{github.ref_name}} "$artifact_dir/$artifact_name" --repo ${{github.repository}}
+              echo "Uploading asset: $artifact_dir/$artifact_name"
+              gh release upload ${{github.ref_name}} "$artifact_dir/$artifact_name" --repo ${{github.repository}} --clobber
+              # Save asset info
+              # (name, path, type)
+              echo $artifact_name >> assets.txt
+              echo $artifact_dir/$artifact_name >> assets.txt
+              echo application/vsix >> assets.txt
             else
               # .zip
               artifact_zip="$artifact_name.zip"
               zip $artifact_zip $artifact_dir/*
-              echo "Uploading $artifact_zip..."
-              gh release upload ${{github.ref_name}} "$artifact_zip" --repo ${{github.repository}}
-              # .tar
-              artifact_tar="$artifact_name.tar"
-              tar -czvf $artifact_tar $artifact_dir/*
-              echo "Uploading $artifact_tar..."
-              gh release upload ${{github.ref_name}} "$artifact_tar" --repo ${{github.repository}}
+              echo "Uploading asset: $artifact_zip"
+              gh release upload ${{github.ref_name}} "$artifact_zip" --repo ${{github.repository}} --clobber
+              ## Save asset info
+              ## (name, path, type)
+              #echo $artifact_zip >> assets.txt
+              #echo $artifact_zip >> assets.txt
+              #echo application/zip >> assets.txt
+
+              ## .tar
+              #artifact_tar="$artifact_name.tar"
+              #tar -czvf $artifact_tar $artifact_dir/*
+              #echo "Uploading asset: $artifact_tar"
+              #gh release upload ${{github.ref_name}} "$artifact_tar" --repo ${{github.repository}} --clobber
+              ## Save asset info
+              ## (name > path)
+              #echo $artifact_tar >> assets.txt
+              #echo $artifact_tar >> assets.txt
+              #echo application/x-tar >> assets.txt
+
               # .tar.gz
               artifact_targz="$artifact_name.tar.gz"
               tar -czvf $artifact_targz $artifact_dir/*
-              echo "Uploading $artifact_targz..."
-              gh release upload ${{github.ref_name}} "$artifact_targz" --repo ${{github.repository}}
-              echo "Viewing directory files..."
-              ls -l
+              echo "Uploading asset: $artifact_targz"
+              gh release upload ${{github.ref_name}} "$artifact_targz" --repo ${{github.repository}} --clobber
+              ## Save asset info
+              ## (name, path, type)
+              #echo $artifact_targz >> assets.txt
+              #echo $artifact_targz >> assets.txt
+              #echo application/x-tar-gz >> assets.txt
             fi
           done < artifacts.txt
         working-directory: ${{github.workspace}}
