@@ -86,7 +86,7 @@ jobs:
             else
               # .zip
               artifact_zip="$artifact_name.zip"
-              zip $artifact_zip $artifact_dir/*
+              zip -r $artifact_zip $artifact_dir/
               echo "Uploading asset: $artifact_zip"
               gh release upload ${{github.ref_name}} "$artifact_zip" --repo ${{github.repository}} --clobber
               ## Save asset info
@@ -97,7 +97,7 @@ jobs:
 
               ## .tar
               #artifact_tar="$artifact_name.tar"
-              #tar -czvf $artifact_tar $artifact_dir/*
+              #tar -cvf $artifact_tar $artifact_dir/*
               #echo "Uploading asset: $artifact_tar"
               #gh release upload ${{github.ref_name}} "$artifact_tar" --repo ${{github.repository}} --clobber
               ## Save asset info
