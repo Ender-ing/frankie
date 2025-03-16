@@ -15,4 +15,8 @@ git tag -a "v0.0.0-prerelease-00" -m "Prerelease-00 v0.0.0"
 git tag -a "v0.0.0-release" -m " Release v0.0.0"
 
 
+# Push the tag into the main repository to create a release draft!
 git push origin "v0.0.0-?"
+
+# Use this command to remove a local tag that was created before the latest commit!
+git tag -d "v0.0.0-?"
