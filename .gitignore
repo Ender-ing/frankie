@@ -42,3 +42,6 @@ supplements/VSCode-Extension/LICENSE
 transpiler/dist
 transpiler/build
 transpiler/dependencies
+
+# Other
+.parent
