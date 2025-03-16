@@ -1,6 +1,6 @@
 # Alpha
 # (Used to release very early and untested binaries)
-git tag -a "v0.0.0-alpha-00" -m "Alpha-00 v0.0.0"
+git tag -a "v0.0.0-alpha-000" -m "Alpha-000 v0.0.0"
 
 # Beta
 # (Used to release experimental binaries)
