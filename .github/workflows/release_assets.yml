@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       release_id:
-        description: 'Release ID'
+        description: 'Release ID (check https://api.github.com/repos/Ender-ing/frankie/releases)'
         required: true
         type: number
       tag_name:
