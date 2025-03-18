@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       release_id:
-        description: 'Release ID to append assets to'
+        description: 'Release ID'
         required: true
         type: number
       tag_name:
-        description: 'Path to the asset to upload'
+        description: 'Release tag'
         required: true
         type: string
 
