@@ -6,10 +6,6 @@ on:
         description: 'Release ID (check https://api.github.com/repos/Ender-ing/frankie/releases)'
         required: true
         type: number
-      tag_name:
-        description: 'Release tag'
-        required: true
-        type: string
 
 jobs:
 
