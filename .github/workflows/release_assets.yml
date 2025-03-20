@@ -1,10 +1,16 @@
 name: Release Assets
 on:
+  # Normal web release
+  push:
+    tags:
+      - 'v*'
+  # Command draft release (not ready!)
   workflow_dispatch:
     inputs:
       release_id:
         description: 'Release ID (check https://api.github.com/repos/Ender-ing/frankie/releases)'
         required: true
+        default: 0
         type: number
 
 jobs:
@@ -57,6 +63,17 @@ jobs:
         run: |
           #!/bin/bash
           set -ex
+
+          # Choose the proper release ID
+          release_id_1="${{github.event.inputs.release_id}}"
+          release_id_2="${{github.ref_name}}"
+          release_id_1_len=""${#release_id_1}
+          if [ $release_id_1_len -gt 5 ]; then
+            release_id="$release_id_1"
+          else
+            release_id="$release_id_2"
+          fi
+
           while IFS= read -r artifact_name; do
             # Download (archive contents)
             echo "Downloading artifact: $artifact_name"
@@ -67,7 +84,7 @@ jobs:
             if [[ "$artifact_name" == *.vsix ]]; then
               # Upload a plain package file
               echo "Uploading asset: $artifact_dir/$artifact_name"
-              gh release upload ${{github.event.inputs.release_id}} "$artifact_dir/$artifact_name" --repo ${{github.repository}} --clobber
+              gh release upload $release_id "$artifact_dir/$artifact_name" --repo ${{github.repository}} --clobber
               # Save asset info
               # (name, path, type)
               echo $artifact_name >> assets.txt
@@ -78,7 +95,7 @@ jobs:
               artifact_zip="$artifact_name.zip"
               zip -r $artifact_zip $artifact_dir/
               echo "Uploading asset: $artifact_zip"
-              gh release upload ${{github.event.inputs.release_id}} "$artifact_zip" --repo ${{github.repository}} --clobber
+              gh release upload $release_id "$artifact_zip" --repo ${{github.repository}} --clobber
               ## Save asset info
               ## (name, path, type)
               #echo $artifact_zip >> assets.txt
@@ -89,7 +106,7 @@ jobs:
               #artifact_tar="$artifact_name.tar"
               #tar -cvf $artifact_tar $artifact_dir/*
               #echo "Uploading asset: $artifact_tar"
-              #gh release upload ${{github.event.inputs.release_id}} "$artifact_tar" --repo ${{github.repository}} --clobber
+              #gh release upload $release_id "$artifact_tar" --repo ${{github.repository}} --clobber
               ## Save asset info
               ## (name > path)
               #echo $artifact_tar >> assets.txt
@@ -100,7 +117,7 @@ jobs:
               artifact_targz="$artifact_name.tar.gz"
               tar -czvf $artifact_targz $artifact_dir/*
               echo "Uploading asset: $artifact_targz"
-              gh release upload ${{github.event.inputs.release_id}} "$artifact_targz" --repo ${{github.repository}} --clobber
+              gh release upload $release_id "$artifact_targz" --repo ${{github.repository}} --clobber
               ## Save asset info
               ## (name, path, type)
               #echo $artifact_targz >> assets.txt
