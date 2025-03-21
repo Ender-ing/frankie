@@ -74,6 +74,17 @@ jobs:
             release_id="$release_id_2"
           fi
 
+          # Upload annd check assets!
+          function upload_asset() {
+            local asset_path="$1"
+            echo "Uploading asset: $asset_path"
+            gh release upload $release_id "$asset_path" --repo ${{github.repository}} --clobber
+            if [ $? -ne 0 ]; then
+              echo "Failed to upload asset: $asset_path"
+              exit 1
+            fi
+          }
+
           while IFS= read -r artifact_name; do
             # Download (archive contents)
             echo "Downloading artifact: $artifact_name"
@@ -83,32 +94,29 @@ jobs:
             # Check archive type
             if [[ "$artifact_name" == *.vsix ]]; then
               # Upload a plain package file
-              echo "Uploading asset: $artifact_dir/$artifact_name"
-              gh release upload $release_id "$artifact_dir/$artifact_name" --repo ${{github.repository}} --clobber
-              # Save asset info
-              # (name, path, type)
-              sha256sum $artifact_dir/$artifact_name >> SHASUMS256.txt
+              upload_asset "$artifact_dir/$artifact_name"
+              # Save asset hash
+              cd $artifact_dir
+              sha256sum $artifact_name >> SHASUMS256.txt
+              cd ..
             else
               ## .zip
               #artifact_zip="$artifact_name.zip"
               #zip -r $artifact_zip $artifact_dir/
-              #echo "Uploading asset: $artifact_zip"
-              #gh release upload $release_id "$artifact_zip" --repo ${{github.repository}} --clobber
-              ## Save asset info
+              #upload_asset "$artifact_zip"
+              ## Save asset hash
               #sha256sum $artifact_zip >> SHASUMS256.txt
 
               # .tar.gz
               artifact_targz="$artifact_name.tar.gz"
               tar -czvf $artifact_targz $artifact_dir/*
-              echo "Uploading asset: $artifact_targz"
-              gh release upload $release_id "$artifact_targz" --repo ${{github.repository}} --clobber
-              # Save asset info
+              upload_asset "$artifact_targz"
+              # Save asset hash
               sha256sum $artifact_targz >> SHASUMS256.txt
             fi
           done < artifacts.txt
           # Upload SHA256 hashes
-          echo "Uploading SHA256 hashes"
-          gh release upload $release_id "SHASUMS256.txt" --repo ${{github.repository}} --clobber
+          upload_asset "SHASUMS256.txt"
         working-directory: ${{github.workspace}}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
