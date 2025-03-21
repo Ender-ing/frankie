@@ -97,7 +97,7 @@ jobs:
               upload_asset "$artifact_dir/$artifact_name"
               # Save asset hash
               cd $artifact_dir
-              sha256sum $artifact_name >> SHASUMS256.txt
+              sha256sum $artifact_name >> ../SHASUMS256.txt
               cd ..
             else
               ## .zip
