@@ -85,16 +85,17 @@ jobs:
               # Upload a plain package file
               echo "Uploading asset: $artifact_dir/$artifact_name"
               gh release upload $release_id "$artifact_dir/$artifact_name" --repo ${{github.repository}} --clobber
-              # Save asset info
-              # (name, path, type)
-              sha256sum $artifact_dir/$artifact_name >> SHASUMS256.txt
+              # Save asset hash
+              cd $artifact_dir
+              sha256sum $artifact_name >> SHASUMS256.txt
+              cd ..
             else
               ## .zip
               #artifact_zip="$artifact_name.zip"
               #zip -r $artifact_zip $artifact_dir/
               #echo "Uploading asset: $artifact_zip"
               #gh release upload $release_id "$artifact_zip" --repo ${{github.repository}} --clobber
-              ## Save asset info
+              ## Save asset hash
               #sha256sum $artifact_zip >> SHASUMS256.txt
 
               # .tar.gz
@@ -102,7 +103,7 @@ jobs:
               tar -czvf $artifact_targz $artifact_dir/*
               echo "Uploading asset: $artifact_targz"
               gh release upload $release_id "$artifact_targz" --repo ${{github.repository}} --clobber
-              # Save asset info
+              # Save asset hash
               sha256sum $artifact_targz >> SHASUMS256.txt
             fi
           done < artifacts.txt
