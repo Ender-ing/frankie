@@ -89,13 +89,13 @@ jobs:
               # (name, path, type)
               sha256sum $artifact_dir/$artifact_name >> SHASUMS256.txt
             else
-              # .zip
-              artifact_zip="$artifact_name.zip"
-              zip -r $artifact_zip $artifact_dir/
-              echo "Uploading asset: $artifact_zip"
-              gh release upload $release_id "$artifact_zip" --repo ${{github.repository}} --clobber
-              # Save asset info
-              sha256sum $artifact_zip >> SHASUMS256.txt
+              ## .zip
+              #artifact_zip="$artifact_name.zip"
+              #zip -r $artifact_zip $artifact_dir/
+              #echo "Uploading asset: $artifact_zip"
+              #gh release upload $release_id "$artifact_zip" --repo ${{github.repository}} --clobber
+              ## Save asset info
+              #sha256sum $artifact_zip >> SHASUMS256.txt
 
               # .tar.gz
               artifact_targz="$artifact_name.tar.gz"
