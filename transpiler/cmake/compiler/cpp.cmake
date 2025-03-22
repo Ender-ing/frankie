@@ -8,6 +8,9 @@ if(NOT (CXX_17_FLAG OR CXX_17_FLAG_MSVC))
     message(FATAL_ERROR "[DEPENDENCIES] C++17 is not supported by the compiler. Please use a compiler that supports C++17.")
 endif()
 
+# Treat compiler warnings as errors
+set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
+
 # Check for VS
 # (MSVC)
 #find_package(Visual Studio)
