@@ -24,6 +24,9 @@ int main (int argc, const char *argv[]) {
     // Test for memory leaks
     Common::CrtDebug::initiateCrtMemoryChecks();
 
+    // TMP
+    int status = 0;
+
     // Update initial configurations
     if(!(Base::InitialConfigs::updateUsingArgs (argc, argv))){
         // This process failed!
@@ -54,7 +57,10 @@ int main (int argc, const char *argv[]) {
             return 1;
         }
         // Debug
-        Parser::debug(file_contents);
+        bool success = Parser::Debug::syntaxCheck(file_contents);
+        if (!success) {
+            status = 1;
+        }
     }
 
     std::cout << Comms::CLI::format("Done!", Comms::CLI::Color::green) << std::endl;
@@ -66,5 +72,5 @@ int main (int argc, const char *argv[]) {
     }
 
     // Return a success
-    return 0;
+    return status;
 }
