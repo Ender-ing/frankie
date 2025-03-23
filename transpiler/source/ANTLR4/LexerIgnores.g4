@@ -27,6 +27,6 @@ COMMENT_BLOCK
             -> channel(HIDDEN)
     ; /* Multilinear comments are never processed for code generation */
 COMMENT_LINE
-    : ';;' ~[\n]* [\n]
+    : ';;' ~[\n]*
             -> channel(HIDDEN)
     ; /* Comments end when a new line starts! */
