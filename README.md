@@ -19,15 +19,15 @@ PolarFrankie, a command line scripting metaprogramming language in the planning!
 
 - [] Basic data and types
   - [] Numbers
-    - [x] Basic constant expressions
+    - [x] Basic literals
     - [] Mathmatical operations
     - [] Type casting
   - [] Strings
-    - [x] Basic constant expressions
+    - [x] Basic literals
     - [x] Escape characters
     - [x] Variable references
     - [] String manipulation
     - [] Type casting
   - [] Booleans
-    - [x] Basic constant expressions
+    - [x] Basic literals
     - [] Type casting
