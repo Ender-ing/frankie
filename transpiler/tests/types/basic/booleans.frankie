@@ -3,6 +3,11 @@
  ;  Test all boolean forms
 ?;;
 
+$TRUE; $FALSE
+
+$TRUE
+$FALSE
+
 $TRUE
 
 $FALSE
