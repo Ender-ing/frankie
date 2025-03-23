@@ -14,3 +14,20 @@ PolarFrankie, a command line scripting metaprogramming language in the planning!
 - [x] Add a debug function to print lexer and parser output into the console
 - [x] Add a GitHub test workflow
 - [x] Add a GitHub release workflow
+
+## Language syntax support
+
+- [] Basic data and types
+  - [] Numbers
+    - [x] Basic literals
+    - [] Mathmatical operations
+    - [] Type casting
+  - [] Strings
+    - [x] Basic literals
+    - [x] Escape characters
+    - [x] Variable references
+    - [] String manipulation
+    - [] Type casting
+  - [] Booleans
+    - [x] Basic literals
+    - [] Type casting
