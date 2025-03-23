@@ -4,9 +4,11 @@
 ?;;
 
 
+;; @TEST inline literals
 "a";"This is a simple string!";"asada$$a$A$a$A a";"asada $$asdasda$AADSA $asada $DSDS casda asasa";"daa$$ASA\bsda";"\n"
 
 
+;; @TEST literals
 "a"
 "This is a simple string!"
 "asada$$a$A$a$A a"
@@ -15,6 +17,7 @@
 "\n"
 
 
+;; @TEST spaced literals
 "a"
 
 "This is a simple string!"

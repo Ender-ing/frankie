@@ -3,11 +3,14 @@
  ;  Test all boolean forms
 ?;;
 
+;; @TEST inline literals
 $TRUE; $FALSE
 
+;; @TEST literals
 $TRUE
 $FALSE
 
+;; @TEST spaced literals
 $TRUE
 
 $FALSE
