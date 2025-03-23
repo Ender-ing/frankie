@@ -9,6 +9,8 @@
 #include "dynamic.hpp" // FRANKIE_PARSER_LIB
 
 namespace Parser {
-    // TMP
-    extern FRANKIE_PARSER_LIB void debug (std::string file_contents);
+    namespace Debug {
+        // Check for syntax errors
+        extern FRANKIE_PARSER_LIB bool syntaxCheck (std::string file_contents) ;
+    }
 }
