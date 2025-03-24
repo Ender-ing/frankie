@@ -15,6 +15,10 @@
 #include "CLI/basic.hpp"
 #include "CLI/report.hpp"
 
+// Pack the report function into a macro
+#define REPORT(ARGS)                                                \
+    Comms::report(Comms::ReportInputs{ARGS})                        \
+
 namespace Comms {
     // Communication mode
     // (may need to introduce more complex modes!)
