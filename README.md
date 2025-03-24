@@ -17,17 +17,17 @@ PolarFrankie, a command line scripting metaprogramming language in the planning!
 
 ## Language syntax support
 
-- [] Basic data and types
-  - [] Numbers
+- [ ] Basic data and types
+  - [ ] Numbers
     - [x] Basic literals
-    - [] Mathmatical operations
-    - [] Type casting
-  - [] Strings
+    - [ ] Mathmatical operations
+    - [ ] Type casting
+  - [ ] Strings
     - [x] Basic literals
     - [x] Escape characters
     - [x] Variable references
-    - [] String manipulation
-    - [] Type casting
-  - [] Booleans
+    - [ ] String manipulation
+    - [ ] Type casting
+  - [ ] Booleans
     - [x] Basic literals
-    - [] Type casting
+    - [ ] Type casting
