@@ -27,8 +27,9 @@ int main (int argc, const char *argv[]) {
     // Update initial configurations
     if(!(Base::InitialConfigs::updateUsingArgs (argc, argv))){
         // This process failed!
-        std::cerr << Comms::CLI::format("COULDN'T PROCESS TRANSPILER ARGUMENTS!", Comms::CLI::Color::red) << std::endl;
-        return 1;
+
+        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "COULDN'T PROCESS TRANSPILER ARGUMENTS!", Comms::END_REPORT);
+        return Comms::ProcessReport::programStatus;
     }
 
     // Set communication protocol
@@ -58,8 +59,8 @@ int main (int argc, const char *argv[]) {
             // Close file
             file.close();
         } else {
-            std::cerr << Comms::CLI::format("Error opening file: ", Comms::CLI::Color::red) << filename << std::endl; // Fail!
-            return 1;
+            REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Error opening file: ", filename, Comms::END_REPORT);
+            return Comms::ProcessReport::programStatus;
         }
         // Debug
         Parser::Debug::syntaxCheck(file_contents);
@@ -68,6 +69,7 @@ int main (int argc, const char *argv[]) {
     // Check for unfinished reports
     // if(Comms::ProcessReport::didSendReport && !Comms::IndividualReport::isNew){
     //     std::cerr << Comms::CLI::format("Failed to properly end a report! ", Comms::CLI::Color::red) << std::endl; // Fail!
+    //     return 1;
     // }
 
     std::cout << Comms::CLI::format("Done!", Comms::CLI::Color::green) << std::endl;
