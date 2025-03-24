@@ -16,6 +16,7 @@ target_link_libraries(FrankieBaseLibrary PUBLIC FrankieCommonLibrary)
 # Create a library from /comms
 add_library(FrankieCommsLibrary SHARED
     ${FRANKIE_SOURCE_DIR}/comms/CLI/basic.cpp
+    ${FRANKIE_SOURCE_DIR}/comms/CLI/report.cpp
     ${FRANKIE_SOURCE_DIR}/comms/comms.cpp
 )
 # Expose library exports

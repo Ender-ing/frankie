@@ -11,13 +11,13 @@
 // Basic C++ headers
 #include <unordered_map>
 #include <functional>
-#include <array>
 
 // Shorten the syntax for defining an action
-#define DEFINE_ACTION(FLAG1, FLAG2, DESCRIPTION, FUNCTION){         \
+#define DEFINE_ACTION(FLAG1, FLAG2, DESCRIPTION, ARGS, FUNCTION){   \
     {                                                               \
         "-" FLAG1, "--" FLAG2,                                      \
-        #DESCRIPTION                                                \
+        #DESCRIPTION,                                               \
+        #ARGS                                                       \
     },                                                              \
     [](const ActionNextFunction getNextArg) FUNCTION                \
 }                                                                   \
@@ -30,7 +30,7 @@ namespace Base {
     namespace Actions {
         // Action-related function types
         typedef std::function<bool(std::string&, bool)> ActionNextFunction;
-        typedef std::array<std::string, 3> ActionInfo;
+        typedef std::array<std::string, 4> ActionInfo;
         typedef std::function<bool(const ActionNextFunction)> ActionFunction;
 
         // Custom hash function for ActionInfo

@@ -17,6 +17,9 @@ namespace Base {
         // Main source file
         std::string mainPath = "";
 
+        // Communication protocol
+        std::string protocol = "c";
+
         // Debug-related
         namespace Debug {
             // --debug-parser-antlr-print-test <path>

@@ -24,14 +24,20 @@ int main (int argc, const char *argv[]) {
     // Test for memory leaks
     Common::CrtDebug::initiateCrtMemoryChecks();
 
-    // TMP
-    int status = 0;
-
     // Update initial configurations
     if(!(Base::InitialConfigs::updateUsingArgs (argc, argv))){
         // This process failed!
-        std::cerr << Comms::CLI::format("COULDN'T PROCESS TRANSPILER ARGUMENTS!", Comms::CLI::Color::red) << std::endl;
-        return 1;
+
+        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "COULDN'T PROCESS TRANSPILER ARGUMENTS!", Comms::END_REPORT);
+        return Comms::ProcessReport::programStatus;
+    }
+
+    // Set communication protocol
+    if (Base::InitialConfigs::protocol == "s") {
+        Comms::mode = Comms::LSP_MODE;
+    } else {
+        // Fallback to console mode
+        Comms::mode = Comms::CLI_MODE;
     }
 
     // TMP
@@ -53,15 +59,18 @@ int main (int argc, const char *argv[]) {
             // Close file
             file.close();
         } else {
-            std::cerr << Comms::CLI::format("Error opening file: ", Comms::CLI::Color::red) << filename << std::endl; // Fail!
-            return 1;
+            REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Error opening file: ", filename, Comms::END_REPORT);
+            return Comms::ProcessReport::programStatus;
         }
         // Debug
-        bool success = Parser::Debug::syntaxCheck(file_contents);
-        if (!success) {
-            status = 1;
-        }
+        Parser::Debug::syntaxCheck(file_contents);
     }
+
+    // Check for unfinished reports
+    // if(Comms::ProcessReport::didSendReport && !Comms::IndividualReport::isNew){
+    //     std::cerr << Comms::CLI::format("Failed to properly end a report! ", Comms::CLI::Color::red) << std::endl; // Fail!
+    //     return 1;
+    // }
 
     std::cout << Comms::CLI::format("Done!", Comms::CLI::Color::green) << std::endl;
 
@@ -72,5 +81,5 @@ int main (int argc, const char *argv[]) {
     }
 
     // Return a success
-    return status;
+    return Comms::ProcessReport::programStatus;
 }

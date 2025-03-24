@@ -63,7 +63,7 @@ namespace Comms {
             const uint32_t white = static_cast<uint32_t>(fmt::color::white);
             const uint32_t yellow = static_cast<uint32_t>(fmt::color::yellow);
         }
-        std::string format (std::string text,     const uint32_t color) {
+        std::string format (std::string text, const uint32_t color) {
             return fmt::format(fg(static_cast<fmt::v11::color>(color)), text);
         }
     }
