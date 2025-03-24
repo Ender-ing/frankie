@@ -15,6 +15,8 @@
 #include <string>
 #include <iostream>
 #include <ostream>
+#include <vector>
+#include <array>
 
 // Include platform headers
 #ifdef _WIN32
