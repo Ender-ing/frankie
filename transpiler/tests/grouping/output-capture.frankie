@@ -1,0 +1,20 @@
+;;?
+ ;  @INFO
+ ;  Test output capture grouping
+?;;
+
+
+;; @TEST inline grouping
+$(1);$("l");$($TRUE)
+
+;; @TEST grouping
+$(1)
+$("l")
+$($TRUE)
+
+;; @TEST spaced grouping
+$(1)
+
+$("l")
+
+$($TRUE)

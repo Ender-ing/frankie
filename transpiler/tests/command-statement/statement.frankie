@@ -1,0 +1,17 @@
+;;?
+ ;  @INFO
+ ;  Test "command" statement
+?;;
+
+
+;; @TEST basic command definition
+command my-command ?*(-f --flag $FLAG) *(TEXT $INPUT) bash (
+    inject "native-bash-command $FLAG $INPUT"
+) batch (
+    inject "native-batch-command $FLAG $INPUT"
+)
+
+;; @TEST custom command calls
+my-command "text-input"
+my-command -f "text-input"
+my-command --flag "text-input"

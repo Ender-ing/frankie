@@ -1,0 +1,9 @@
+;;?
+ ;  @INFO
+ ;  Test script string capture grouping
+?;;
+
+
+;; @TEST inline grouping
+;; @!Needs an update later!
+#(some-command)
