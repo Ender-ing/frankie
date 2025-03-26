@@ -9,7 +9,7 @@
 +    TARGET antlr4_shared
 +    POST_BUILD
 +    COMMAND install_name_tool -id "@rpath/libantlr4-runtime.dylib" $<TARGET_FILE:antlr4_shared>
-+    COMMAND install_name_tool -id "@rpath/libantlr4-runtime.${ANTLR4_TAG}.dylib" $<TARGET_LINKER_FILE:antlr4_shared>)
++    COMMAND install_name_tool -id "@rpath/libantlr4-runtime.${ANTLR_VERSION}.dylib" $<TARGET_LINKER_FILE:antlr4_shared>)
 +endif()
 +
  if (ANTLR_BUILD_CPP_TESTS)
