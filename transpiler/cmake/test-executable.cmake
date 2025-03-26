@@ -66,22 +66,38 @@ set(FRANKIE_FILE_TESTS "") # All frankie file tests will be applied to files add
 #set(FRANKIE_FILE_SYNTAX_TESTS "") # Syntax tests
 ## list(APPEND FRANKIE_FILE_SYNTAX_TESTS "path/to/file.frankie")
 
-# Include all .test.cmake files in the tests directory
-# Search for all .test.cmake files recursively
-file(GLOB_RECURSE TEST_CMAKE_FILES ${FRANKIE_TESTS_DIR}/*.test.cmake)
-# Include each .test.cmake file
-foreach(TEST_CMAKE_FILE ${TEST_CMAKE_FILES})
-    include("${TEST_CMAKE_FILE}")
+## Include all .test.cmake files in the tests directory
+## Search for all .test.cmake files recursively
+#file(GLOB_RECURSE TEST_CMAKE_FILES ${FRANKIE_TESTS_DIR}/*.test.cmake)
+## Include each .test.cmake file
+#foreach(TEST_CMAKE_FILE ${TEST_CMAKE_FILES})
+#    include("${TEST_CMAKE_FILE}")
+#endforeach()
+
+# Load all .frankie test files
+file(GLOB_RECURSE TEST_FRANKIE_FILES ${FRANKIE_TESTS_DIR} "*.frankie")
+foreach(file_path ${TEST_FRANKIE_FILES})
+    message(STATUS "[TESTS] Processing test file ${file_path}...")
+    # Get file name
+    cmake_path(GET file_path FILENAME filename)
+    # Exclude "_*.frankie" files
+    # For some reason, using "${filename}" instead of "filename" results in some files like "numbers.frankie" not loading!
+    string(REGEX MATCH "^[^_]" is_main_input_file filename)
+    message(STATUS "[TESTS] ${filename}?")
+    if(is_main_input_file)
+        # Flag the file for testing
+        list(APPEND FRANKIE_FILE_TESTS ${file_path})
+    endif()
 endforeach()
 
 # Define a function that detects the precence of a "failure expectation" letter
 function(check_for_frankie_file_letter letter file_name output_variable)
-  string(REGEX MATCH "![a-zA-Z]*[${letter}][a-zA-Z]*.frankie" contains_letter "${file_name}")
-  if(contains_letter)
-    set(${output_variable} TRUE PARENT_SCOPE)
-  else()
-    set(${output_variable} FALSE PARENT_SCOPE)
-  endif()
+    string(REGEX MATCH "![a-zA-Z]*[${letter}][a-zA-Z]*.frankie" contains_letter "${file_name}")
+    if(contains_letter)
+        set(${output_variable} TRUE PARENT_SCOPE)
+    else()
+        set(${output_variable} FALSE PARENT_SCOPE)
+    endif()
 endfunction()
 
 

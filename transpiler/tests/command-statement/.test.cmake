@@ -1,2 +1,0 @@
-# Add paths to FRANKIE_FILE_TESTS
-list(APPEND FRANKIE_FILE_TESTS ${CMAKE_CURRENT_LIST_DIR}/statement!s.frankie)
