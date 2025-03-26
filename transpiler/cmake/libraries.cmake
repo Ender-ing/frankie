@@ -52,10 +52,9 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(ANTLR4_DYNAMIC_LIBRARY_COPY_NAME ${ANTLR4_OUTPUT_DIR}/*.${ANTLR4_TAG}.dylib)
     # Fix macOS linking issue (POST BUILD)
     set(ANTLR4_DYNAMIC_LIBRARY_MACOS_NAME libantlr4-runtime.${ANTLR4_TAG}.dylib)
-    add_custom_command(
-        TARGET FrankieTranspiler # This will run AFTER the file is copied!
-        POST_BUILD
-        COMMAND install_name_tool -id "@rpath/libantlr4-runtime.${ANTLR4_TAG}.dylib" ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${ANTLR4_DYNAMIC_LIBRARY_MACOS_NAME}
+    add_custom_command(TARGET FrankieTranspiler # This will run AFTER the file is copied!
+                        POST_BUILD
+            COMMAND install_name_tool -id "@rpath/libantlr4-runtime.${ANTLR4_TAG}.dylib" ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${ANTLR4_DYNAMIC_LIBRARY_MACOS_NAME}
     )
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(ANTLR4_DYNAMIC_LIBRARY_COPY_NAME ${ANTLR4_OUTPUT_DIR}/*.so.${ANTLR4_TAG})
