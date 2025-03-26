@@ -9,7 +9,9 @@ message(STATUS "[BUILD] Adding executable target 'FrankieTranspiler'...")
 add_executable(
     FrankieTranspiler ${FRANKIE_MAIN_CPP_PATH}
 )
-target_link_directories(FrankieTranspiler PRIVATE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
+# Handle dynamic libraries
+target_link_directories(FrankieTranspiler PRIVATE "$<TARGET_FILE_DIR:FrankieTranspiler>")
 
 # Link C++ libraries
 # Basic in-house libraries
