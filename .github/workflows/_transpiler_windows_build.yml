@@ -47,7 +47,7 @@ jobs:
 
     - name: Reset the "transpiler/build" directory
       run: |
-        rmdir /s /q ${{github.workspace}}/transpiler/build
+        Remove-Item -Path "${{github.workspace}}/transpiler/build" -Recurse -Force
         mkdir ${{github.workspace}}/transpiler/build
 
     - name: Run Tests
