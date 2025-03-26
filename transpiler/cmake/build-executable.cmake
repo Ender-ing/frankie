@@ -11,7 +11,14 @@ add_executable(
 )
 
 # Handle dynamic libraries
-target_link_directories(FrankieTranspiler PRIVATE "$<TARGET_FILE_DIR:FrankieTranspiler>")
+if(WIN32)
+    # No need to do anything, Windows can handle this!
+    # target_link_directories(FrankieTranspiler PRIVATE "$<TARGET_FILE_DIR:FrankieTranspiler>")
+elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+    target_link_directories(FrankieTranspiler PRIVATE "@executable_path")
+elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
+    target_link_directories(FrankieTranspiler PRIVATE "$ORIGIN")
+endif()
 
 # Link C++ libraries
 # Basic in-house libraries
