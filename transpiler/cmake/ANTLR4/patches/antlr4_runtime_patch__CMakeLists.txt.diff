@@ -1,15 +1,19 @@
 --- a/runtime/Cpp/runtime/CMakeLists.txt
 +++ b/runtime/Cpp/runtime/CMakeLists.txt
-@@ -157,6 +157,15 @@
+@@ -157,6 +157,19 @@
  endif()
  
 +# Fix macOS linking (before copies are made!)
 +if(CMAKE_SYSTEM_NAME MATCHES "Darwin" AND TARGET antlr4_shared)
++get_target_property(ANTLR4_LIBRARY_PATH antlr4_shared TARGET_FILE)
++file(GET_FILENAME "${ANTLR4_LIBRARY_PATH}" ANTLR4_LIBRARY_FILENAME_MACOS)
++get_target_property(ANTLR4_LIBRARY_PATH antlr4_shared TARGET_LINKER_FILE)
++file(GET_FILENAME "${ANTLR4_LIBRARY_PATH}" ANTLR4_LINKER_LIBRARY_FILENAME_MACOS)
 +  add_custom_command(
 +    TARGET antlr4_shared
 +    POST_BUILD
-+    COMMAND install_name_tool -id "@rpath/$<FILENAME:$<TARGET_FILE:antlr4-runtime>>" $<TARGET_FILE:antlr4-runtime>
-+    COMMAND install_name_tool -id "@rpath/$<FILENAME:$<TARGET_LINKER_FILE:antlr4-runtime>>" $<TARGET_LINKER_FILE:antlr4-runtime>)
++    COMMAND install_name_tool -id "@rpath/${ANTLR4_LIBRARY_FILENAME_MACOS}" $<TARGET_FILE:antlr4_shared>
++    COMMAND install_name_tool -id "@rpath/{ANTLR4_LINKER_LIBRARY_FILENAME_MACOS}" $<TARGET_LINKER_FILE:antlr4_shared>)
 +endif()
 +
  if (ANTLR_BUILD_CPP_TESTS)
