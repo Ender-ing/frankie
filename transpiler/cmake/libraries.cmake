@@ -58,13 +58,6 @@ add_custom_command(TARGET FrankieParserLibrary
                     COMMAND ${CMAKE_COMMAND}
                            -E copy ${ANTLR4_DYNAMIC_LIBRARY_COPY_NAME} .
                     WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
-    # Fix macOS linking issue (POST BUILD)
-    add_custom_command(TARGET FrankieParserLibrary
-                        POST_BUILD
-        COMMAND install_name_tool -id "@rpath/libantlr4-runtime.${ANTLR4_TAG}.dylib" libantlr4-runtime.${ANTLR4_TAG}.dylib
-        WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-endif()
 # Link other libraries to the library
 add_dependencies(FrankieParserLibrary FrankieCommsLibrary) # TMP
 target_link_libraries(FrankieParserLibrary PUBLIC FrankieCommsLibrary) # TMP

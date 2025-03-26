@@ -1,0 +1,29 @@
+--- a/runtime/Cpp/runtime/CMakeLists.txt
++++ b/runtime/Cpp/runtime/CMakeLists.txt
+@@ -157,12 +157,26 @@
+ endif()
+ 
++# Fix macOS linking (before copies are made!)
++if(CMAKE_SYSTEM_NAME MATCHES "Darwin" AND TARGET antlr4_shared)
++  # Get file names
++  get_target_property(ANTLR4_LIBRARY_PATH antlr4_shared TARGET_FILE)
++  cmake_path(GET ANTLR4_LIBRARY_PATH FILENAME ANTLR4_FILENAME_MACOS)
++  get_target_property(ANTLR4_LIBRARY_PATH antlr4_shared TARGET_LINKER_FILE)
++  cmake_path(GET ANTLR4_LIBRARY_PATH FILENAME ANTLR4_LIBRARY_FILENAME_MACOS)
++  add_custom_command(
++    TARGET antlr4_shared
++    POST_BUILD
++    COMMAND install_name_tool -id "@rpath/${ANTLR4_FILENAME_MACOS}" $<TARGET_FILE:antlr4_shared>
++    COMMAND install_name_tool -id "@rpath/${ANTLR4_LIBRARY_FILENAME_MACOS}" $<TARGET_LINKER_FILE:antlr4_shared>)
++endif()
++
+ if (ANTLR_BUILD_CPP_TESTS)
+   # Copy the generated binaries to dist folder (required by test suite)
+   if (TARGET antlr4_shared)
+   add_custom_command(
+       TARGET antlr4_shared
+       POST_BUILD
+       COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_HOME_DIRECTORY}/dist
+       COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:antlr4_shared> ${CMAKE_HOME_DIRECTORY}/dist
+       COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_LINKER_FILE:antlr4_shared> ${CMAKE_HOME_DIRECTORY}/dist)
+   endif()
