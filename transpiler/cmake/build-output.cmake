@@ -116,7 +116,7 @@ endfunction()
 # Manage symbolic links post-build
 function(manage_symbolic_links POST_TARGET FRANKIE_COMMAND_NAME)
     if(WIN32)
-        set(SYMBOLIC_LINKS_COMMAND_DELETE Get-ChildItem -Path . -Attributes ReparsePoint | Remove-Item -Force)
+        set(SYMBOLIC_LINKS_COMMAND_DELETE powershell -Command Get-ChildItem -Path . -Attributes ReparsePoint | Remove-Item -Force)
         set(SYMBOLIC_LINKS_COMMAND_REMAKE mklink ${POST_TARGET}.exe ${POST_TARGET}*)
         set(SYMBOLIC_LINKS_COMMAND_EXTRA mklink ${FRANKIE_COMMAND_NAME}.exe ${POST_TARGET}.exe)
     else()
