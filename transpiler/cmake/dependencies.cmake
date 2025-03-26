@@ -10,6 +10,16 @@ set(ANTLR4_TAG 4.13.2)
 # CMake
 include(FetchContent)
 
+# Powershell (on Windows)
+if(WIN32)
+    find_program(POWERSHELL_EXECUTABLE powershell)
+    if(POWERSHELL_EXECUTABLE)
+        message(STATUS "PowerShell found: ${POWERSHELL_EXECUTABLE}")
+    else()
+        message(FATAL_ERROR "PowerShell not found.")
+    endif()
+endif()
+
 # Check for Java
 find_package(Java REQUIRED)
 # Execute java -version and capture the output
