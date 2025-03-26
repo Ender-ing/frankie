@@ -59,7 +59,7 @@ jobs:
     - name: Extract version (optional)
       if: inputs.bundle_binaries
       run: |
-        $version = Get-Content "${{github.workspace}}/transpiler/manifest.ini" | Where-Object { $_ -match 'VERSION=' } | ForEach-Object { ($_ -split '=')[1].Trim('"') }
+        $version = Get-Content "${{github.workspace}}/transpiler/manifest.ini" | Where-Object { $_ -match 'VERSION=' } | Select-Object -First 1 | ForEach-Object { ($_ -split '=')[1].Trim('"') }
         if ($version) {
           echo "VERSION=$version" >> $env:GITHUB_ENV
         } else {
