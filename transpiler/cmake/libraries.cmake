@@ -45,11 +45,19 @@ target_compile_definitions(FrankieParserLibrary PRIVATE FRANKIEPARSERLIBRARY_EXP
 # ANTLR4
 add_dependencies(FrankieParserLibrary antlr4_shared)
 target_link_libraries(FrankieParserLibrary PUBLIC antlr4_shared)
+# Libraries
+if(WIN32)
+    set(ANTLR4_DYNAMIC_LIBRARY_COPY_NAME ${ANTLR4_RUNTIME_LIBRARIES})
+elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+    set(ANTLR4_DYNAMIC_LIBRARY_COPY_NAME ${ANTLR4_OUTPUT_DIR}/*.${ANTLR4_TAG}.dylib)
+elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
+    set(ANTLR4_DYNAMIC_LIBRARY_COPY_NAME ${ANTLR4_OUTPUT_DIR}/*.so.${ANTLR4_TAG})
+endif()
 add_custom_command(TARGET FrankieParserLibrary
-                   POST_BUILD
-                   COMMAND ${CMAKE_COMMAND}
-                           -E copy ${ANTLR4_RUNTIME_LIBRARIES} .
-                   WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+                    POST_BUILD
+                    COMMAND ${CMAKE_COMMAND}
+                           -E copy ${ANTLR4_DYNAMIC_LIBRARY_COPY_NAME} .
+                    WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 # Link other libraries to the library
 add_dependencies(FrankieParserLibrary FrankieCommsLibrary) # TMP
 target_link_libraries(FrankieParserLibrary PUBLIC FrankieCommsLibrary) # TMP

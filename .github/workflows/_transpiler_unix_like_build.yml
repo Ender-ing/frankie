@@ -46,11 +46,18 @@ jobs:
       working-directory: transpiler/build
 
     - name: Build
-      run: cmake --build . --config ${{inputs.build_mode}}
+      run: cmake --build . --config ${{inputs.build_mode}} --parallel 3
       working-directory: transpiler/build
 
+    - name: Reset the "transpiler/build" directory
+      run: |
+        rm -rf ${{github.workspace}}/transpiler/build
+        mkdir ${{github.workspace}}/transpiler/build
+
     - name: Run Tests
-      run: ctest -VV -C ${{inputs.build_mode}}
+      run: |
+        cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -DCMAKE_UNIX_GENERATOR_PLATFORM=${{inputs.build_platform}}
+        ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Extract version (optional)
@@ -88,11 +95,18 @@ jobs:
       working-directory: transpiler/build
 
     - name: Build
-      run: cmake --build . --config ${{inputs.build_mode}}
+      run: cmake --build . --config ${{inputs.build_mode}} --parallel 3
       working-directory: transpiler/build
 
+    - name: Reset the "transpiler/build" directory
+      run: |
+        rm -rf ${{github.workspace}}/transpiler/build
+        mkdir ${{github.workspace}}/transpiler/build
+
     - name: Run Tests
-      run: ctest -VV -C ${{inputs.build_mode}}
+      run: |
+        cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -DCMAKE_UNIX_GENERATOR_PLATFORM=${{inputs.build_platform}}
+        ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Extract version (optional)

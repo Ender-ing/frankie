@@ -31,3 +31,8 @@ PolarFrankie, a command line scripting metaprogramming language in the planning!
   - [ ] Booleans
     - [x] Basic literals
     - [ ] Type casting
+- [ ] `command` statement
+- [ ] `()` expression grouping
+  - [ ] Basic expression grouping
+  - [ ] Output capture
+  - [ ] Script capture

@@ -1,0 +1,18 @@
+--- a/runtime/Cpp/runtime/antlrcpp.xcodeproj/project.pbxproj
++++ b/runtime/Cpp/runtime/antlrcpp.xcodeproj/project.pbxproj
+@@ -2751,6 +2751,7 @@
+ 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+ 				LD_RUNPATH_SEARCH_PATHS = (
+ 					"$(inherited)",
++					"@executable_path",
+ 					"@executable_path/Frameworks",
+ 					"@loader_path/Frameworks",
+ 				);
+@@ -2787,6 +2787,7 @@
+ 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+ 				LD_RUNPATH_SEARCH_PATHS = (
+ 					"$(inherited)",
++					"@executable_path",
+ 					"@executable_path/Frameworks",
+ 					"@loader_path/Frameworks",
+ 				);

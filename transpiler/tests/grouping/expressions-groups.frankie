@@ -1,0 +1,29 @@
+;;?
+ ;  @INFO
+ ;  Test expression grouping
+?;;
+
+
+;; @TEST inline grouping
+();(1;"l";$TRUE)
+
+;; @TEST grouping
+(
+    ;; Normal empty group
+)
+(
+    1
+    "l"
+    $TRUE
+)
+
+;; @TEST spaced grouping
+(
+    ;; Normal empty group
+)
+
+(
+    1
+    "l"
+    $TRUE
+)

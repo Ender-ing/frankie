@@ -1,14 +1,17 @@
-# Generate ANTLR4 grammar C++ files
-include(${FRANKIE_CMAKE_DIR}/generate-ANTLR4-files.cmake)
-
-# Include project libraries
-include(${FRANKIE_CMAKE_DIR}/libraries.cmake)
-
 # Add executable and include relevant files
 message(STATUS "[BUILD] Adding executable target 'FrankieTranspiler'...")
 add_executable(
     FrankieTranspiler ${FRANKIE_MAIN_CPP_PATH}
 )
+
+# Handle dynamic libraries
+target_link_directories(FrankieTranspiler PRIVATE "$<TARGET_FILE_DIR:FrankieTranspiler>")
+
+# Generate ANTLR4 grammar C++ files
+include(${FRANKIE_CMAKE_DIR}/generate-ANTLR4-files.cmake)
+
+# Include project libraries
+include(${FRANKIE_CMAKE_DIR}/libraries.cmake)
 
 # Link C++ libraries
 # Basic in-house libraries
