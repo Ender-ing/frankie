@@ -3,7 +3,7 @@
 @@ -157,6 +157,19 @@
  endif()
  
-+message(CRITICAL_ERROR "$<TARGET_FILE:antlr4_shared>")
++message(FATAL_ERROR "$<TARGET_FILE:antlr4_shared>")
 +if(CMAKE_SYSTEM_NAME MATCHES "Darwin" AND TARGET antlr4_shared)
 +get_target_property(ANTLR4_LIBRARY_PATH antlr4_shared TARGET_FILE)
 +file(GET_FILENAME "${ANTLR4_LIBRARY_PATH}" ANTLR4_LIBRARY_FILENAME_MACOS)
