@@ -14,7 +14,7 @@ jobs:
   # Debug
   build-transpiler-debug:
     name: Debug
-    uses: ./.github/workflows/_transpiler_dynamic_build.yml
+    uses: ./.github/actions/transpiler_dynamic_build.yml
     with:
       build_mode: Debug
       bundle_binaries: false
@@ -22,7 +22,7 @@ jobs:
   # Release
   build-transpiler-release:
     name: Release
-    uses: ./.github/workflows/_transpiler_dynamic_build.yml
+    uses: ./.github/actions/transpiler_dynamic_build.yml
     with:
       build_mode: Release
       bundle_binaries: false
