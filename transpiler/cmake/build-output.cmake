@@ -96,3 +96,40 @@ function(get_ini_value INI_FILE INI_SECTION KEY OUTPUT_VARIABLE)
     # Return value
     set(${OUTPUT_VARIABLE} "${VALUE}" PARENT_SCOPE)
 endfunction()
+
+# Attach manifest.ini info to targets!
+function(attach_manifest_data TARGET)
+    message(STATUS "[BUILD] Attaching manifest data to target: ${TARGET}")
+    # Set versioning info
+    get_ini_value(${FRANKIE_MANIFEST_FILE} ${TARGET} "VERSION" INI_VERSION)
+    #get_ini_value(${FRANKIE_MANIFEST_FILE} ${TARGET} "SOVERSION" INI_SOVERSION)
+
+    # Update target info
+    set_target_properties(${TARGET} PROPERTIES # THIS DOESN'T WORK!
+        VERSION "${INI_VERSION}"
+        #SOVERSION "${INI_SOVERSION}" # CMAKE LINKS TO THIS, BEFORE "VERSION"
+        # Naming scheme
+        OUTPUT_NAME "${TARGET}"
+    )
+endfunction()
+
+# Manage symbolic links post-build
+function(manage_symbolic_links POST_TARGET FRANKIE_COMMAND_NAME)
+    if(WIN32)
+        set(SYMBOLIC_LINKS_COMMAND_DELETE Get-ChildItem -Path . -Attributes ReparsePoint | Remove-Item -Force)
+        set(SYMBOLIC_LINKS_COMMAND_REMAKE mklink ${POST_TARGET}.exe ${POST_TARGET}*)
+        set(SYMBOLIC_LINKS_COMMAND_EXTRA mklink ${FRANKIE_COMMAND_NAME}.exe ${POST_TARGET}.exe)
+    else()
+        set(SYMBOLIC_LINKS_COMMAND_DELETE find . -type l -delete)
+        set(SYMBOLIC_LINKS_COMMAND_REMAKE ln -s ${POST_TARGET}* ${POST_TARGET})
+        set(SYMBOLIC_LINKS_COMMAND_EXTRA ln -s ${POST_TARGET} ${FRANKIE_COMMAND_NAME})
+    endif()
+    add_custom_command(
+        TARGET ${POST_TARGET}
+        POST_BUILD
+        COMMAND ${SYMBOLIC_LINKS_COMMAND_DELETE}
+        COMMAND ${SYMBOLIC_LINKS_COMMAND_REMAKE}
+        COMMAND ${SYMBOLIC_LINKS_COMMAND_EXTRA}
+        WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+    )
+endfunction()

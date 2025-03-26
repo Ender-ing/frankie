@@ -7,6 +7,12 @@ add_executable(
 # Handle dynamic libraries
 target_link_directories(FrankieTranspiler PRIVATE "$<TARGET_FILE_DIR:FrankieTranspiler>")
 
+# Attach manifest data
+attach_manifest_data(FrankieTranspiler)
+
+# Re-do symbolic linking
+manage_symbolic_links(FrankieTranspiler "frankie")
+
 # Generate ANTLR4 grammar C++ files
 include(${FRANKIE_CMAKE_DIR}/generate-ANTLR4-files.cmake)
 
