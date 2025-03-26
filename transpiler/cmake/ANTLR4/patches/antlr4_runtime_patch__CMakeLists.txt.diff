@@ -8,8 +8,8 @@
 +  add_custom_command(
 +    TARGET antlr4_shared
 +    POST_BUILD
-+    COMMAND install_name_tool -id "@rpath/$<FILENAME:$<TARGET_FILE:antlr4_shared>>" $<TARGET_FILE:antlr4_shared>
-+    COMMAND install_name_tool -id "@rpath/$<FILENAME:$<TARGET_LINKER_FILE:antlr4_shared>>" $<TARGET_LINKER_FILE:antlr4_shared>)
++    COMMAND install_name_tool -id "@rpath/$<FILENAME:$<TARGET_FILE:antlr4-runtime>>" $<TARGET_FILE:antlr4-runtime>
++    COMMAND install_name_tool -id "@rpath/$<FILENAME:$<TARGET_LINKER_FILE:antlr4-runtime>>" $<TARGET_LINKER_FILE:antlr4-runtime>)
 +endif()
 +
  if (ANTLR_BUILD_CPP_TESTS)
