@@ -54,10 +54,10 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(ANTLR4_DYNAMIC_LIBRARY_COPY_NAME ${ANTLR4_OUTPUT_DIR}/*.so.${ANTLR4_TAG})
 endif()
 add_custom_command(TARGET FrankieParserLibrary
-                   POST_BUILD
-                   COMMAND ${CMAKE_COMMAND}
+                    POST_BUILD
+                    COMMAND ${CMAKE_COMMAND}
                            -E copy ${ANTLR4_DYNAMIC_LIBRARY_COPY_NAME} .
-                   WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+                    WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 # Link other libraries to the library
 add_dependencies(FrankieParserLibrary FrankieCommsLibrary) # TMP
 target_link_libraries(FrankieParserLibrary PUBLIC FrankieCommsLibrary) # TMP
