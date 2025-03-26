@@ -105,8 +105,6 @@ jobs:
 
     - name: Run Tests
       run: |
-        ls -l ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/bin
-        otool -L ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/bin/FrankieTranspiler
         cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -DCMAKE_UNIX_GENERATOR_PLATFORM=${{inputs.build_platform}}
         ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
