@@ -45,8 +45,15 @@ jobs:
       run: cmake --build . --config ${{inputs.build_mode}}
       working-directory: transpiler/build
 
+    - name: Reset the "transpiler/build" directory
+      run: |
+        rmdir /s /q ${{github.workspace}}/transpiler/build
+        mkdir ${{github.workspace}}/transpiler/build
+
     - name: Run Tests
-      run: ctest -VV -C ${{inputs.build_mode}}
+      run: |
+        cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -A ${{inputs.build_platform}}
+        ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Extract version (optional)

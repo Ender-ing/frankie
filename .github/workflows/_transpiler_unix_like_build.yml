@@ -49,8 +49,15 @@ jobs:
       run: cmake --build . --config ${{inputs.build_mode}}
       working-directory: transpiler/build
 
+    - name: Reset the "transpiler/build" directory
+      run: |
+        rm -rf ${{github.workspace}}/transpiler/build
+        mkdir ${{github.workspace}}/transpiler/build
+
     - name: Run Tests
-      run: ctest -VV -C ${{inputs.build_mode}}
+      run: |
+        cmake --build . --config ${{inputs.build_mode}}
+        ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Extract version (optional)
@@ -91,8 +98,15 @@ jobs:
       run: cmake --build . --config ${{inputs.build_mode}}
       working-directory: transpiler/build
 
+    - name: Reset the "transpiler/build" directory
+      run: |
+        rm -rf ${{github.workspace}}/transpiler/build
+        mkdir ${{github.workspace}}/transpiler/build
+
     - name: Run Tests
-      run: ctest -VV -C ${{inputs.build_mode}}
+      run: |
+        cmake --build . --config ${{inputs.build_mode}}
+        ctest -VV -C ${{inputs.build_mode}}
       working-directory: transpiler/build
 
     - name: Extract version (optional)
