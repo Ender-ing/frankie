@@ -112,7 +112,7 @@ else()
       # <CUSTOM MODIFICATIONS
       PATCH_COMMAND
         ${GIT_PATCH_EXECUTABLE} ${ANTLR4_ROOT}/runtime/Cpp/runtime/src/atn/ProfilingATNSimulator.cpp < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__ProfilingATNSimulator.cpp.diff
-        ${GIT_PATCH_EXECUTABLE} ${ANTLR4_ROOT}/runtime/Cpp/runtime/antlrcpp.xcodeproj/project.pbxproj < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__project.pbxproj.diff
+        COMMAND ${GIT_PATCH_EXECUTABLE} ${ANTLR4_ROOT}/runtime/Cpp/runtime/antlrcpp.xcodeproj/project.pbxproj < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__project.pbxproj.diff
       # CUSTOM MODIFICATIONS>
       BUILD_COMMAND ""
       BUILD_IN_SOURCE 1
