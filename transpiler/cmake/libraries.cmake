@@ -56,7 +56,7 @@ endif()
 add_custom_command(TARGET FrankieParserLibrary
                    POST_BUILD
                    COMMAND ${CMAKE_COMMAND}
-                           -E copy ${ANTLR4_OUTPUT_DIR}/${ANTLR4_DYNAMIC_LIBRARY_COPY_NAME} .
+                           -E copy ${ANTLR4_DYNAMIC_LIBRARY_COPY_NAME} .
                    WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 # Link other libraries to the library
 add_dependencies(FrankieParserLibrary FrankieCommsLibrary) # TMP
