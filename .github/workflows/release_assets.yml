@@ -25,14 +25,14 @@ jobs:
   # Transpiler binaries
   build-transpiler-debug:
     name: Generate 'Debug' binaries
-    uses: ./.github/actions/transpiler_dynamic_build.yml@main
+    uses: ./.github/workflows/_transpiler_dynamic_build.yml
     with:
       build_mode: Debug
       bundle_binaries: true
   build-transpiler-release:
     name: Generate 'Release' binaries
     needs: build-transpiler-debug
-    uses: ./.github/actions/transpiler_dynamic_build.yml@main
+    uses: ./.github/workflows/_transpiler_dynamic_build.yml
     with:
       build_mode: Release
       bundle_binaries: true
