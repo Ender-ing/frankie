@@ -1,6 +1,6 @@
 --- a/runtime/Cpp/runtime/CMakeLists.txt
 +++ b/runtime/Cpp/runtime/CMakeLists.txt
-@@ -157,12 +157,26 @@
+@@ -157,6 +157,20 @@
  endif()
  
 +# Fix macOS linking (before copies are made!)
@@ -21,9 +21,3 @@
    # Copy the generated binaries to dist folder (required by test suite)
    if (TARGET antlr4_shared)
    add_custom_command(
-       TARGET antlr4_shared
-       POST_BUILD
-       COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_HOME_DIRECTORY}/dist
-       COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:antlr4_shared> ${CMAKE_HOME_DIRECTORY}/dist
-       COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_LINKER_FILE:antlr4_shared> ${CMAKE_HOME_DIRECTORY}/dist)
-   endif()
