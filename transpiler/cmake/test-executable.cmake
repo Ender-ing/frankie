@@ -1,7 +1,10 @@
-# Used commands
+# Memory testing commands
 find_program(VALGRIND_EXECUTABLE valgrind)
 set(TEST_VALGRIND_COMMAND valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --undef-value-errors=yes --errors-for-leak-kinds=definite,indirect,possible,reachable)
-set(TEST_FRANKIE_DEBUG_COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FrankieTranspiler --debug-parser-antlr-print-test -i)
+
+# Basic transpiler commands
+set(TEST_FRANKIE_COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/FrankieTranspiler)
+set(TEST_FRANKIE_MINI_COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/frankie)
 
 # Check if the native system supports the generated binaries
 set(X64_PROCESSORS "x86_64 x64 AMD64")
@@ -30,37 +33,57 @@ else()
     message(FATAL_ERROR "[TESTS] Couldn't determine the build target")
 endif()
 
-# Define testing functions
-function(frankie_file_syntax_test test_name file_path should_fail)
+# All tests should have these checks, so use `define_frankie_test` to define any and all tests!
+function(define_frankie_test test_prefix test_name should_fail test_command)
     # Set test base name
     if(should_fail)
-        set(full_test_name FrankieFileTest__syntax__failing__${test_name})
+        set(full_test_name ${test_prefix}failing__${test_name})
     else()
-        set(full_test_name FrankieFileTest__syntax__${test_name})
+        set(full_test_name ${test_prefix}${test_name})
     endif()
     message(STATUS "[TESTS] Add a '${full_test_name}?' syntax test... (native ${CMAKE_SYSTEM_PROCESSOR}, binary ${FRANKIE_BINARY_PLATFORM})")
+    # Check platform
+    if(DEFINED NATIVE_SYSTEM_SUPPORTS_BINARIES)
+        # Normal test
+        add_test(NAME ${full_test_name}__execute COMMAND ${test_command})
+        set_tests_properties(${full_test_name}__execute PROPERTIES WILL_FAIL ${should_fail})
+        # Valgrind memory leaks test
+        if(VALGRIND_EXECUTABLE)
+            add_test(NAME ${full_test_name}__valgrind COMMAND ${TEST_VALGRIND_COMMAND} ${test_command})
+            set_tests_properties(${full_test_name}__valgrind PROPERTIES WILL_FAIL ${should_fail})
+        else()
+            message(WARNING "[TESTS] Extra memory leak tests have been disabled! (Please install Valgrind to enable said tests...)")
+        endif()    
+    else()
+        message(FATAL_ERROR "[TESTS] Native system does not support binaries, the relative test is likely to fail! (native ${CMAKE_SYSTEM_PROCESSOR}, binary ${FRANKIE_BINARY_PLATFORM})")
+    endif()
+endfunction()
+
+# Define Basic binary testing function
+function(frankie_binary_test)
+    # Test if the binary's symbolic links are functioning normally!
+    define_frankie_test("FrankieBinaryTest__" "FrankieTranspiler"
+        FALSE
+        "${TEST_FRANKIE_COMMAND}")
+    define_frankie_test("FrankieBinaryTest__" "frankie"
+        FALSE
+        "${TEST_FRANKIE_MINI_COMMAND}"
+        )
+endfunction()
+
+# Define Syntax testing function
+function(frankie_file_syntax_test test_name file_path should_fail)
     # Check for the needed files
     if(EXISTS ${file_path})
-        if(DEFINED NATIVE_SYSTEM_SUPPORTS_BINARIES)
-            # Normal test
-            add_test(NAME ${full_test_name}__execute COMMAND ${TEST_FRANKIE_DEBUG_COMMAND} ${file_path})
-            set_tests_properties(${full_test_name}__execute PROPERTIES WILL_FAIL ${should_fail})
-            # Valgrind memory leaks test
-            if(VALGRIND_EXECUTABLE)
-                add_test(NAME ${full_test_name}__valgrind COMMAND ${TEST_VALGRIND_COMMAND} ${TEST_FRANKIE_DEBUG_COMMAND} ${file_path})
-                set_tests_properties(${full_test_name}__valgrind PROPERTIES WILL_FAIL ${should_fail})
-            else()
-                message(WARNING "[TESTS] Extra memory leak tests have been disabled! (Please install Valgrind to enable said tests...)")
-            endif()
-        else()
-            message(FATAL_ERROR "[TESTS] Native system does not support binaries, the relative test is likely to fail! (native ${CMAKE_SYSTEM_PROCESSOR}, binary ${FRANKIE_BINARY_PLATFORM})")
-        endif()
+        define_frankie_test("FrankieFileTest__syntax__" ${test_name}
+            ${should_fail}
+            "${TEST_FRANKIE_COMMAND};--debug-parser-antlr-print-test;-i;${file_path}")
     else()
         message(FATAL_ERROR "[TESTS] Failed to locate a Frankie test file! (${file_path}) The relative test is likely to fail!")
     endif()
 endfunction()
 
-# Create the basic list file
+# Create the basic files list
 set(FRANKIE_FILE_TESTS "") # All frankie file tests will be applied to files added to this list
 # list(APPEND FRANKIE_FILE_TESTS "path/to/file.frankie")
 #set(FRANKIE_FILE_SYNTAX_TESTS "") # Syntax tests
@@ -73,6 +96,9 @@ set(FRANKIE_FILE_TESTS "") # All frankie file tests will be applied to files add
 #foreach(TEST_CMAKE_FILE ${TEST_CMAKE_FILES})
 #    include("${TEST_CMAKE_FILE}")
 #endforeach()
+
+# Test the basic binary command!
+frankie_binary_test()
 
 # Load all .frankie test files
 file(GLOB_RECURSE TEST_FRANKIE_FILES ${FRANKIE_TESTS_DIR} "*.frankie")
@@ -99,7 +125,6 @@ function(check_for_frankie_file_letter letter file_name output_variable)
         set(${output_variable} FALSE PARENT_SCOPE)
     endif()
 endfunction()
-
 
 # Go through all added paths
 foreach(file ${FRANKIE_FILE_TESTS})
