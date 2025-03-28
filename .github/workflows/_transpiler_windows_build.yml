@@ -31,10 +31,27 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
+    - name: Get MSVC tools arch
+      run: |
+        $arch = "${{inputs.build_platform_name}}"
+        arm32 arm64 x86_32 x86_64
+        if ($arch -eq "x86_64") {
+          echo "MSVC_ARCH=x64" >> $env:GITHUB_ENV
+        } elseif ($arch -eq "x86_32") {
+          echo "MSVC_ARCH=x86" >> $env:GITHUB_ENV
+        } elseif ($arch -eq "arm64") {
+          echo "MSVC_ARCH=x86_amd64" >> $env:GITHUB_ENV
+        } elseif ($arch -eq "arm32") {
+          echo "MSVC_ARCH=x86_arm" >> $env:GITHUB_ENV
+        } else {
+          Write-Error "Couldn't determine architecture version to use with MSVC!"
+          exit 1
+        }
+
     - name: Install Visual Studio Build Tools
       uses: ilammy/msvc-dev-cmd@v1.13.0
       with:
-        arch: x64
+        arch: ${{env.MSVC_ARCH}}
         sdk: 10.0.26100.0
 
     - name: Make the "transpiler/build" directory
