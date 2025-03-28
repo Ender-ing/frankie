@@ -34,7 +34,6 @@ jobs:
     - name: Get MSVC tools arch
       run: |
         $arch = "${{inputs.build_platform_name}}"
-        arm32 arm64 x86_32 x86_64
         if ($arch -eq "x86_64") {
           echo "MSVC_ARCH=x64" >> $env:GITHUB_ENV
         } elseif ($arch -eq "x86_32") {
