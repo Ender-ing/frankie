@@ -8,9 +8,10 @@ add_executable(
 target_link_directories(FrankieTranspiler PRIVATE "$<TARGET_FILE_DIR:FrankieTranspiler>")
 
 # Attach manifest data
+# The first use of the "attach_manifest_data" function must be for the main executable!
 attach_manifest_data(FrankieTranspiler)
 
-# Re-do symbolic linking
+# Re-do symbolic linking (POST BUILD)
 manage_symbolic_links(FrankieTranspiler "frankie")
 
 # Generate ANTLR4 grammar C++ files
