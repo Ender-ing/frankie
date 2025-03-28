@@ -34,7 +34,7 @@ jobs:
     - name: Install Visual Studio Build Tools
       uses: ilammy/msvc-dev-cmd@v1.13.0
       with:
-        arch: ${{inputs.build_platform_name}}
+        arch: x64
         sdk: 10.0.26100.0
 
     - name: Make the "transpiler/build" directory
