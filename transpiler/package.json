@@ -10,6 +10,8 @@
         "win-clean": "rd /s /q build && rd /s /q dist",
         "lix-clean": "rm -f -r build && rm -f -r dist",
         "test": "cd build && ctest -VV -C Release",
-        "tmp-win-debug": "npm run test && .\\dist\\Release\\bin\\FrankieTranspiler.exe --debug-parser-antlr-print-test .\\..\\debug.frankie"
+        "tmp-win-debug": "npm run test && .\\dist\\Release\\bin\\FrankieTranspiler.exe --debug-parser-antlr-print-test .\\..\\debug.frankie",
+        "win64": "mkdir build && npm run build-cmake-win-64 && npm run build-binary && npm run test",
+        "lix64": "mkdir build && npm run build-cmake-lix-64 && npm run build-binary && npm run test"
     }
 }

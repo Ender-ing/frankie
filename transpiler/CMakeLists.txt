@@ -3,7 +3,11 @@ cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 project(polar_frankie_transpiler)
 enable_testing()
 
+# Stop build when errors occur
+set(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION ON)
+
 # Directories
+set(FRANKIE_BUILD_DIR ${CMAKE_BINARY_DIR})
 set(FRANKIE_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(FRANKIE_DEPENDENCIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
 set(FRANKIE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
