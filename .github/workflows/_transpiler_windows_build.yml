@@ -59,13 +59,14 @@ jobs:
     - name: Extract version (optional)
       if: inputs.bundle_binaries
       run: |
-        $version = Get-Content "${{github.workspace}}/transpiler/manifest.ini" | Where-Object { $_ -match 'VERSION=' } | Select-Object -First 1 | ForEach-Object { ($_ -split '=')[1].Trim('"') }
+        $version = (Get-Item "*.exe" | Select-Object -First 1).VersionInfo.FileVersion
         if ($version) {
           echo "VERSION=$version" >> $env:GITHUB_ENV
         } else {
-          Write-Error "VERSION not found in manifest.ini"
+          Write-Error "Couldn't get VERSION info from the generated binaries!"
           exit 1
         }
+      working-directory: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/
 
     - name: Upload Binaries Artifact (optional)
       if: inputs.bundle_binaries

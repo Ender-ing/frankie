@@ -98,6 +98,7 @@ function(get_ini_value INI_FILE INI_SECTION KEY OUTPUT_VARIABLE)
 endfunction()
 
 # Attach manifest.ini info to targets!
+# (Only supports executables and dynamic libraries!)
 function(attach_manifest_data TARGET)
     message(STATUS "[BUILD] Attaching manifest data to target: ${TARGET}")
     # Set versioning info
@@ -111,6 +112,71 @@ function(attach_manifest_data TARGET)
         # Naming scheme
         OUTPUT_NAME "${TARGET}"
     )
+
+    # Keep track of the main target value
+    if(NOT DEFINED IN_MAIN_BIN_VERSION_NAME)
+        # Save version info
+        set(IN_MAIN_BIN_VERSION_NAME "${INI_VERSION}")
+        set(IN_MAIN_BIN_VERSION_NAME "${IN_MAIN_BIN_VERSION_NAME}" PARENT_SCOPE)
+        string(REGEX MATCHALL "[0-9]+" version_list "${INI_VERSION}")
+        list(GET version_list 0 IN_MAIN_BIN_MAJOR)
+        set(IN_MAIN_BIN_MAJOR "${IN_MAIN_BIN_MAJOR}" PARENT_SCOPE)
+        list(GET version_list 1 IN_MAIN_BIN_MINOR)
+        set(IN_MAIN_BIN_MINOR "${IN_MAIN_BIN_MINOR}" PARENT_SCOPE)
+        list(GET version_list 2 IN_MAIN_BIN_PATCH)
+        set(IN_MAIN_BIN_PATCH "${IN_MAIN_BIN_PATCH}" PARENT_SCOPE)
+        list(GET version_list 3 IN_MAIN_BIN_EXTRA)
+        set(IN_MAIN_BIN_EXTRA "${IN_MAIN_BIN_EXTRA}" PARENT_SCOPE)
+    endif()
+
+    # Pass manifest data to .in file
+    string(REGEX MATCHALL "[0-9]+" version_list "${INI_VERSION}")
+    list(GET version_list 0 IN_BIN_MAJOR)
+    list(GET version_list 1 IN_BIN_MINOR)
+    list(GET version_list 2 IN_BIN_PATCH)
+    list(GET version_list 3 IN_BIN_EXTRA)
+    get_ini_value(${FRANKIE_MANIFEST_FILE} ${TARGET} "DESCRIPTION" IN_BIN_DESCRIPTION)
+    set(IN_BIN_VERSION_NAME ${INI_VERSION})
+
+    # Get target type
+    get_target_property(target_type ${TARGET} TYPE)
+
+    # Link native platform
+    if(WIN32)
+        # Modify binary name
+        if(target_type STREQUAL "SHARED_LIBRARY")
+            set(IN_BIN_NAME "${TARGET}.dll")
+        else()
+            set(IN_BIN_NAME "${TARGET}.exe")
+        endif()
+        # Compile Windows resource script file
+        set(WIN32_VERSIONING_RC_FILE ${FRANKIE_BUILD_DIR}/versioning/${TARGET}.Rc)
+        set(WIN32_VERSIONING_RES_FILE ${FRANKIE_BUILD_DIR}/versioning/${TARGET}.res)
+        configure_file(${FRANKIE_CMAKE_DIR}/version/VersionInfo.Rc.in ${WIN32_VERSIONING_RC_FILE})
+        execute_process(
+            COMMAND ${RC_EXECUTABLE} /fo ${WIN32_VERSIONING_RES_FILE} ${WIN32_VERSIONING_RC_FILE}
+            RESULT_VARIABLE command_result
+        )
+        if(NOT command_result EQUAL 0)
+            message(FATAL_ERROR "[BUILD] Couldn't compile Windows resource file: ${WIN32_VERSIONING_RES_FILE}")
+        endif()
+        # Link Windows resource file to target
+        target_link_libraries(${TARGET} PRIVATE ${WIN32_VERSIONING_RES_FILE})
+    elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+        # Modify binary name
+        if(target_type STREQUAL "SHARED_LIBRARY")
+            set(IN_BIN_NAME "lib${TARGET}.${IN_BIN_VERSION_NAME}.dylib")
+        else()
+            set(IN_BIN_NAME "${TARGET}.${IN_BIN_VERSION_NAME}")
+        endif()
+    elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
+        # Modify binary name
+        if(target_type STREQUAL "SHARED_LIBRARY")
+            set(IN_BIN_NAME "lib${TARGET}.so.${IN_BIN_VERSION_NAME}")
+        else()
+            set(IN_BIN_NAME "${TARGET}.${IN_BIN_VERSION_NAME}")
+        endif()
+    endif()
 endfunction()
 
 # Manage symbolic links post-build
