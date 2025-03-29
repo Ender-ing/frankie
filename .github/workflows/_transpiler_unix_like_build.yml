@@ -98,6 +98,11 @@ jobs:
       run: cmake --build . --config ${{inputs.build_mode}} --parallel 3
       working-directory: transpiler/build
 
+    - name: Debug patch error (tmp)
+      if: always()
+      run: find . -type f -regex ".*\.rej$" -print0 | xargs -0 cat
+      working-directory: transpiler/build
+
     - name: Reset the "transpiler/build" directory
       run: |
         rm -rf ${{github.workspace}}/transpiler/build
