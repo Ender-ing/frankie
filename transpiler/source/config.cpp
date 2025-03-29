@@ -24,8 +24,14 @@ namespace Base {
         namespace Debug {
             // --debug-parser-antlr-print-test <path>
             namespace Parser {
-                bool activateBasicPrintTest;
+                bool activateBasicPrintTest = false;
             }
+        }
+
+        // Technical values
+        namespace Technical {
+            // --version
+            bool versionOnlyMode = false;
         }
 
         // Process and update values through program arguments!

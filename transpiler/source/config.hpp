@@ -16,6 +16,9 @@
 // WORK IN PROGRESS
 
 namespace Base {
+    // Version info
+    extern FRANKIE_BASE_LIB const std::string version;
+
     // All state-related members should be contained under one namepsace
     namespace InitialConfigs {
         // Starting Path
@@ -33,6 +36,12 @@ namespace Base {
             namespace Parser {
                 extern FRANKIE_BASE_LIB bool activateBasicPrintTest;
             }
+        }
+
+        // Technical values
+        namespace Technical {
+            // --version
+            extern FRANKIE_BASE_LIB bool versionOnlyMode;
         }
 
         // Process and update values through program arguments!

@@ -14,8 +14,9 @@
 // CLI/LSP
 #include "comms/comms.hpp"
 
-// Configs
+// Base
 #include "config.hpp"
+#include "info.hpp"
 
 // Parser imports
 #include "parser/parser.hpp"
@@ -42,6 +43,14 @@ int main (int argc, const char *argv[]) {
     } else {
         // Fallback to console mode
         Comms::mode = Comms::CLI_MODE;
+    }
+
+    // Check for --version
+    if (Base::InitialConfigs::Technical::versionOnlyMode) {
+        REPORT(Comms::START_REPORT, Comms::NORMAL_REPORT, Base::Info::version, Comms::END_REPORT);
+        // End the program!
+        // (This is done to make sure only the version information gets printed for simple technical use!)
+        return Comms::ProcessReport::programStatus;
     }
 
     // TMP

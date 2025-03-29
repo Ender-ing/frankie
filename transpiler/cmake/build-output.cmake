@@ -177,6 +177,12 @@ function(attach_manifest_data TARGET)
             set(IN_BIN_NAME "${TARGET}.${IN_BIN_VERSION_NAME}")
         endif()
     endif()
+
+    # Pass data to the target's C++ source files
+    target_compile_definitions(${TARGET} PRIVATE
+        "MAIN_TARGET_BINARY_VERSION=\"${IN_MAIN_BIN_VERSION_NAME}\""
+        "TARGET_BINARY_VERSION=\"${IN_BIN_VERSION_NAME}\""
+    )
 endfunction()
 
 # Manage symbolic links post-build
