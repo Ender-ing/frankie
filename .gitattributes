@@ -8,3 +8,7 @@
 # C
 *.c linguist-language=c
 *.h linguist-language=c
+
+# Handle line endings
+CMakeLists.txt eol=lf
+*.diff eol=lf
