@@ -25,7 +25,7 @@ on:
 jobs:
 
   # Linux
-  build-transpiler-on-ubuntu-latest:
+  build-transpiler-on-ubuntu:
     name: Linux ${{inputs.build_platform_name}}
     runs-on: ${{inputs.linux_system}}
 
@@ -74,7 +74,7 @@ jobs:
         path: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/
 
   # macOS
-  build-transpiler-on-macos-latest:
+  build-transpiler-on-macos:
     name: macOS ${{inputs.build_platform_name}}
     runs-on: ${{inputs.mac_system}}
 
