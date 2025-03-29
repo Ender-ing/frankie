@@ -1,6 +1,10 @@
 --- a/runtime/Cpp/runtime/CMakeLists.txt
 +++ b/runtime/Cpp/runtime/CMakeLists.txt
-@@ -157,6 +157,15 @@
+# Use latest googletest version & fix macOS library linking problems
+@@ -73,1 +73,1 @@
+-    URL https://github.com/google/googletest/archive/e2239ee6043f73722e7aa812a459f54a28552929.zip
++    URL https://github.com/google/googletest/archive/refs/tags/v1.16.0.zip
+@@ -157,3 +157,12 @@
  endif()
  
 +# Fix macOS linking (before copies are made!)
@@ -13,6 +17,3 @@
 +endif()
 +
  if (ANTLR_BUILD_CPP_TESTS)
-   # Copy the generated binaries to dist folder (required by test suite)
-   if (TARGET antlr4_shared)
-   add_custom_command(

@@ -121,3 +121,9 @@ jobs:
       with:
         name: PolarFrankie-${{inputs.build_mode}}-v${{env.VERSION}}-macOS-${{inputs.build_platform_name}}
         path: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/
+
+    # Used to display all patch errors (I ain't got no money for a macOS, deal with it)
+    #- name: Debug patch rejects
+    #  if: always()
+    #  run: find . -type f -regex ".*\.rej$" -print0 | xargs -0 cat
+    #  working-directory: transpiler/build
