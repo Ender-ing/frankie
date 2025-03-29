@@ -1,8 +1,14 @@
 --- a/runtime/Cpp/runtime/CMakeLists.txt
 +++ b/runtime/Cpp/runtime/CMakeLists.txt
+
+# Use latest googletest version
+
 @@ -73,1 +73,1 @@
 -    URL https://github.com/google/googletest/archive/e2239ee6043f73722e7aa812a459f54a28552929.zip
 +    URL https://github.com/google/googletest/archive/refs/tags/v1.16.0.zip
+
+# Fix macOS .dylib linking problems
+
 @@ -157,3 +157,12 @@
  endif()
  
