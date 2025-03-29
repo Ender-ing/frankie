@@ -17,7 +17,7 @@ on:
 jobs:
 
   # Windows
-  build-transpiler-on-windows-latest:
+  build-transpiler-on-windows:
     name: Windows ${{inputs.build_platform_name}}
     runs-on: windows-latest
 

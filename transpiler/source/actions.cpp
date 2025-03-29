@@ -59,6 +59,17 @@ namespace Base {
                 }
             ),
             DEFINE_ACTION(
+                "v", "version",
+                "Get the plain version string. (No extra console output will be made as long as no errors occur)",
+                "",
+                {
+                    // Enable the test
+                    InitialConfigs::Technical::versionOnlyMode = true;
+
+                    ACTION_SUCCESS;
+                }
+            ),
+            DEFINE_ACTION(
                 "i", "input",
                 "Set a path for the main user input file.",
                 "<path>",

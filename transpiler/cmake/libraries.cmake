@@ -6,6 +6,7 @@ set(BUILD_SHARED_LIBS ON)
 add_library(FrankieBaseLibrary SHARED
     ${FRANKIE_SOURCE_DIR}/actions.cpp
     ${FRANKIE_SOURCE_DIR}/config.cpp
+    ${FRANKIE_SOURCE_DIR}/info.cpp
 )
 # Expose library exports
 target_compile_definitions(FrankieBaseLibrary PRIVATE FRANKIEBASELIBRARY_EXPORTS)
