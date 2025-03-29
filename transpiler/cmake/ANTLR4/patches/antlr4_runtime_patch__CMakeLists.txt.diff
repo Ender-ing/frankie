@@ -1,17 +1,12 @@
 --- a/runtime/Cpp/runtime/CMakeLists.txt
 +++ b/runtime/Cpp/runtime/CMakeLists.txt
 # Use latest googletest version
-@@ -68,9 +68,9 @@
- if (ANTLR_BUILD_CPP_TESTS)
-   include(FetchContent)
- 
+@@ -71,4 +71,4 @@
    FetchContent_Declare(
      googletest
 -    URL https://github.com/google/googletest/archive/e2239ee6043f73722e7aa812a459f54a28552929.zip
 +    URL https://github.com/google/googletest/archive/refs/tags/v1.16.0.zip
    )
- 
-   if(WITH_STATIC_CRT)
 # Fix macOS .dylib linking problems
 @@ -157,6 +157,15 @@
  endif()
