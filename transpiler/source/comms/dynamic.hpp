@@ -7,10 +7,10 @@
 
 #ifdef _WIN32
 #   ifdef FRANKIECOMMSLIBRARY_EXPORTS // Exporting on Windows
-#       define FRANKIE_COMMS_LIB __declspec(dllexport)
+#       define FRANKIE_COMMS_API __declspec(dllexport)
 #   else // Importing on Windows
-#       define FRANKIE_COMMS_LIB __declspec(dllimport)
+#       define FRANKIE_COMMS_API __declspec(dllimport)
 #   endif
 #else // Linux
-#   define FRANKIE_COMMS_LIB __attribute__((visibility("default")))
+#   define FRANKIE_COMMS_API __attribute__((visibility("default")))
 #endif

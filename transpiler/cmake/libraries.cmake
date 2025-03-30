@@ -17,6 +17,8 @@ add_internal_target_cxx_flags(FrankieBaseLibrary)
 # Link other libraries to the library
 add_dependencies(FrankieBaseLibrary FrankieCommonLibrary)
 target_link_libraries(FrankieBaseLibrary PUBLIC FrankieCommonLibrary)
+add_dependencies(FrankieBaseLibrary FrankieCommsLibrary)
+target_link_libraries(FrankieBaseLibrary PUBLIC FrankieCommsLibrary)
 
 # Create a library from /comms
 add_library(FrankieCommsLibrary SHARED

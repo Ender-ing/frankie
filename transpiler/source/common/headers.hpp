@@ -33,6 +33,6 @@
 
 // If you decide to support WASM, expose library members like this:
 //#if __EMSCRIPTEN__ // WASM
-//#   define FRANKIE_BASE_LIB "C" EMSCRIPTEN_KEEPALIVE
+//#   define FRANKIE_BASE_API "C" EMSCRIPTEN_KEEPALIVE
 //#endif
 // Then you could compile the dynamic libraries into WASM side modules!

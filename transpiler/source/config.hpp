@@ -6,7 +6,7 @@
 #pragma once
 
 #include "common/headers.hpp"
-#include "dynamic.hpp" // FRANKIE_BASE_LIB
+#include "dynamic.hpp" // FRANKIE_BASE_API
 
 #include "actions.hpp"
 
@@ -17,32 +17,32 @@
 
 namespace Base {
     // Version info
-    extern FRANKIE_BASE_LIB const std::string version;
+    extern FRANKIE_BASE_API const std::string version;
 
     // All state-related members should be contained under one namepsace
     namespace InitialConfigs {
         // Starting Path
-        extern FRANKIE_BASE_LIB std::string runPath;
+        extern FRANKIE_BASE_API std::string runPath;
 
         // Main source file
-        extern FRANKIE_BASE_LIB std::string mainPath;
+        extern FRANKIE_BASE_API std::string mainPath;
 
         // Debug-related
         namespace Debug {
             // --debug-parser-antlr-print-test <path>
             namespace Parser {
-                extern FRANKIE_BASE_LIB bool activateBasicPrintTest;
+                extern FRANKIE_BASE_API bool activateBasicPrintTest;
             }
         }
 
         // Technical values
         namespace Technical {
             // --version
-            extern FRANKIE_BASE_LIB bool versionOnlyMode;
+            extern FRANKIE_BASE_API bool versionOnlyMode;
         }
 
         // Process and update values through program arguments!
         // [true - sucess, false - failure]
-        extern FRANKIE_BASE_LIB bool updateUsingArgs (int argc, const char *argv[]) ;
+        extern FRANKIE_BASE_API bool updateUsingArgs (int argc, const char *argv[]) ;
     }
 }

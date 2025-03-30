@@ -155,11 +155,16 @@ if(fmt)
 else()
     # Download {fmt}
     message(STATUS "[DEPENDENCIES] Fetching {fmt}...")
-    FetchContent_Declare(
-        fmt
-        GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-        GIT_TAG ${FMT_LIB_VERSION}
-        SOURCE_DIR ${FRANKIE_DEPENDENCIES_DIR}/fmt
-        )
+    set(FRANKIE_DEP_FMT_LIB_PATH ${FRANKIE_DEPENDENCIES_DIR}/fmt)
+    if(EXISTS "${FRANKIE_DEP_FMT_LIB_PATH}/CMakeLists.txt")
+        FetchContent_Declare(fmt
+            GIT_TAG ${FMT_LIB_VERSION}
+            SOURCE_DIR ${FRANKIE_DEP_FMT_LIB_PATH})
+    else()
+        FetchContent_Declare(fmt
+            GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+            GIT_TAG ${FMT_LIB_VERSION}
+            SOURCE_DIR ${FRANKIE_DEP_FMT_LIB_PATH})
+    endif()
     FetchContent_MakeAvailable(fmt)
 endif()

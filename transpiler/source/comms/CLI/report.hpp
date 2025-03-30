@@ -6,7 +6,7 @@
 #pragma once
 
 #include "../../common/headers.hpp"
-#include "../dynamic.hpp" // FRANKIE_COMMS_LIB
+#include "../dynamic.hpp" // FRANKIE_COMMS_API
 
 // Comms headers
 #include "../comms.hpp"
@@ -17,7 +17,7 @@ namespace Comms {
         // Handle reports CLI outputs
         namespace Reports {
             // Print report details
-            extern FRANKIE_COMMS_LIB void print() ;
+            extern FRANKIE_COMMS_API void print() ;
         }
     }
 }
