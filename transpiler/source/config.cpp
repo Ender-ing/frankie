@@ -38,7 +38,7 @@ namespace Base {
         // [true - sucess, false - failure]
         bool updateUsingArgs (int argc, const char *argv[]) {
             // Get the starting path
-            std::string runPath (argv[0]);
+            runPath = (std::string) argv[0];
 
             // Loop through all arguments (skipping the first one)
             for (int i = 1; i < argc; i++) {
