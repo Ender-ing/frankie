@@ -58,7 +58,7 @@ namespace Comms {
                 };
 
                 if (IndividualReport::type == WARNING_REPORT) {
-                    color = Color::yellow;
+                    color = Color::golden_rod;
                     channel = 1;
                     // Title
                     prompt = "[Warning] (TYPE?) ";
@@ -73,7 +73,7 @@ namespace Comms {
                     // Title
                     prompt = "[Fatal Error] (TYPE?) ";
                 } else if (IndividualReport::type == ACTION_REPORT) {
-                    color = Color::lime_green;
+                    color = Color::sea_green;
                     channel = 1;
                     // Title
                     prompt = "[Action] (TYPE?) ";
