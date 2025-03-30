@@ -24,7 +24,7 @@ namespace Comms {
             //  )  |  \  `.___________|/
             //  `--'   `--'
             // Print initial console prompt
-            std::cout << format("  ,-.       _,---._ __ ", Color::golden_rod) << format(" / \\", Color::light_sea_green) << std::endl;
+            std::cout << std::endl << std::endl << format("  ,-.       _,---._ __ ", Color::golden_rod) << format(" / \\", Color::light_sea_green) << std::endl;
             std::cout << format(" /  )    .-'       `./", Color::golden_rod) << format(" /   \\", Color::light_sea_green) << std::endl;
             std::cout << format("(  (   ,'            `", Color::golden_rod) << format("/    /|  PolarFrankie ", Color::light_sea_green)
                 << format("v", Color::blue_violet) << format(MAIN_TARGET_BINARY_VERSION, Color::blue_violet) << std::endl;

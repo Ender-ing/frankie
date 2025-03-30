@@ -64,7 +64,7 @@ namespace Base {
                         Comms::mode = Comms::CLI_MODE;
                     } else {
                         // Incorrect input value!
-                        REPORT(Comms::START_REPORT, Comms::WARNING_REPORT, "Incorrect <mode> value ('", protocolText,"') detected! (-p, --protocol)", "Expected values are: s/server, or c/console.", Comms::END_REPORT);
+                        REPORT(Comms::START_REPORT, Comms::WARNING_REPORT, "Incorrect <mode> value ('", protocolText,"') detected! (-p, --protocol)", "\nExpected values are: s/server, or c/console.", Comms::END_REPORT);
                         // Fallback to console mode
                         Comms::mode = Comms::CLI_MODE;
                     }
