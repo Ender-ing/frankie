@@ -149,4 +149,17 @@ namespace Comms {
             }
         }
     }
+
+    // Initalise protocol
+    void initalize() {
+        if(mode == CLI_MODE){
+            // Initialise CLI mode
+            // ...
+        } else if(mode == LSP_MODE){
+            // Initialise LSP mode
+            // ...
+        } else {
+            throwError("Unknown Comms::mode value!"); 
+        }
+    }
 }
