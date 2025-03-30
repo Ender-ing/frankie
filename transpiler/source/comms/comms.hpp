@@ -6,7 +6,7 @@
 #pragma once
 
 #include "../common/headers.hpp"
-#include "dynamic.hpp" // FRANKIE_COMMS_LIB
+#include "dynamic.hpp" // FRANKIE_COMMS_API
 
 // Basic C++ headers
 #include <variant>
@@ -26,15 +26,15 @@ namespace Comms {
         CLI_MODE = 0xFFF00001,
         LSP_MODE = 0xFFF00002
     };
-    extern FRANKIE_COMMS_LIB Mode mode;
+    extern FRANKIE_COMMS_API Mode mode;
 
     // General Transpiler status
     namespace ProcessReport {
         // It may become necessary to introduce static tracking variables to keep up with more complex error reports
         // to support LSP!
-        extern FRANKIE_COMMS_LIB int programStatus;
+        extern FRANKIE_COMMS_API int programStatus;
         // Keep track of the reporting status
-        extern FRANKIE_COMMS_LIB bool didSendReport;
+        extern FRANKIE_COMMS_API bool didSendReport;
     }
 
     // Report actions
@@ -62,11 +62,11 @@ namespace Comms {
     // Report-specific status
     namespace IndividualReport {
         // Current reporting status!
-        extern FRANKIE_COMMS_LIB bool isNew; // Check if this is a new report!
-        extern FRANKIE_COMMS_LIB ReportType type;
-        extern FRANKIE_COMMS_LIB ReportBodyData messageBodyData;
+        extern FRANKIE_COMMS_API bool isNew; // Check if this is a new report!
+        extern FRANKIE_COMMS_API ReportType type;
+        extern FRANKIE_COMMS_API ReportBodyData messageBodyData;
     }
 
     // Reporting
-    extern FRANKIE_COMMS_LIB void report(const ReportInputs& args) ;
+    extern FRANKIE_COMMS_API void report(const ReportInputs& args) ;
 }
