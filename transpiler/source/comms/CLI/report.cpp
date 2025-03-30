@@ -5,6 +5,14 @@
 
 #include "report.hpp"
 
+// Shortent the syntax for printing to the console
+#define INTERNAL_C_OUT(DATA, CHANNEL_VAR)                   \
+    if (CHANNEL_VAR == 0) {                                 \
+        std::cout << DATA << std::flush;                    \
+    } else {                                                \
+        std::cerr << DATA << std::flush;                    \
+    }                                                       \
+
 namespace Comms {
     namespace CLI {
         // Handle reports CLI outputs
@@ -27,61 +35,74 @@ namespace Comms {
                 }
             }
 
+            // Keep track of print statistics
+            static bool isFirstPrint = true;
+
             // Print report details
             void print() {
                 // Track output data printing
                 uint32_t color;
                 int channel = 0; // [0 -> cout, 1 -> cerr]
+                bool shouldPrompt = true;
+                std::string prompt;
                 auto print = [&channel, &color](std::string data) {
                     // {fmt}
                     sanitize(data);
 
-                    // Choose the output channel
-                    if (channel == 0) {
-                        std::cout << Comms::CLI::format(data, color) << std::flush;
-                    } else {
-                        std::cerr << Comms::CLI::format(data, color) << std::flush;
-                    }
+                    // Print to the chosen output channel
+                    INTERNAL_C_OUT(Comms::CLI::format(data, color), channel);
                 };
 
                 if (IndividualReport::type == WARNING_REPORT) {
                     color = Color::yellow;
                     channel = 1;
                     // Title
-                    print("[Warning] (TYPE?) ");
+                    prompt = "[Warning] (TYPE?) ";
                 } else if (IndividualReport::type == CRITICAL_REPORT) {
                     color = Color::crimson;
                     channel = 1;
                     // Title
-                    print("[Error] (TYPE?) ");
+                    prompt = "[Error] (TYPE?) ";
                 } else if (IndividualReport::type == FATAL_REPORT) {
                     color = Color::fire_brick;
                     channel = 1;
                     // Title
-                    print("[Fatal Error] (TYPE?) ");
+                    prompt = "[Fatal Error] (TYPE?) ";
                 } else if (IndividualReport::type == ACTION_REPORT) {
                     color = Color::lime_green;
                     channel = 1;
                     // Title
-                    print("[Action] (TYPE?) ");
+                    prompt = "[Action] (TYPE?) ";
                 } else if (IndividualReport::type == DEBUG_REPORT) {
                     color = Color::blue_violet;
                     channel = 0;
                     // Title
-                    print("[Debug] (TYPE?) ");
+                    prompt = "[Debug] (TYPE?) ";
                 } else {
                     color = Color::white;
                     channel = 0;
+                    // No prompts
+                    shouldPrompt = false;
+                }
+
+                // Print a new line for new reports
+                if (!isFirstPrint) {
+                    INTERNAL_C_OUT(std::endl, channel);
+                }
+                
+                // Print report type info
+                if (shouldPrompt) {
+                    print(prompt);
                 }
 
                 // TMP
                 for (auto& data : IndividualReport::messageBodyData) {
                     print(data);
                 }
-                if (channel == 0) {
-                    std::cout << std::endl;
-                } else {
-                    std::cerr << std::endl;
+
+                // Update print statistics
+                if (isFirstPrint) {
+                    isFirstPrint = false;
                 }
             }
         }
