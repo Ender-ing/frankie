@@ -11,7 +11,7 @@
 namespace Comms {
     // Communication mode
     // (may need to introduce more complex modes!)
-    Mode mode;
+    Mode mode = CLI_MODE; // defaults to CLI mode!
 
     // Handle error throw statement
     static void throwError(std::string msg) {
