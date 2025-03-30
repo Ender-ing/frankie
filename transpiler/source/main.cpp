@@ -32,8 +32,7 @@ int main (int argc, const char *argv[]) {
     // Update initial configurations
     if(!(Base::InitialConfigs::updateUsingArgs (argc, argv))){
         // This process failed!
-
-        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "COULDN'T PROCESS TRANSPILER ARGUMENTS!", Comms::END_REPORT);
+        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Terminating program due to the previous error(s)!", Comms::END_REPORT);
         return Comms::ProcessReport::programStatus;
     }
 
@@ -71,7 +70,7 @@ int main (int argc, const char *argv[]) {
         Parser::Debug::syntaxCheck(file_contents);
     }
 
-    std::cout << Comms::CLI::format("Done!", Comms::CLI::Color::green) << std::endl;
+    REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Done!", Comms::END_REPORT);
 
     // Check for unfinished reports
     if(Comms::ProcessReport::didSendReport && !Comms::IndividualReport::isNew){
