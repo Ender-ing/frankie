@@ -154,7 +154,7 @@ namespace Comms {
     void initalize() {
         if(mode == CLI_MODE){
             // Initialise CLI mode
-            // ...
+            CLI::initialize(); //TMP
         } else if(mode == LSP_MODE){
             // Initialise LSP mode
             // ...

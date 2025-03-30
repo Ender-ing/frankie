@@ -40,6 +40,9 @@ int main (int argc, const char *argv[]) {
         return Comms::ProcessReport::programStatus;
     }
 
+    // Initalise communications protocol
+    Comms::initalize();
+
     // TMP
     if (Base::InitialConfigs::Debug::Parser::activateBasicPrintTest) {
         auto filename = Base::InitialConfigs::mainPath;
