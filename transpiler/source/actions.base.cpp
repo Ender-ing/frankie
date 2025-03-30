@@ -3,9 +3,9 @@
  * Manage transpiler actions
 **/
 
-#include "actions.hpp"
+#include "actions.base.hpp"
 
-#include "config.hpp"
+#include "config.base.hpp"
 
 // CLI/LSP
 #include "comms/comms.hpp"

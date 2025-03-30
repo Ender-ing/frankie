@@ -3,7 +3,7 @@
  * Manage transpiler arguments and starting state
 **/
 
-#include "config.hpp"
+#include "config.base.hpp"
 #include "common/strings.hpp"
 
 // CLI/LSP

@@ -15,8 +15,8 @@
 #include "comms/comms.hpp"
 
 // Base
-#include "config.hpp"
-#include "info.hpp"
+#include "config.base.hpp"
+#include "info.base.hpp"
 
 // Parser imports
 #include "parser/parser.hpp"
