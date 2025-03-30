@@ -6,7 +6,8 @@
 #include "config.hpp"
 #include "common/strings.hpp"
 
-// WORK IN PROGRESS
+// CLI/LSP
+#include "comms/comms.hpp"
 
 namespace Base {
     // All state-related members should be contained under one namepsace
@@ -16,9 +17,6 @@ namespace Base {
 
         // Main source file
         std::string mainPath = "";
-
-        // Communication protocol
-        std::string protocol = "c";
 
         // Debug-related
         namespace Debug {
@@ -38,7 +36,7 @@ namespace Base {
         // [true - sucess, false - failure]
         bool updateUsingArgs (int argc, const char *argv[]) {
             // Get the starting path
-            std::string runPath (argv[0]);
+            runPath = (std::string) argv[0];
 
             // Loop through all arguments (skipping the first one)
             for (int i = 1; i < argc; i++) {
@@ -65,13 +63,13 @@ namespace Base {
                 if (Actions::getActionFunctionByFlag(arg, action)) {
                     // Execute action, and check for failure
                     if (!action(getNextArg)) {
-                        // Action-related error!
+                        // Action-related fatal error!
                         // Error message is handled by the action!
                         return false;
                     }
                 } else {
                     // Unknown argument!
-                    // PRINT AN ERROR!
+                    REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Unknown argument! ('", arg, "')", Comms::END_REPORT);
                     return false;
                 }
             }

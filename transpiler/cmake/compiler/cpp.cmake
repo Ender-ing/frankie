@@ -1,6 +1,3 @@
-# Force PIC
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
 # Check for C++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -8,8 +5,86 @@ include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++17" CXX_17_FLAG)
 CHECK_CXX_COMPILER_FLAG("-std:c++17" CXX_17_FLAG_MSVC)
 if(NOT (CXX_17_FLAG OR CXX_17_FLAG_MSVC))
-    message(FATAL_ERROR "[DEPENDENCIES] C++17 is not supported by the compiler. Please use a compiler that supports C++17.")
+    message(FATAL_ERROR "[C++] C++17 is not supported by the compiler. Please use a compiler that supports C++17.")
 endif()
+
+# Force PIC
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+# Set character set flags based on compiler (Must be set to UTF-8)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    # GCC or Clang
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -finput-charset=UTF-8 -fexec-charset=UTF-8")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    # MSVC
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8")
+else()
+    # Other compilers (optional)
+    message(FATAL_ERROR "[C++] Compiler ${CMAKE_CXX_COMPILER_ID} not recognized. Character set flags not set.")
+endif()
+
+# Optimisation flags for Release builds
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    # GCC or Clang
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    # MSVC
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /O2 /DNDEBUG")
+else()
+    # Other compilers (optional)
+    message(FATAL_ERROR "[C++] Compiler ${CMAKE_CXX_COMPILER_ID} not recognized. Optimisation flags not set.")
+endif()
+
+# Warning flags (only for internal targets)
+function(add_internal_target_cxx_flags TARGET)
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        # GCC or Clang
+        target_compile_options(${TARGET} PRIVATE
+            -Wshadow
+            -Wpointer-arith
+            -Wcast-align
+            -Wstrict-overflow=4
+            -Wwrite-strings
+            -Wcast-qual
+            -Wconversion
+            -Wunreachable-code
+
+            -Wunused
+
+            -Wall # Enable all warnings
+        )
+    elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+        # MSVC
+        target_compile_options(${TARGET} PRIVATE
+            /we4456 # Declaration of identifier hides previous local declaration.
+            /we4457 # Declaration of member hides previous local declaration.
+            /we4458 # Declaration of identifier hides class member.
+            /we4459 # Declaration of formal parameter shadows global declaration.
+
+            /we4826 # Conversion from type 'type1' to type 'type2' requires reinterpretation of object representation.
+
+            /we4230 # nonstandard extension used: string literal used for array initialization.
+            /we4244 # conversion from 'const char [N]' to 'char *', possible loss of data.
+
+            /we4180 # qualifier applied to function type has no meaning; ignored.
+            /we4190 # 'identifier' has C-linkage specified, but returns UDT 'type' which is not C-linkage-compatible.
+
+            /we4244 # conversion from 'type1' to 'type2', possible loss of data.
+            /we4242 # conversion from 'type1' to 'type2', possible loss of data.
+
+            /we4702 # unreachable code.
+
+            /we4101 # unreferenced local variable.
+            /we4189 # local variable is initialized but not referenced.
+            /we4505 # Unreferenced local function has been removed:
+
+            /W4 # Enable all warnings
+        )
+    else()
+        # Other compilers (optional)
+        message(FATAL_ERROR "[C++] Compiler ${CMAKE_CXX_COMPILER_ID} not recognized. Can't set the proper warning flags.")
+    endif()
+endfunction()
 
 # Treat compiler warnings as errors
 set(CMAKE_COMPILE_WARNING_AS_ERROR ON)

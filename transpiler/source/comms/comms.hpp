@@ -44,9 +44,12 @@ namespace Comms {
     };
     // Report types
     enum ReportType {
-        NORMAL_REPORT = 0xFFF00201,
-        WARNING_REPORT = 0xFFF00202,
-        CRITICAL_REPORT = 0xFFF00203
+        NORMAL_REPORT = 0xFFF00201, // Used for general reports
+        WARNING_REPORT = 0xFFF00202, // Used for warnings
+        CRITICAL_REPORT = 0xFFF00203, // Used for errors
+        FATAL_REPORT = 0xFFF00204, // Used for fatal errors (terminates the program)
+        ACTION_REPORT = 0xFFF00205, // Used for user-invoked action confirmations
+        DEBUG_REPORT = 0xFFF00206 // Used for debug/non-standard output
     };
 
     // Handle shared input types

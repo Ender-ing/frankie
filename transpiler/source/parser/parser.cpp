@@ -59,10 +59,11 @@ namespace Parser {
 
             // Print tokens
             tokens.fill();
-            std::cout << Comms::CLI::format("Tokens: \n", Comms::CLI::Color::blue) << std::endl;
+            REPORT(Comms::START_REPORT, Comms::DEBUG_REPORT, "Tokens: \n");
             for (auto token : tokens.getTokens()) {
-                std::cout << token->toString() << std::endl;
+                REPORT(token->toString(), "\n");
             }
+            REPORT(Comms::END_REPORT);
   
             // Generate a parse tree
             PolarFrankieParser parser(&tokens);
@@ -76,7 +77,7 @@ namespace Parser {
 
             // Print the parse tree!
             auto s = tree->toStringTree(&parser);
-            std::cout << Comms::CLI::format("Parse Tree: \n", Comms::CLI::Color::blue) << s << std::endl;
+            REPORT(Comms::START_REPORT, Comms::DEBUG_REPORT, "Parse Tree: \n", s, Comms::END_REPORT);
 
             return syntaxCheckSuccess;
         }

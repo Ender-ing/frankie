@@ -23,8 +23,8 @@
 }                                                                   \
 
 // Hide the return keyword to avoid confusion
-#define ACTION_FAILURE              return false
-#define ACTION_SUCCESS              return true
+#define ACTION_FATAL_FAILURE                return false
+#define ACTION_PROGRESS                     return true
 
 namespace Base {
     namespace Actions {

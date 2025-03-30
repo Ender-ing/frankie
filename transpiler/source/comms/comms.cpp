@@ -11,11 +11,11 @@
 namespace Comms {
     // Communication mode
     // (may need to introduce more complex modes!)
-    Mode mode;
+    Mode mode = CLI_MODE; // defaults to CLI mode!
 
     // Handle error throw statement
     static void throwError(std::string msg) {
-        std::cerr << CLI::format(msg, Comms::CLI::Color::red) << std::endl;
+        std::cerr << CLI::format("[Thrown Error] ", Comms::CLI::Color::red) << CLI::format(msg, Comms::CLI::Color::red) << CLI::format("\nPlease contact the developers of PolarFrankie!", Comms::CLI::Color::red) << std::endl;
         throw std::runtime_error(msg);
     }
 
@@ -56,7 +56,7 @@ namespace Comms {
                 // Print report details
                 CLI::Reports::print();
             } else if (mode == LSP_MODE) {
-                throwError("Currently, 'LSP' Comms::mode is not supported!"); 
+                throwError("Currently, 'LSP' Comms::mode is not supported!");
             } else {
                 throwError("Unsupported Comms::mode value!"); 
             }
@@ -92,7 +92,8 @@ namespace Comms {
                 }
 
                 // Update report status
-                if (value == NORMAL_REPORT || value == WARNING_REPORT || value == CRITICAL_REPORT) {
+                if (value == NORMAL_REPORT || value == WARNING_REPORT || value == CRITICAL_REPORT ||
+                    value == FATAL_REPORT || value == ACTION_REPORT || value == DEBUG_REPORT) {
                     IndividualReport::type = value;
                 } else {
                     throwError("Unknown Comms::ReportType value!"); 

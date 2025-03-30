@@ -14,6 +14,9 @@ attach_manifest_data(FrankieTranspiler)
 # Re-do symbolic linking (POST BUILD)
 manage_symbolic_links(FrankieTranspiler "frankie")
 
+# Add compiler flags
+add_internal_target_cxx_flags(FrankieTranspiler)
+
 # Generate ANTLR4 grammar C++ files
 include(${FRANKIE_CMAKE_DIR}/generate-ANTLR4-files.cmake)
 

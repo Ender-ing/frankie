@@ -13,5 +13,5 @@
 
 namespace Common {
     // Check if a file is accessible
-    extern FRANKIE_COMMON_LIB bool fileAccessible (std::string path) ;
+    extern FRANKIE_COMMON_LIB bool isFileAccessible (const std::string &filePath) ;
 }

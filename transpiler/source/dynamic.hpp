@@ -11,6 +11,6 @@
 #   else // Importing on Windows
 #       define FRANKIE_BASE_LIB __declspec(dllimport)
 #   endif
-#else // Linux
+#else // Linux & macOS
 #   define FRANKIE_BASE_LIB __attribute__((visibility("default")))
 #endif

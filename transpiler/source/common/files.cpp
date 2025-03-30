@@ -6,12 +6,14 @@
 #include "files.hpp"
 
 // Basic C++ headers
-//#include <string>
+// #include <filesystem>
+#include <fstream>
 
 namespace Common {
     // Check if a file is accessible
-    bool fileAccessible (std::string path) {
-        //...
-        return false;
+    bool isFileAccessible (const std::string &filePath) {
+        // Check if the file is open!
+        std::ifstream file(filePath);
+        return file.is_open(); // FIle will be closed when out of scope
     }
 }
