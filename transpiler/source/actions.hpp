@@ -6,7 +6,7 @@
 #pragma once
 
 #include "common/headers.hpp"
-#include "dynamic.hpp" // FRANKIE_BASE_LIB
+#include "dynamic.hpp" // FRANKIE_BASE_API
 
 // Basic C++ headers
 #include <unordered_map>
@@ -55,13 +55,13 @@ namespace Base {
         //  ]
         //  function (true - normal -> continue, false - error -> terminate) // Must always return a boolean value
         // ]
-        extern FRANKIE_BASE_LIB std::unordered_map<
+        extern FRANKIE_BASE_API std::unordered_map<
             ActionInfo,
             ActionFunction,
             ActionInfoHash_internal
             > map;
 
         // Get an action function using one flag
-        extern FRANKIE_BASE_LIB bool getActionFunctionByFlag(const std::string& flag, ActionFunction &store) ;
+        extern FRANKIE_BASE_API bool getActionFunctionByFlag(const std::string& flag, ActionFunction &store) ;
     }
 }

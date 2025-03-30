@@ -25,10 +25,6 @@ int main (int argc, const char *argv[]) {
     // Test for memory leaks
     Common::CrtDebug::initiateCrtMemoryChecks();
 
-    // Default to console mode
-    // (this is done to handle early errors!)
-    Comms::mode = Comms::CLI_MODE;
-
     // Update initial configurations
     if(!(Base::InitialConfigs::updateUsingArgs (argc, argv))){
         // This process failed!

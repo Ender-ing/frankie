@@ -6,11 +6,11 @@
 #pragma once
 
 #include "common/headers.hpp"
-#include "dynamic.hpp" // FRANKIE_BASE_LIB
+#include "dynamic.hpp" // FRANKIE_BASE_API
 
 namespace Base {
     namespace Info {
         // Version info
-        extern FRANKIE_BASE_LIB const std::string version;
+        extern FRANKIE_BASE_API const std::string version;
     }
 }
