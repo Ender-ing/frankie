@@ -6,7 +6,8 @@
 #include "config.hpp"
 #include "common/strings.hpp"
 
-// WORK IN PROGRESS
+// CLI/LSP
+#include "comms/comms.hpp"
 
 namespace Base {
     // All state-related members should be contained under one namepsace
@@ -62,13 +63,13 @@ namespace Base {
                 if (Actions::getActionFunctionByFlag(arg, action)) {
                     // Execute action, and check for failure
                     if (!action(getNextArg)) {
-                        // Action-related error!
+                        // Action-related fatal error!
                         // Error message is handled by the action!
                         return false;
                     }
                 } else {
                     // Unknown argument!
-                    // PRINT AN ERROR!
+                    REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Unknown argument! ('", arg, "')", Comms::END_REPORT);
                     return false;
                 }
             }
