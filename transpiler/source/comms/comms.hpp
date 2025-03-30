@@ -14,6 +14,7 @@
 // Include comms headers
 #include "CLI/basic.hpp"
 #include "CLI/report.hpp"
+#include "CLI/initialize.hpp"
 
 // Pack the report function into a macro
 #define REPORT(...)                                                 \
@@ -69,4 +70,7 @@ namespace Comms {
 
     // Reporting
     extern FRANKIE_COMMS_API void report(const ReportInputs& args) ;
+
+    // Initalise protocol
+    extern FRANKIE_COMMS_API void initalize() ;
 }

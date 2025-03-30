@@ -8,10 +8,6 @@
 #include "../../common/headers.hpp"
 #include "../dynamic.hpp" // FRANKIE_COMMS_API
 
-// Comms headers
-#include "../comms.hpp"
-#include "basic.hpp"
-
 namespace Comms {
     namespace CLI {
         // Handle reports CLI outputs

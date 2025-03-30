@@ -6,9 +6,9 @@
 #pragma once
 
 #include "common/headers.hpp"
-#include "dynamic.hpp" // FRANKIE_BASE_API
+#include "dynamic.base.hpp" // FRANKIE_BASE_API
 
-#include "actions.hpp"
+#include "actions.base.hpp"
 
 // Basic C++ headers
 //#include <string>

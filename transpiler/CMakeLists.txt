@@ -46,4 +46,9 @@ include(${FRANKIE_CMAKE_DIR}/dependencies.cmake)
 include(${FRANKIE_CMAKE_DIR}/build-executable.cmake)
 
 # Run tests on the transpiler executable!
-include(${FRANKIE_CMAKE_DIR}/test-executable.cmake)
+option(FRANKIE_TESTS "Disable PolarFrankie custom tests" ON)
+if(FRANKIE_TESTS)
+    include(${FRANKIE_CMAKE_DIR}/test-executable.cmake)
+else()
+    message(WARNING "[TESTS] Custom tests have been disabled!")
+endif()

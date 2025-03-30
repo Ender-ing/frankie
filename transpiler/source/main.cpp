@@ -15,8 +15,8 @@
 #include "comms/comms.hpp"
 
 // Base
-#include "config.hpp"
-#include "info.hpp"
+#include "config.base.hpp"
+#include "info.base.hpp"
 
 // Parser imports
 #include "parser/parser.hpp"
@@ -39,6 +39,9 @@ int main (int argc, const char *argv[]) {
         // (This is done to make sure only the version information gets printed for simple technical use!)
         return Comms::ProcessReport::programStatus;
     }
+
+    // Initalise communications protocol
+    Comms::initalize();
 
     // TMP
     if (Base::InitialConfigs::Debug::Parser::activateBasicPrintTest) {

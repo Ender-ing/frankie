@@ -8,11 +8,6 @@
 #include "headers.hpp"
 #include "dynamic.hpp" // FRANKIE_COMMON_API
 
-// Basic C++ headers
-#include <string>
-#include <algorithm>
-#include <cctype>
-
 namespace Common {
     namespace Strings {
         // Convert a std::string into lowercase format

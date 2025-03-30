@@ -5,6 +5,10 @@
 
 #include "strings.hpp"
 
+// Basic C++ headers
+#include <algorithm>
+#include <cctype>
+
 namespace Common {
     namespace Strings {
         // Convert a std::string into lowercase format
