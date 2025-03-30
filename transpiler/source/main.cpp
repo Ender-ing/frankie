@@ -71,14 +71,15 @@ int main (int argc, const char *argv[]) {
         Parser::Debug::syntaxCheck(file_contents);
     }
 
-    // Check for unfinished reports
-    // if(Comms::ProcessReport::didSendReport && !Comms::IndividualReport::isNew){
-    //     std::cerr << Comms::CLI::format("Failed to properly end a report! ", Comms::CLI::Color::red) << std::endl; // Fail!
-    //     return 1;
-    // }
-
     std::cout << Comms::CLI::format("Done!", Comms::CLI::Color::green) << std::endl;
 
+    // Check for unfinished reports
+    if(Comms::ProcessReport::didSendReport && !Comms::IndividualReport::isNew){
+        std::cerr << CLI::format("[Thrown Error] Detected an unfinished report! Possible memory leaks/bad code, please contact the developers of PolarFrankie!", Comms::CLI::Color::red) << std::endl;
+        throw std::runtime_error(msg);
+        return 1;
+    }
+    
     // Handle memory check results
     if(Common::CrtDebug::processCrtMemoryReports()){
         // Exist with an error on memory leaks!

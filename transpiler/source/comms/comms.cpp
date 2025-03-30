@@ -15,7 +15,7 @@ namespace Comms {
 
     // Handle error throw statement
     static void throwError(std::string msg) {
-        std::cerr << CLI::format(msg, Comms::CLI::Color::red) << std::endl;
+        std::cerr << CLI::format("[Thrown Error] ", Comms::CLI::Color::red) << CLI::format(msg, Comms::CLI::Color::red) << CLI::format("\nPlease contact the developers of PolarFrankie!", Comms::CLI::Color::red) << std::endl;
         throw std::runtime_error(msg);
     }
 
@@ -56,7 +56,7 @@ namespace Comms {
                 // Print report details
                 CLI::Reports::print();
             } else if (mode == LSP_MODE) {
-                throwError("Currently, 'LSP' Comms::mode is not supported!"); 
+                throwError("Currently, 'LSP' Comms::mode is not supported!");
             } else {
                 throwError("Unsupported Comms::mode value!"); 
             }
