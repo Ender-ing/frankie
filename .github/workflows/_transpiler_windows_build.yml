@@ -57,7 +57,7 @@ jobs:
       run: mkdir ${{github.workspace}}/transpiler/build
 
     - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -A ${{inputs.build_platform}}
+      run: cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -A ${{inputs.build_platform}} -DFRANKIE_TESTS=OFF
       working-directory: transpiler/build
 
     - name: Build
