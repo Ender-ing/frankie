@@ -67,7 +67,6 @@ namespace Base {
                         REPORT(Comms::START_REPORT, Comms::WARNING_REPORT, "Incorrect <mode> value ('", protocolText,"') detected! (-p, --protocol)", "Expected values are: s/server, or c/console.", Comms::END_REPORT);
                         // Fallback to console mode
                         Comms::mode = Comms::CLI_MODE;
-                        ACTION_FATAL_FAILURE;
                     }
 
                     ACTION_PROGRESS;
