@@ -15,7 +15,7 @@ namespace Comms {
 
     // Handle error throw statement
     static void throwError(std::string msg) {
-        std::cerr << CLI::format("[Thrown Error] ", Comms::CLI::Color::red) << CLI::format(msg, Comms::CLI::Color::red) << CLI::format("\nPlease contact the developers of PolarFrankie!", Comms::CLI::Color::red) << std::endl;
+        std::cerr << CLI::format("[Internal Error] ", Comms::CLI::Color::red) << CLI::format(msg, Comms::CLI::Color::red) << CLI::format("\nPlease contact the developers of PolarFrankie!", Comms::CLI::Color::red) << std::endl;
         throw std::runtime_error(msg);
     }
 
