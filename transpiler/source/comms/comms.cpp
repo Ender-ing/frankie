@@ -92,7 +92,8 @@ namespace Comms {
                 }
 
                 // Update report status
-                if (value == NORMAL_REPORT || value == WARNING_REPORT || value == CRITICAL_REPORT) {
+                if (value == NORMAL_REPORT || value == WARNING_REPORT || value == CRITICAL_REPORT ||
+                    value == FATAL_REPORT || value == ACTION_REPORT || value == DEBUG_REPORT) {
                     IndividualReport::type = value;
                 } else {
                     throwError("Unknown Comms::ReportType value!"); 
