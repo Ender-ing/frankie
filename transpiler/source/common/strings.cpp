@@ -10,7 +10,7 @@ namespace Common {
         // Convert a std::string into lowercase format
         void toLowerCase(std::string &str) {
             // Transform it letter by letter
-            std::transform(str.begin(), str.end(), str.begin(), [](unsigned char c){ return std::tolower(c); });
+            std::transform(str.begin(), str.end(), str.begin(), [](unsigned char c){ return static_cast<char>(std::tolower(c)); });
         }
 
         // Make a lowercase copy of a std::string
