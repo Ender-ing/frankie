@@ -29,22 +29,60 @@ namespace Comms {
 
             // Print report details
             void print() {
-                // TMP
+                // Track output data printing
                 uint32_t color;
-                if (IndividualReport::type == CRITICAL_REPORT) {
-                    color = Color::red;
-                } else if (IndividualReport::type == WARNING_REPORT) {
+                int channel = 0; // [0 -> cout, 1 -> cerr]
+                auto print = [&channel, &color](std::string data) {
+                    // {fmt}
+                    sanitize(data);
+
+                    // Choose the output channel
+                    if (channel == 0) {
+                        std::cout << Comms::CLI::format(data, color) << std::flush;
+                    } else {
+                        std::cerr << Comms::CLI::format(data, color) << std::flush;
+                    }
+                };
+
+                if (IndividualReport::type == WARNING_REPORT) {
                     color = Color::yellow;
+                    channel = 1;
+                    // Title
+                    print("[Warning] (TYPE?) ");
+                } else if (IndividualReport::type == CRITICAL_REPORT) {
+                    color = Color::crimson;
+                    channel = 1;
+                    // Title
+                    print("[Error] (TYPE?) ");
+                } else if (IndividualReport::type == FATAL_REPORT) {
+                    color = Color::fire_brick;
+                    channel = 1;
+                    // Title
+                    print("[Fatal Error] (TYPE?) ");
+                } else if (IndividualReport::type == ACTION_REPORT) {
+                    color = Color::lime_green;
+                    channel = 1;
+                    // Title
+                    print("[Action] (TYPE?) ");
+                } else if (IndividualReport::type == DEBUG_REPORT) {
+                    color = Color::blue_violet;
+                    channel = 0;
+                    // Title
+                    print("[Debug] (TYPE?) ");
                 } else {
                     color = Color::white;
+                    channel = 0;
                 }
 
                 // TMP
                 for (auto& data : IndividualReport::messageBodyData) {
-                    sanitize(data);
-                    std::cerr << Comms::CLI::format(data, color) << std::flush;
+                    print(data);
                 }
-                std::cerr << std::endl;
+                if (channel == 0) {
+                    std::cout << std::endl;
+                } else {
+                    std::cerr << std::endl;
+                }
             }
         }
     }
