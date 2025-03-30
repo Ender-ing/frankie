@@ -28,7 +28,6 @@ function(add_internal_target_cxx_flags TARGET)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         # GCC or Clang
         target_compile_options(${TARGET} PRIVATE
-            -Wall
             -Wshadow
             -Wpointer-arith
             -Wcast-align
@@ -37,12 +36,12 @@ function(add_internal_target_cxx_flags TARGET)
             -Wcast-qual
             -Wconversion
             -Wunreachable-code
+
+            -Wall # Enable all warnings
         )
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
         # MSVC
         target_compile_options(${TARGET} PRIVATE
-            /W4
-
             /we4456 # Declaration of identifier hides previous local declaration.
             /we4457 # Declaration of member hides previous local declaration.
             /we4458 # Declaration of identifier hides class member.
@@ -60,6 +59,8 @@ function(add_internal_target_cxx_flags TARGET)
             /we4242 # conversion from 'type1' to 'type2', possible loss of data.
 
             /we4702 # unreachable code.
+
+            /W4 # Enable all warnings
         )
     else()
         # Other compilers (optional)
