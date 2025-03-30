@@ -43,23 +43,23 @@ function(add_internal_target_cxx_flags TARGET)
         target_compile_options(${TARGET} PRIVATE
             /W4
 
-            /weC4456 # Declaration of identifier hides previous local declaration.
-            /weC4457 # Declaration of member hides previous local declaration.
-            /weC4458 # Declaration of identifier hides class member.
-            /weC4459 # Declaration of formal parameter shadows global declaration.
+            /we4456 # Declaration of identifier hides previous local declaration.
+            /we4457 # Declaration of member hides previous local declaration.
+            /we4458 # Declaration of identifier hides class member.
+            /we4459 # Declaration of formal parameter shadows global declaration.
 
-            /weC4826 # Conversion from type 'type1' to type 'type2' requires reinterpretation of object representation.
+            /we4826 # Conversion from type 'type1' to type 'type2' requires reinterpretation of object representation.
 
-            /weC4230 # nonstandard extension used: string literal used for array initialization.
-            /weC4244 # conversion from 'const char [N]' to 'char *', possible loss of data.
+            /we4230 # nonstandard extension used: string literal used for array initialization.
+            /we4244 # conversion from 'const char [N]' to 'char *', possible loss of data.
 
-            /weC4180 # qualifier applied to function type has no meaning; ignored.
-            /weC4190 # 'identifier' has C-linkage specified, but returns UDT 'type' which is not C-linkage-compatible.
+            /we4180 # qualifier applied to function type has no meaning; ignored.
+            /we4190 # 'identifier' has C-linkage specified, but returns UDT 'type' which is not C-linkage-compatible.
 
-            /weC4244 # conversion from 'type1' to 'type2', possible loss of data.
-            /weC4242 # conversion from 'type1' to 'type2', possible loss of data.
+            /we4244 # conversion from 'type1' to 'type2', possible loss of data.
+            /we4242 # conversion from 'type1' to 'type2', possible loss of data.
 
-            /weC4702 # unreachable code.
+            /we4702 # unreachable code.
         )
     else()
         # Other compilers (optional)
