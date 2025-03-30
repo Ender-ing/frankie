@@ -74,7 +74,8 @@ int main (int argc, const char *argv[]) {
 
     // Check for unfinished reports
     if(Comms::ProcessReport::didSendReport && !Comms::IndividualReport::isNew){
-        std::cerr << CLI::format("[Thrown Error] Detected an unfinished report! Possible memory leaks/bad code, please contact the developers of PolarFrankie!", Comms::CLI::Color::red) << std::endl;
+        const std::string msg = "Detected an unfinished report! Possible memory leaks/bad code, please contact the developers of PolarFrankie!";
+        std::cerr << Comms::CLI::format("[Thrown Error] ", Comms::CLI::Color::red) << Comms::CLI::format(msg, Comms::CLI::Color::red) << std::endl;
         throw std::runtime_error(msg);
         return 1;
     }
