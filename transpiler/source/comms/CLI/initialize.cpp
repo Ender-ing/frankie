@@ -12,19 +12,19 @@ namespace Comms {
     namespace CLI {
         // Handle CLI initialisation
         void initialize() {
-            /*
-            *   ,-.       _,---._ __  / \
-            *  /  )    .-'       `./ /   \
-            * (  (   ,'            `/    /|  PolarFrankie v???
-            *  \  `-"             \'\   / |
-            *   `.              ,  \ \ /  |  Copyright (C) 2025 Ender-ing GitHub Organisation
-            *    /`.          ,'-`----Y   |
-            *   (            ;        |   '
-            *   |  ,-.    ,-'         |  /
-            *   |  | (   |    Frankie | /    (Cat-chy Art by Hayley Jane Wakenshaw)
-            *   )  |  \  `.___________|/
-            *   `--'   `--'
-            */
+            /**
+             *   ,-.       _,---._ __  / \
+             *  /  )    .-'       `./ /   \
+             * (  (   ,'            `/    /|  PolarFrankie v???
+             *  \  `-"             \'\   / |
+             *   `.              ,  \ \ /  |  Copyright (C) 2025 Ender-ing GitHub Organisation
+             *    /`.          ,'-`----Y   |
+             *   (            ;        |   '
+             *   |  ,-.    ,-'         |  /
+             *   |  | (   |    Frankie | /    (Cat-chy Art by Hayley Jane Wakenshaw)
+             *   )  |  \  `.___________|/
+             *   `--'   `--'
+            **/
             // Print initial console prompt
             std::cout << std::endl << std::endl << format("  ,-.       _,---._ __ ", Color::golden_rod) << format(" / \\", Color::light_sea_green) << std::endl;
             std::cout << format(" /  )    .-'       `./", Color::golden_rod) << format(" /   \\", Color::light_sea_green) << std::endl;
