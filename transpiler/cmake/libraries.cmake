@@ -2,12 +2,27 @@
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(BUILD_SHARED_LIBS ON)
 
+# Files search
+function(target_sources_search TARGET FILE_PATHS IS_RECURSIVE)
+    # Choose search type
+    if(IS_RECURSIVE)
+        file(GLOB_RECURSE SEARCH_FILES ${FILE_PATHS})
+    else()
+        file(GLOB SEARCH_FILES ${FILE_PATHS})
+    endif()
+    # Add files to the target's sources
+    foreach(file_path ${SEARCH_FILES})
+        message(STATUS "[BUILD] Adding '${TARGET}' target source: '${file_path}'")
+        target_sources(${TARGET}
+            PRIVATE
+            ${file_path}
+        )
+    endforeach()
+endfunction()
+
 # Create a library from / (the root directory of /transpiler)
-add_library(FrankieBaseLibrary SHARED
-    ${FRANKIE_SOURCE_DIR}/actions.base.cpp
-    ${FRANKIE_SOURCE_DIR}/config.base.cpp
-    ${FRANKIE_SOURCE_DIR}/info.base.cpp
-)
+add_library(FrankieBaseLibrary SHARED)
+target_sources_search(FrankieBaseLibrary ${FRANKIE_SOURCE_DIR}/*.base.cpp FALSE)
 # Expose library exports
 target_compile_definitions(FrankieBaseLibrary PRIVATE FRANKIEBASELIBRARY_EXPORTS)
 # Attach manifest data
@@ -21,11 +36,8 @@ add_dependencies(FrankieBaseLibrary FrankieCommsLibrary)
 target_link_libraries(FrankieBaseLibrary PUBLIC FrankieCommsLibrary)
 
 # Create a library from /comms
-add_library(FrankieCommsLibrary SHARED
-    ${FRANKIE_SOURCE_DIR}/comms/CLI/basic.cpp
-    ${FRANKIE_SOURCE_DIR}/comms/CLI/report.cpp
-    ${FRANKIE_SOURCE_DIR}/comms/comms.cpp
-)
+add_library(FrankieCommsLibrary SHARED)
+target_sources_search(FrankieCommsLibrary ${FRANKIE_SOURCE_DIR}/comms/*.cpp TRUE)
 # Expose library exports
 target_compile_definitions(FrankieCommsLibrary PRIVATE FRANKIECOMMSLIBRARY_EXPORTS)
 # Attach manifest data
@@ -37,11 +49,8 @@ add_dependencies(FrankieCommsLibrary fmt::fmt)
 target_link_libraries(FrankieCommsLibrary PUBLIC fmt::fmt)
 
 # Create a library from /common
-add_library(FrankieCommonLibrary SHARED
-    ${FRANKIE_SOURCE_DIR}/common/debug.cpp
-    ${FRANKIE_SOURCE_DIR}/common/files.cpp
-    ${FRANKIE_SOURCE_DIR}/common/strings.cpp
-)
+add_library(FrankieCommonLibrary SHARED)
+target_sources_search(FrankieCommonLibrary ${FRANKIE_SOURCE_DIR}/common/*.cpp TRUE)
 # Expose library exports
 target_compile_definitions(FrankieCommonLibrary PRIVATE FRANKIECOMMONLIBRARY_EXPORTS)
 # Attach manifest data
@@ -53,8 +62,8 @@ add_internal_target_cxx_flags(FrankieCommonLibrary)
 add_library(FrankieParserLibrary SHARED
     ${ANTLR_FrankieGrammarLexer_CXX_OUTPUTS} # ANTLR4
     ${ANTLR_FrankieGrammarParser_CXX_OUTPUTS} # ANTLR4
-    ${FRANKIE_SOURCE_DIR}/parser/parser.cpp
 )
+target_sources_search(FrankieParserLibrary ${FRANKIE_SOURCE_DIR}/parser/*.cpp TRUE)
 # Expose library exports
 target_compile_definitions(FrankieParserLibrary PRIVATE FRANKIEPARSERLIBRARY_EXPORTS)
 # Attach manifest data
