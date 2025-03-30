@@ -13,13 +13,11 @@ namespace Comms {
     namespace CLI {
         namespace Color {
             const uint32_t blue_violet = static_cast<uint32_t>(fmt::color::blue_violet);
-            const uint32_t fuchsia = static_cast<uint32_t>(fmt::color::fuchsia);
-            const uint32_t lime_green = static_cast<uint32_t>(fmt::color::lime_green);
+            const uint32_t sea_green = static_cast<uint32_t>(fmt::color::sea_green);
             const uint32_t fire_brick = static_cast<uint32_t>(fmt::color::fire_brick);
             const uint32_t red = static_cast<uint32_t>(fmt::color::red);
             const uint32_t crimson = static_cast<uint32_t>(fmt::color::crimson);
             const uint32_t white = static_cast<uint32_t>(fmt::color::white);
-            const uint32_t yellow = static_cast<uint32_t>(fmt::color::yellow);
             const uint32_t golden_rod = static_cast<uint32_t>(fmt::color::golden_rod);
             const uint32_t light_sea_green = static_cast<uint32_t>(fmt::color::light_sea_green);
         }
