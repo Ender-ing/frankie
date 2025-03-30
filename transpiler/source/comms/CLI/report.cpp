@@ -5,6 +5,10 @@
 
 #include "report.hpp"
 
+// Comms headers
+#include "../comms.hpp"
+#include "basic.hpp"
+
 // Shortent the syntax for printing to the console
 #define INTERNAL_C_OUT(DATA, CHANNEL_VAR)                   \
     if (CHANNEL_VAR == 0) {                                 \
