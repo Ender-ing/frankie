@@ -27,9 +27,6 @@ namespace Base {
         // Main source file
         extern FRANKIE_BASE_LIB std::string mainPath;
 
-        // Communication protocol
-        extern FRANKIE_BASE_LIB std::string protocol;
-
         // Debug-related
         namespace Debug {
             // --debug-parser-antlr-print-test <path>

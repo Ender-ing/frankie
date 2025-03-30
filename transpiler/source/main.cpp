@@ -37,14 +37,6 @@ int main (int argc, const char *argv[]) {
         return Comms::ProcessReport::programStatus;
     }
 
-    // Set communication protocol
-    if (Base::InitialConfigs::protocol == "s") {
-        Comms::mode = Comms::LSP_MODE;
-    } else {
-        // Fallback to console mode
-        Comms::mode = Comms::CLI_MODE;
-    }
-
     // Check for --version
     if (Base::InitialConfigs::Technical::versionOnlyMode) {
         REPORT(Comms::START_REPORT, Comms::NORMAL_REPORT, Base::Info::version, Comms::END_REPORT);
