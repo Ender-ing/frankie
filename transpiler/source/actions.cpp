@@ -7,6 +7,12 @@
 
 #include "config.hpp"
 
+// CLI/LSP
+#include "comms/comms.hpp"
+
+// Common
+#include "common/files.hpp"
+
 namespace Base {
     namespace Actions {
         // List of actions and their respective functions
@@ -35,27 +41,36 @@ namespace Base {
             DEFINE_ACTION(
                 "p", "protocol",
                 "Set the data output protocol.",
-                "c (console, default) | s (language server)",
+                "<mode> - c/console (console, default) | s/server (language server)",
                 {
                     // Get the next argument and save it!
                     std::string protocolText;
-                    bool success = getNextArg(Base::InitialConfigs::protocol, true);
+                    bool success = getNextArg(protocolText, true);
 
                     // Check if the action was successful!
                     if (!success) {
                         // Missing input argument!
-                        // PRINT AN ERROR!
-                        ACTION_FAILURE;
+                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Missing the <mode> input argument! (-p, --protocol)", Comms::END_REPORT);
+                        ACTION_FATAL_FAILURE;
                     }
-
-                    // Check if the protocol value is valid!
-                    if(!(Base::InitialConfigs::protocol == "c" || Base::InitialConfigs::protocol == "s")) {
+                    
+                    // Set communication protocol
+                    if (protocolText == "s" || protocolText == "server") {
+                        // TMP
+                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Currently, 'LSP' mode is not supported!", Comms::END_REPORT);
+                        // Then set the protocol to 'server'
+                        Comms::mode = Comms::LSP_MODE;
+                    } else if (protocolText == "c" || protocolText == "console") {
+                        Comms::mode = Comms::CLI_MODE;
+                    } else {
                         // Incorrect input value!
-                        // PRINT AN ERROR!
-                        ACTION_FAILURE;
+                        REPORT(Comms::START_REPORT, Comms::WARNING_REPORT, "Incorrect <mode> value ('", protocolText,"') detected! (-p, --protocol)", "Expected values are: s/server, or c/console.", Comms::END_REPORT);
+                        // Fallback to console mode
+                        Comms::mode = Comms::CLI_MODE;
+                        ACTION_FATAL_FAILURE;
                     }
 
-                    ACTION_SUCCESS;
+                    ACTION_PROGRESS;
                 }
             ),
             DEFINE_ACTION(
@@ -66,7 +81,7 @@ namespace Base {
                     // Enable the test
                     InitialConfigs::Technical::versionOnlyMode = true;
 
-                    ACTION_SUCCESS;
+                    ACTION_PROGRESS;
                 }
             ),
             DEFINE_ACTION(
@@ -80,13 +95,18 @@ namespace Base {
                     // Check if the action was successful!
                     if (!success) {
                         // Missing input argument!
-                        // PRINT AN ERROR!
-                        ACTION_FAILURE;
+                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Missing the <path> input argument! (-i, --input)", Comms::END_REPORT);
+                        ACTION_FATAL_FAILURE;
                     }
 
-                    // Check if the file exists!
+                    // Check if the file can be opened!
+                    if (!Common::isFileAccessible(Base::InitialConfigs::mainPath)) {
+                        // File isn't accessible!
+                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Input file is non-existent or inaccessible!", Comms::END_REPORT);
+                        ACTION_FATAL_FAILURE;
+                    }
 
-                    ACTION_SUCCESS;
+                    ACTION_PROGRESS;
                 }
             ),
             DEFINE_ACTION(
@@ -97,7 +117,10 @@ namespace Base {
                     // Enable the test
                     InitialConfigs::Debug::Parser::activateBasicPrintTest = true;
 
-                    ACTION_SUCCESS;
+                    // Report status
+                    REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Enabled the ANTLR4 parser print syntax test!", Comms::END_REPORT);
+
+                    ACTION_PROGRESS;
                 }
             )
     };
