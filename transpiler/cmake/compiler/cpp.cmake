@@ -49,6 +49,8 @@ function(add_internal_target_cxx_flags TARGET)
             -Wconversion
             -Wunreachable-code
 
+            -Wunused
+
             -Wall # Enable all warnings
         )
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
@@ -71,6 +73,10 @@ function(add_internal_target_cxx_flags TARGET)
             /we4242 # conversion from 'type1' to 'type2', possible loss of data.
 
             /we4702 # unreachable code.
+
+            /we4101 # unreferenced local variable.
+            /we4189 # local variable is initialized but not referenced.
+            /we4505 # Unreferenced local function has been removed:
 
             /W4 # Enable all warnings
         )
