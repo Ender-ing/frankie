@@ -12,7 +12,7 @@ endif()
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Set character set flags based on compiler (Must be set to UTF-8)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     # GCC or Clang
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -finput-charset=UTF-8 -fexec-charset=UTF-8")
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
@@ -24,7 +24,7 @@ else()
 endif()
 
 # Optimisation flags for Release builds
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     # GCC or Clang
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG")
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
@@ -37,7 +37,7 @@ endif()
 
 # Warning flags (only for internal targets)
 function(add_internal_target_cxx_flags TARGET)
-    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         # GCC or Clang
         target_compile_options(${TARGET} PRIVATE
             -Wshadow
