@@ -20,7 +20,7 @@ namespace Base {
 
         // Debug-related
         namespace Debug {
-            // --debug-parser-antlr-print-test <path>
+            // --debug-parser-antlr-syntax-test <path>
             namespace Parser {
                 bool activateBasicPrintTest = false;
             }

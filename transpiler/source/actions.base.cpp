@@ -109,7 +109,7 @@ namespace Base {
                 }
             ),
             DEFINE_ACTION(
-                "dbg-antlr-print", "debug-parser-antlr-print-test",
+                "dbg-antlr-syntax", "debug-parser-antlr-syntax-test",
                 "Print the parser's tokens list and initial parser output.",
                 "",
                 {

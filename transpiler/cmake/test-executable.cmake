@@ -77,7 +77,7 @@ function(frankie_file_syntax_test test_name file_path should_fail)
     if(EXISTS ${file_path})
         define_frankie_test("FrankieFileTest__syntax__" ${test_name}
             ${should_fail}
-            "${TEST_FRANKIE_COMMAND};--debug-parser-antlr-print-test;-i;${file_path}")
+            "${TEST_FRANKIE_COMMAND};--debug-parser-antlr-syntax-test;-i;${file_path}")
     else()
         message(FATAL_ERROR "[TESTS] Failed to locate a Frankie test file! (${file_path}) The relative test is likely to fail!")
     endif()

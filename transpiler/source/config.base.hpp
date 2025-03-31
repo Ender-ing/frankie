@@ -29,7 +29,7 @@ namespace Base {
 
         // Debug-related
         namespace Debug {
-            // --debug-parser-antlr-print-test <path>
+            // --debug-parser-antlr-syntax-test <path>
             namespace Parser {
                 extern FRANKIE_BASE_API bool activateBasicPrintTest;
             }
