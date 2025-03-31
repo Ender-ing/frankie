@@ -16,7 +16,6 @@ namespace Comms {
         namespace Color {
             extern FRANKIE_COMMS_API const uint32_t blue_violet;
             extern FRANKIE_COMMS_API const uint32_t sea_green;
-            extern FRANKIE_COMMS_API const uint32_t fire_brick;
             extern FRANKIE_COMMS_API const uint32_t red;
             extern FRANKIE_COMMS_API const uint32_t crimson;
             extern FRANKIE_COMMS_API const uint32_t white;

@@ -68,7 +68,7 @@ namespace Comms {
                     // Title
                     prompt = "[Error] (TYPE?) ";
                 } else if (IndividualReport::type == FATAL_REPORT) {
-                    color = Color::fire_brick;
+                    color = Color::crimson;
                     channel = 1;
                     // Title
                     prompt = "[Fatal Error] (TYPE?) ";
