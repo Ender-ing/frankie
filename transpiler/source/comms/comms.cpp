@@ -133,7 +133,7 @@ namespace Comms {
 
     // Type group checks
     template <typename... Types, typename Variant>
-    bool holdsAlternatives(const Variant& variant) {
+    static bool holdsAlternatives(const Variant& variant) {
         return (std::holds_alternative<Types>(variant) || ...); // Fold expression
     }
 
