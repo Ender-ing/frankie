@@ -65,6 +65,16 @@ namespace Comms {
         }
     }
 
+    // Keep track of general report statistics
+    namespace Statistics {
+        int normalReports = 0;
+        int warningReports = 0;
+        int criticalReports = 0;
+        int fatalReports = 0;
+        int actionReports = 0;
+        int debugReports = 0;
+    }
+
     // Internal library members!
     namespace ReportInternals {
         // Handle control input processing
@@ -91,13 +101,33 @@ namespace Comms {
                     ProcessReport::programStatus = 1;
                 }
 
-                // Update report status
-                if (value == NORMAL_REPORT || value == WARNING_REPORT || value == CRITICAL_REPORT ||
-                    value == FATAL_REPORT || value == ACTION_REPORT || value == DEBUG_REPORT) {
-                    IndividualReport::type = value;
-                } else {
-                    throwError("Unknown Comms::ReportType value!"); 
+                // Track report type
+                switch (value) {
+                    case NORMAL_REPORT:
+                        Statistics::normalReports++;
+                        break;
+                    case WARNING_REPORT:
+                        Statistics::warningReports++;
+                        break;
+                    case CRITICAL_REPORT:
+                        Statistics::criticalReports++;
+                        break;
+                    case FATAL_REPORT:
+                        Statistics::fatalReports++;
+                        break;
+                    case ACTION_REPORT:
+                        Statistics::actionReports++;
+                        break;
+                    case DEBUG_REPORT:
+                        Statistics::debugReports++;
+                        break;
+                
+                    default:
+                        throwError("Unknown Comms::ReportType value!");
                 }
+
+                // Value is valid!
+                IndividualReport::type = value;
             } else {
                 throwError("Unknown Comms::report control argument type!");
             }

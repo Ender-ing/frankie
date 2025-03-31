@@ -69,6 +69,16 @@ namespace Comms {
         extern FRANKIE_COMMS_API ReportBodyData messageBodyData;
     }
 
+    // Keep track of general report statistics
+    namespace Statistics {
+        extern FRANKIE_COMMS_API int normalReports;
+        extern FRANKIE_COMMS_API int warningReports;
+        extern FRANKIE_COMMS_API int criticalReports;
+        extern FRANKIE_COMMS_API int fatalReports;
+        extern FRANKIE_COMMS_API int actionReports;
+        extern FRANKIE_COMMS_API int debugReports;
+    }
+
     // Reporting
     extern FRANKIE_COMMS_API void report(const ReportInputs& args) ;
 
