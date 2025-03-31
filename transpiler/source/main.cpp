@@ -52,7 +52,7 @@ int main (int argc, const char *argv[]) {
     // Now run delayed actions
 
     // TMP
-    if (Base::InitialConfigs::Debug::Parser::activateBasicPrintTest) {
+    if (Base::InitialConfigs::Debug::Parser::activateAntlrSyntaxTest) {
         auto filename = Base::InitialConfigs::mainPath;
         // Check first input argument path
         std::ifstream file(filename);

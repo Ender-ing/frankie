@@ -22,7 +22,7 @@ namespace Base {
         namespace Debug {
             // --debug-parser-antlr-syntax-test <path>
             namespace Parser {
-                bool activateBasicPrintTest = false;
+                bool activateAntlrSyntaxTest = false;
             }
         }
 

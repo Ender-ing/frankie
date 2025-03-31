@@ -123,7 +123,7 @@ namespace Base {
                 "",
                 {
                     // Enable the test
-                    InitialConfigs::Debug::Parser::activateBasicPrintTest = true;
+                    InitialConfigs::Debug::Parser::activateAntlrSyntaxTest = true;
 
                     // Report status
                     REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Enabled the ANTLR4 parser print syntax test!", Comms::END_REPORT);
