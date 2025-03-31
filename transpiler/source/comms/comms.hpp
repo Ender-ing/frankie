@@ -15,6 +15,7 @@
 #include "CLI/basic.hpp"
 #include "CLI/report.hpp"
 #include "CLI/initialize.hpp"
+#include "CLI/finalize.hpp"
 
 // Pack the report function into a macro
 #define REPORT(...)                                                 \
@@ -73,4 +74,7 @@ namespace Comms {
 
     // Initalise protocol
     extern FRANKIE_COMMS_API void initalize() ;
+
+    // Finalise protocol
+    extern FRANKIE_COMMS_API void finalize() ;
 }

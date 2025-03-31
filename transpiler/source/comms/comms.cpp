@@ -162,4 +162,31 @@ namespace Comms {
             throwError("Unknown Comms::mode value!"); 
         }
     }
+
+    // Keep track of finalisation
+    static bool isFinalized = false;
+
+    // Finalise protocol
+    void finalize() {
+        // Check for unwanted called
+        if (isFinalized) {
+            throwError("Detecting multiple protocol finalisation attempts!");
+        }
+        isFinalized = true;
+
+        if(mode == CLI_MODE){
+            // Finalize CLI mode
+            CLI::finalize(); //TMP
+        } else if(mode == LSP_MODE){
+            // Finalize LSP mode
+            // ...
+        } else {
+            throwError("Unknown Comms::mode value!"); 
+        }
+
+        // Check for unfinished reports
+        if(ProcessReport::didSendReport && !IndividualReport::isNew){
+            throwError("Detected an unfinished report!");
+        }
+    }
 }

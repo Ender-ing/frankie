@@ -28,13 +28,40 @@ namespace Base {
 
         // Technical values
         namespace Technical {
-            // --version
-            bool versionOnlyMode = false;
+            // For actions that require minimal finalisation!
+            bool minimalProtocolFinalization = false;
+            // For actions that require termination after the arguments are fully processed!
+            bool terminateAfterArgs = false;
+            // For actions that require termination after actions!
+            bool terminateAfterActions = false;
+
+            // Look for flags that require the default initialisation to stop!
+            // [true - skip, false - don't skip]
+            bool shouldSkipDefaultInitialization(int argc, const char *argv[]) {
+                // List of flags
+                std::vector<std::string> flagsList{"-v", "--version"};
+                // Loop through all arguments (skipping the first one)
+                for (int i = 1; i < argc; i++) {
+                    // Get the current argument
+                    std::string arg (argv[i]);
+                    // Convert the flag into lowercase format
+                    Common::Strings::toLowerCase(arg);
+
+                    // Check if the flag is in the list
+                    if (std::find(std::begin(flagsList), std::end(flagsList), arg) != std::end(flagsList)) {
+                        return true;
+                    }
+
+                }
+
+                // Don't skip!
+                return false;
+            }
         }
 
         // Process and update values through program arguments!
         // [true - sucess, false - failure]
-        bool updateUsingArgs (int argc, const char *argv[]) {
+        bool updateUsingArgs(int argc, const char *argv[]) {
             // Get the starting path
             runPath = (std::string) argv[0];
 

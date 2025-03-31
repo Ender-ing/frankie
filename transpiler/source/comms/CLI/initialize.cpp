@@ -10,8 +10,15 @@
 
 namespace Comms {
     namespace CLI {
+        // Track status
+        static bool isInitialized = false;
+
         // Handle CLI initialisation
         void initialize() {
+            if (isInitialized) { // TMP
+                return;
+            }
+
             /**
              *   ,-.       _,---._ __  / \
              *  /  )    .-'       `./ /   \
@@ -38,6 +45,9 @@ namespace Comms {
             std::cout << format("  |  | (   |", Color::golden_rod) << format("    Frankie | /    (Cat-chy Art by Hayley Jane Wakenshaw)", Color::light_sea_green) << std::endl;
             std::cout << format("  )  |  \\  `.", Color::golden_rod) << format("___________|/", Color::light_sea_green) << std::endl;
             std::cout << format("  `--'   `--'", Color::golden_rod) << std::endl << std::endl;
+
+            // Update status to prevent duplicate calls
+            isInitialized = true;
         }
     }
 }

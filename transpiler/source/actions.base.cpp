@@ -1,11 +1,13 @@
 /**
  * @brief
  * Manage transpiler actions
+ * (The actual actions should be implemented somewhere else if possible!)
 **/
 
 #include "actions.base.hpp"
 
 #include "config.base.hpp"
+#include "info.base.hpp"
 
 // CLI/LSP
 #include "comms/comms.hpp"
@@ -56,18 +58,22 @@ namespace Base {
                     
                     // Set communication protocol
                     if (protocolText == "s" || protocolText == "server") {
-                        // TMP
-                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Currently, 'LSP' mode is not supported!", Comms::END_REPORT);
                         // Then set the protocol to 'server'
                         Comms::mode = Comms::LSP_MODE;
+                        REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Communications protocol has been set to 'server' mode!", Comms::END_REPORT);
                     } else if (protocolText == "c" || protocolText == "console") {
+                        // Then set the protocol to 'console'
                         Comms::mode = Comms::CLI_MODE;
+                        REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Communications protocol has been set to 'console' mode!", Comms::END_REPORT);
                     } else {
                         // Incorrect input value!
                         REPORT(Comms::START_REPORT, Comms::WARNING_REPORT, "Incorrect <mode> value ('", protocolText,"') detected! (-p, --protocol)", "\nExpected values are: s/server, or c/console.", Comms::END_REPORT);
                         // Fallback to console mode
                         Comms::mode = Comms::CLI_MODE;
                     }
+
+                    // Reinitalise the protocol with the new value
+                    Comms::initalize();
 
                     ACTION_PROGRESS;
                 }
@@ -77,8 +83,11 @@ namespace Base {
                 "Get the plain version string. (No extra console output will be made as long as no errors occur)",
                 "",
                 {
-                    // Enable the test
-                    InitialConfigs::Technical::versionOnlyMode = true;
+                    REPORT(Comms::START_REPORT, Comms::NORMAL_REPORT, Info::version, Comms::END_REPORT);
+
+                    // Prevent other outputs
+                    InitialConfigs::Technical::terminateAfterArgs = true;
+                    InitialConfigs::Technical::minimalProtocolFinalization = true;
 
                     ACTION_PROGRESS;
                 }
