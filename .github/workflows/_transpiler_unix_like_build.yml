@@ -63,7 +63,7 @@ jobs:
     - name: Extract version (optional)
       if: inputs.bundle_binaries
       run: |
-        VERSION=$(${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/frankie --version)
+        VERSION=$(${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/frankie --version | head -n 1)
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Upload Binaries Artifact (optional)
@@ -112,7 +112,7 @@ jobs:
     - name: Extract version (optional)
       if: inputs.bundle_binaries
       run: |
-        VERSION=$(${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/frankie --version)
+        VERSION=$(${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/frankie --version | head -n 1)
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Upload Binaries Artifact (optional)
