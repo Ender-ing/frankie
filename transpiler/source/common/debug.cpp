@@ -21,7 +21,8 @@ namespace Common {
         std::string captureCrtDumpMemoryLeaks() {
             // Capture the output through a custom function.
             #ifdef WINDOWS_CRTDEBUG_ACTIVE
-                _CrtSetReportHook2(_CRT_RPTHOOK_INSTALL, [](int nRptType, char* szMsg, int* pnErrno, long* plRet) -> int {
+                _CrtSetReportHook2(_CRT_RPTHOOK_INSTALL, [](int nRptType, char* szMsg, int* pnErrno,
+                    long* plRet) -> int {
                     static std::string capturedOutput;
                     if (nRptType == _CRT_WARN) {
                         capturedOutput += szMsg;

@@ -29,20 +29,26 @@ namespace Base {
 
         // Debug-related
         namespace Debug {
-            // --debug-parser-antlr-print-test <path>
+            // --debug-parser-antlr-syntax-test <path>
             namespace Parser {
-                extern FRANKIE_BASE_API bool activateBasicPrintTest;
+                extern FRANKIE_BASE_API bool activateAntlrSyntaxTest;
             }
         }
 
         // Technical values
         namespace Technical {
-            // --version
-            extern FRANKIE_BASE_API bool versionOnlyMode;
+            // For actions that require termination after the arguments are fully processed!
+            extern FRANKIE_BASE_API bool terminateAfterArgs;
+            // For actions that require termination after actions!
+            extern FRANKIE_BASE_API bool terminateAfterActions;
+
+            // Look for flags that require the default initialisation to stop!
+            // [true - skip, false - don't skip]
+            extern FRANKIE_BASE_API bool shouldSkipDefaultInitialization(int argc, const char *argv[]) ;
         }
 
         // Process and update values through program arguments!
         // [true - sucess, false - failure]
-        extern FRANKIE_BASE_API bool updateUsingArgs (int argc, const char *argv[]) ;
+        extern FRANKIE_BASE_API bool updateUsingArgs(int argc, const char *argv[]) ;
     }
 }

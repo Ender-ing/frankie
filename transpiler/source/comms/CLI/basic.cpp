@@ -14,7 +14,6 @@ namespace Comms {
         namespace Color {
             const uint32_t blue_violet = static_cast<uint32_t>(fmt::color::blue_violet);
             const uint32_t sea_green = static_cast<uint32_t>(fmt::color::sea_green);
-            const uint32_t fire_brick = static_cast<uint32_t>(fmt::color::fire_brick);
             const uint32_t red = static_cast<uint32_t>(fmt::color::red);
             const uint32_t crimson = static_cast<uint32_t>(fmt::color::crimson);
             const uint32_t white = static_cast<uint32_t>(fmt::color::white);

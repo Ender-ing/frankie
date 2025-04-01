@@ -15,7 +15,11 @@ namespace Comms {
 
     // Handle error throw statement
     static void throwError(std::string msg) {
-        std::cerr << CLI::format("[Internal Error] ", Comms::CLI::Color::red) << CLI::format(msg, Comms::CLI::Color::red) << CLI::format("\nPlease contact the developers of PolarFrankie!", Comms::CLI::Color::red) << std::endl;
+        std::cerr << CLI::format("[Internal Error] ", Comms::CLI::Color::red)
+            << CLI::format(msg, Comms::CLI::Color::red)
+            << CLI::format("\nPossible memory leaks/bad code. Please contact the developers of PolarFrankie!",
+                Comms::CLI::Color::red)
+            << std::endl;
         throw std::runtime_error(msg);
     }
 
@@ -65,6 +69,16 @@ namespace Comms {
         }
     }
 
+    // Keep track of general report statistics
+    namespace Statistics {
+        int normalReports = 0;
+        int warningReports = 0;
+        int criticalReports = 0;
+        int fatalReports = 0;
+        int actionReports = 0;
+        int debugReports = 0;
+    }
+
     // Internal library members!
     namespace ReportInternals {
         // Handle control input processing
@@ -74,7 +88,7 @@ namespace Comms {
                 ReportAction value = std::get<ReportAction>(arg);
                 if (value == START_REPORT){
                     if (!IndividualReport::isNew) {
-                        throwError("Attempting to start a new Comms::IndividualReport without ending the previous one!"); 
+                        throwError("Starting a new Comms::IndividualReport without ending the previous one!"); 
                     }
                     IndividualReport::isNew = false;
                 } else if (value == END_REPORT) {
@@ -91,13 +105,33 @@ namespace Comms {
                     ProcessReport::programStatus = 1;
                 }
 
-                // Update report status
-                if (value == NORMAL_REPORT || value == WARNING_REPORT || value == CRITICAL_REPORT ||
-                    value == FATAL_REPORT || value == ACTION_REPORT || value == DEBUG_REPORT) {
-                    IndividualReport::type = value;
-                } else {
-                    throwError("Unknown Comms::ReportType value!"); 
+                // Track report type
+                switch (value) {
+                    case NORMAL_REPORT:
+                        Statistics::normalReports++;
+                        break;
+                    case WARNING_REPORT:
+                        Statistics::warningReports++;
+                        break;
+                    case CRITICAL_REPORT:
+                        Statistics::criticalReports++;
+                        break;
+                    case FATAL_REPORT:
+                        Statistics::fatalReports++;
+                        break;
+                    case ACTION_REPORT:
+                        Statistics::actionReports++;
+                        break;
+                    case DEBUG_REPORT:
+                        Statistics::debugReports++;
+                        break;
+                
+                    default:
+                        throwError("Unknown Comms::ReportType value!");
                 }
+
+                // Value is valid!
+                IndividualReport::type = value;
             } else {
                 throwError("Unknown Comms::report control argument type!");
             }
@@ -133,7 +167,7 @@ namespace Comms {
 
     // Type group checks
     template <typename... Types, typename Variant>
-    bool holdsAlternatives(const Variant& variant) {
+    static bool holdsAlternatives(const Variant& variant) {
         return (std::holds_alternative<Types>(variant) || ...); // Fold expression
     }
 
@@ -160,6 +194,35 @@ namespace Comms {
             // ...
         } else {
             throwError("Unknown Comms::mode value!"); 
+        }
+    }
+
+    // Keep track of finalisation
+    static bool isFinalized = false;
+    // For actions that require minimal finalisation!
+    bool minimalProtocolFinalization = false;
+
+    // Finalise protocol
+    void finalize() {
+        // Check for unwanted called
+        if (isFinalized) {
+            throwError("Detecting multiple protocol finalisation attempts!");
+        }
+        isFinalized = true;
+
+        if(mode == CLI_MODE){
+            // Finalize CLI mode
+            CLI::finalize(); //TMP
+        } else if(mode == LSP_MODE){
+            // Finalize LSP mode
+            // ...
+        } else {
+            throwError("Unknown Comms::mode value!"); 
+        }
+
+        // Check for unfinished reports
+        if(ProcessReport::didSendReport && !IndividualReport::isNew){
+            throwError("Detected an unfinished report!");
         }
     }
 }

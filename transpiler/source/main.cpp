@@ -25,26 +25,35 @@ int main (int argc, const char *argv[]) {
     // Test for memory leaks
     Common::CrtDebug::initiateCrtMemoryChecks();
 
-    // Update initial configurations
-    if(!(Base::InitialConfigs::updateUsingArgs (argc, argv))){
-        // This process failed!
-        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Terminating program due to the previous error(s)!", Comms::END_REPORT);
-        return Comms::ProcessReport::programStatus;
-    }
-
-    // Check for --version
-    if (Base::InitialConfigs::Technical::versionOnlyMode) {
-        REPORT(Comms::START_REPORT, Comms::NORMAL_REPORT, Base::Info::version, Comms::END_REPORT);
-        // End the program!
-        // (This is done to make sure only the version information gets printed for simple technical use!)
-        return Comms::ProcessReport::programStatus;
-    }
-
     // Initalise communications protocol
-    Comms::initalize();
+    // (Basiclly allowing the default protocol to take effect)
+    if (!Base::InitialConfigs::Technical::shouldSkipDefaultInitialization(argc, argv)) {
+        // This is done to allow flags like --version to function normally
+        Comms::initalize();
+    }
+
+    // Update initial configurations
+    if(!Base::InitialConfigs::updateUsingArgs(argc, argv)){
+        // This process failed!
+        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Terminating program due to the previous error(s)!",
+            Comms::END_REPORT);
+
+        // End the program
+        Comms::finalize();
+        return Comms::ProcessReport::programStatus;
+    }
+
+    // Check if other delayed actions are allowed to run
+    if (Base::InitialConfigs::Technical::terminateAfterArgs) {
+        // End the program
+        Comms::finalize();
+        return Comms::ProcessReport::programStatus;
+    }
+
+    // Now run delayed actions
 
     // TMP
-    if (Base::InitialConfigs::Debug::Parser::activateBasicPrintTest) {
+    if (Base::InitialConfigs::Debug::Parser::activateAntlrSyntaxTest) {
         auto filename = Base::InitialConfigs::mainPath;
         // Check first input argument path
         std::ifstream file(filename);
@@ -63,28 +72,33 @@ int main (int argc, const char *argv[]) {
             file.close();
         } else {
             REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Error opening file: ", filename, Comms::END_REPORT);
+            // End the program
+            Comms::finalize();
             return Comms::ProcessReport::programStatus;
         }
         // Debug
         Parser::Debug::syntaxCheck(file_contents);
     }
 
-    REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Done!", Comms::END_REPORT);
-
-    // Check for unfinished reports
-    if(Comms::ProcessReport::didSendReport && !Comms::IndividualReport::isNew){
-        const std::string msg = "Detected an unfinished report! Possible memory leaks/bad code, please contact the developers of PolarFrankie!";
-        std::cerr << Comms::CLI::format("[Thrown Error] ", Comms::CLI::Color::red) << Comms::CLI::format(msg, Comms::CLI::Color::red) << std::endl;
-        throw std::runtime_error(msg);
-        return 1;
+    // Check for requested termination
+    if (Base::InitialConfigs::Technical::terminateAfterActions) {
+        // End the program
+        Comms::finalize();
+        return Comms::ProcessReport::programStatus;
     }
+
+    // Begin the actual work here...
     
     // Handle memory check results
     if(Common::CrtDebug::processCrtMemoryReports()){
         // Exist with an error on memory leaks!
+        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT,
+            "Terminating program due to detected memory errors! Please contact the developers of PolarFrankie!",
+            Comms::END_REPORT);
         return 1;
     }
 
-    // Return a success
+    // End the program
+    Comms::finalize();
     return Comms::ProcessReport::programStatus;
 }

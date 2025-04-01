@@ -15,6 +15,7 @@
 #include "CLI/basic.hpp"
 #include "CLI/report.hpp"
 #include "CLI/initialize.hpp"
+#include "CLI/finalize.hpp"
 
 // Pack the report function into a macro
 #define REPORT(...)                                                 \
@@ -68,9 +69,25 @@ namespace Comms {
         extern FRANKIE_COMMS_API ReportBodyData messageBodyData;
     }
 
+    // Keep track of general report statistics
+    namespace Statistics {
+        extern FRANKIE_COMMS_API int normalReports;
+        extern FRANKIE_COMMS_API int warningReports;
+        extern FRANKIE_COMMS_API int criticalReports;
+        extern FRANKIE_COMMS_API int fatalReports;
+        extern FRANKIE_COMMS_API int actionReports;
+        extern FRANKIE_COMMS_API int debugReports;
+    }
+
     // Reporting
     extern FRANKIE_COMMS_API void report(const ReportInputs& args) ;
 
     // Initalise protocol
     extern FRANKIE_COMMS_API void initalize() ;
+
+    // For actions that require minimal finalisation!
+    extern FRANKIE_COMMS_API bool minimalProtocolFinalization;
+
+    // Finalise protocol
+    extern FRANKIE_COMMS_API void finalize() ;
 }
