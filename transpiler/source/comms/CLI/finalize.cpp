@@ -94,8 +94,9 @@ namespace Comms {
              * 0 action(s), 0 warning(s), 0 error(s), 0 fatal error(s)
             **/
             // Print summary
-            std::cout << std::endl << std::endl << format(status, Color::light_sea_green) << std::endl << std::endl;
+            std::cout << std::endl << std::endl << format(status, Color::light_sea_green) << std::endl;
             if (reports > 0) {
+                std::cout << std::endl;
                 std::cout << format("                |\\__/,|   (`\\", Color::golden_rod) << std::endl;
                 std::cout << format("              _.|o o  |_   ) )", Color::golden_rod) << std::endl;
                 std::cout << format("-------------", Color::light_sea_green) << format("(((", Color::golden_rod)
