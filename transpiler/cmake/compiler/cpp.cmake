@@ -40,6 +40,8 @@ function(add_internal_target_cxx_flags TARGET)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         # GCC or Clang
         target_compile_options(${TARGET} PRIVATE
+            -Wall # Enable all warnings
+
             -Wshadow
             -Wpointer-arith
             -Wcast-align
@@ -51,11 +53,13 @@ function(add_internal_target_cxx_flags TARGET)
 
             -Wunused
 
-            -Wall # Enable all warnings
+            -Wunused-parameter
         )
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
         # MSVC
         target_compile_options(${TARGET} PRIVATE
+            /W4 # Enable all warnings
+
             /we4456 # Declaration of identifier hides previous local declaration.
             /we4457 # Declaration of member hides previous local declaration.
             /we4458 # Declaration of identifier hides class member.
@@ -77,8 +81,6 @@ function(add_internal_target_cxx_flags TARGET)
             /we4101 # unreferenced local variable.
             /we4189 # local variable is initialized but not referenced.
             /we4505 # Unreferenced local function has been removed:
-
-            /W4 # Enable all warnings
 
             /wd4100 # unreferenced formal parameter (Disable)
         )
