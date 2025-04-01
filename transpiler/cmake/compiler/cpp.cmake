@@ -36,13 +36,13 @@ else()
 endif()
 
 # Warning flags (only for internal targets)
-function(add_internal_target_cxx_flags TARGET)
+function(add_internal_target_cxx_flags TARGET IS_LESS_RESTRICTIVE)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         # GCC or Clang
         target_compile_options(${TARGET} PRIVATE
             -Wall # Enable all warnings
 
-            -Wshadow
+            -Wshadow=local
             -Wpointer-arith
             -Wcast-align
             -Wstrict-overflow=4
@@ -55,13 +55,16 @@ function(add_internal_target_cxx_flags TARGET)
 
             -Wno-unused-parameter
         )
+        if(NOT IS_LESS_RESTRICTIVE)
+            target_compile_options(${TARGET} PRIVATE
+                -Wshadow
+            )
+        endif()
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
         # MSVC
         target_compile_options(${TARGET} PRIVATE
             /W4 # Enable all warnings
 
-            /we6244 # local declaration of <variable> hides previous declaration at <line> of <file>
-            /we6246 # Local declaration of <variable> hides declaration of same name in outer scope
             /we4456 # declaration of identifier hides previous local declaration
             /we4457 # declaration of member hides previous local declaration
             /we4458 # declaration of identifier hides class member
@@ -87,6 +90,12 @@ function(add_internal_target_cxx_flags TARGET)
 
             /wd4100 # unreferenced formal parameter (Disable)
         )
+        if(NOT IS_LESS_RESTRICTIVE)
+            target_compile_options(${TARGET} PRIVATE
+                /we6244 # local declaration of <variable> hides previous declaration at <line> of <file>
+                /we6246 # Local declaration of <variable> hides declaration of same name in outer scope    
+            )
+        endif()
     else()
         # Other compilers (optional)
         message(FATAL_ERROR "[C++] Compiler ${CMAKE_CXX_COMPILER_ID} not recognized. Can't set the proper warning flags.")
