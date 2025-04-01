@@ -108,7 +108,7 @@ namespace Base {
                     }
 
                     // Check if the file can be opened!
-                    if (!Common::isFileAccessible(Base::InitialConfigs::mainPath)) {
+                    if (!Common::FIles::isFileAccessible(Base::InitialConfigs::mainPath)) {
                         // File isn't accessible!
                         REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Input file is non-existent or inaccessible!", Comms::END_REPORT);
                         ACTION_FATAL_FAILURE;
