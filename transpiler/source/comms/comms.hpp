@@ -71,12 +71,12 @@ namespace Comms {
 
     // Keep track of general report statistics
     namespace Statistics {
-        extern FRANKIE_COMMS_API unsigned int normalReports;
-        extern FRANKIE_COMMS_API unsigned int warningReports;
-        extern FRANKIE_COMMS_API unsigned int criticalReports;
-        extern FRANKIE_COMMS_API unsigned int fatalReports;
-        extern FRANKIE_COMMS_API unsigned int actionReports;
-        extern FRANKIE_COMMS_API unsigned int debugReports;
+        extern FRANKIE_COMMS_API int normalReports;
+        extern FRANKIE_COMMS_API int warningReports;
+        extern FRANKIE_COMMS_API int criticalReports;
+        extern FRANKIE_COMMS_API int fatalReports;
+        extern FRANKIE_COMMS_API int actionReports;
+        extern FRANKIE_COMMS_API int debugReports;
     }
 
     // Reporting
