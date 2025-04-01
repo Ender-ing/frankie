@@ -58,6 +58,7 @@ function(add_internal_target_cxx_flags TARGET IS_LESS_RESTRICTIVE)
         if(NOT IS_LESS_RESTRICTIVE)
             target_compile_options(${TARGET} PRIVATE
                 -Wshadow
+                -Wunused-parameter
             )
         endif()
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
@@ -94,6 +95,8 @@ function(add_internal_target_cxx_flags TARGET IS_LESS_RESTRICTIVE)
             target_compile_options(${TARGET} PRIVATE
                 /we6244 # local declaration of <variable> hides previous declaration at <line> of <file>
                 /we6246 # Local declaration of <variable> hides declaration of same name in outer scope    
+
+                /we4100 # unreferenced formal parameter (Enable)
             )
         endif()
     else()
