@@ -53,7 +53,7 @@ function(add_internal_target_cxx_flags TARGET)
 
             -Wunused
 
-            -Wunused-parameter
+            -Wno-unused-parameter
         )
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
         # MSVC
