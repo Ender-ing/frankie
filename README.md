@@ -15,6 +15,23 @@ PolarFrankie, a command line scripting metaprogramming language in the planning!
 - [x] Add a GitHub test workflow
 - [x] Add a GitHub release workflow
 
+## Binaries distribution
+
+- [x] Portable binaries
+  - [x] Windows file information integration
+  - [ ] Unix-like CLI Man(ual)
+- [ ] Binaries installer
+
+## CLI support
+
+- [x] Introduction and summary
+- [ ] Flags
+  - [x] `--version`
+  - [-] `--protocol`
+  - [-] `--input`
+  - [x] `--debug-parser-antlr-syntax-test`
+  - [ ] `--help`
+
 ## Language syntax support
 
 - [ ] Basic data and types
