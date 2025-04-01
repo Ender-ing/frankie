@@ -35,6 +35,7 @@ namespace Comms {
             // Attach other status strings
             int warnings = Statistics::warningReports;
             int errors = Statistics::criticalReports + Statistics::fatalReports;
+            int reports = warnings + errors + Statistics::actionReports;
 
             // Simple message
             if (errors > 0 && warnings > 0) {
@@ -92,16 +93,13 @@ namespace Comms {
             **/
             // Print summary
             std::cout << std::endl << std::endl << format(status, Color::light_sea_green) << std::endl << std::endl;
-            std::cout << format("                |\\__/,|   (`\\", Color::golden_rod) << std::endl;
-            std::cout << format("              _.|o o  |_   ) )", Color::golden_rod) << std::endl;
-            std::cout << format("-------------", Color::light_sea_green) << format("(((", Color::golden_rod) << format("---", Color::light_sea_green)
-                << format("(((", Color::golden_rod) << format("---------------------------------", Color::light_sea_green) << std::endl << std::endl;
-            std::cout
-                << actionsString.str()
-                << warningsString.str()
-                << criticalsString.str()
-                << fatalsString.str()
-                << std::endl;
+            if (reports > 0) {
+                std::cout << format("                |\\__/,|   (`\\", Color::golden_rod) << std::endl;
+                std::cout << format("              _.|o o  |_   ) )", Color::golden_rod) << std::endl;
+                std::cout << format("-------------", Color::light_sea_green) << format("(((", Color::golden_rod) << format("---", Color::light_sea_green)
+                    << format("(((", Color::golden_rod) << format("---------------------------------", Color::light_sea_green) << std::endl << std::endl;
+                std::cout << actionsString.str() << warningsString.str() << criticalsString.str() << fatalsString.str() << std::endl;    
+            }
         }
     }
 }
