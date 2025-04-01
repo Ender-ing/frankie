@@ -61,6 +61,13 @@ namespace Parser {
 
             // Generate tokens
             PolarFrankieLexer lexer(&input);
+
+            // Check for syntax errors
+            DebugErrorListener errorListener;
+            lexer.removeErrorListeners();// remove default parser error listeners.
+            lexer.addErrorListener(&errorListener);
+
+            // Generate tokens
             antlr4::CommonTokenStream tokens(&lexer);
 
             // Print tokens
@@ -75,7 +82,7 @@ namespace Parser {
             PolarFrankieParser parser(&tokens);
 
             // Look for syntax errors!
-            DebugErrorListener errorListener;
+            parser.removeErrorListeners();// remove default parser error listeners.
             parser.addErrorListener(&errorListener);
 
             // Get the root tree!
