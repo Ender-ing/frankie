@@ -9,6 +9,8 @@
 #include <filesystem>
 #include <fstream>
 
+namespace fs = std::filesystem;
+
 namespace Common {
     namespace Files {
         // Check if a file is accessible
