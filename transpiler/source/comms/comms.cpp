@@ -67,12 +67,12 @@ namespace Comms {
 
     // Keep track of general report statistics
     namespace Statistics {
-        int normalReports = 0;
-        int warningReports = 0;
-        int criticalReports = 0;
-        int fatalReports = 0;
-        int actionReports = 0;
-        int debugReports = 0;
+        unsigned int normalReports = 0;
+        unsigned int warningReports = 0;
+        unsigned int criticalReports = 0;
+        unsigned int fatalReports = 0;
+        unsigned int actionReports = 0;
+        unsigned int debugReports = 0;
     }
 
     // Internal library members!
