@@ -56,16 +56,19 @@ namespace Parser {
             // Use the file's input
             antlr4::ANTLRInputStream input(file_contents);
 
-            // Generate tokens
+            // Tokens
             GeneratedLexer::PolarFrankieLexer lexer(&input);
+            antlr4::CommonTokenStream tokens(&lexer);
+  
+            // Parse tree
+            GeneratedParser::PolarFrankieParser parser(&tokens);
 
             // Check for syntax errors
             DebugErrorListener errorListener;
             lexer.removeErrorListeners();// remove default parser error listeners.
             lexer.addErrorListener(&errorListener);
-
-            // Generate tokens
-            antlr4::CommonTokenStream tokens(&lexer);
+            parser.removeErrorListeners();// remove default parser error listeners.
+            parser.addErrorListener(&errorListener);
 
             // Print tokens
             tokens.fill();
@@ -74,13 +77,6 @@ namespace Parser {
                 REPORT(token->toString(), "\n");
             }
             REPORT(Comms::END_REPORT);
-  
-            // Generate a parse tree
-            GeneratedParser::PolarFrankieParser parser(&tokens);
-
-            // Look for syntax errors!
-            parser.removeErrorListeners();// remove default parser error listeners.
-            parser.addErrorListener(&errorListener);
 
             // Get the root tree!
             antlr4::tree::ParseTree *tree = parser.root();
