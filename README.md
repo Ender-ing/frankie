@@ -27,8 +27,12 @@ PolarFrankie, a command line scripting metaprogramming language in the planning!
 - [x] Introduction and summary
 - [ ] Flags
   - [x] `--version`
-  - [-] `--protocol`
-  - [-] `--input`
+  - [ ] `--protocol`
+    - [x] CLI
+    - [ ] LSP
+  - [ ] `--input`
+    - [x] Access and extension checks
+    - [ ] Format checks
   - [x] `--debug-parser-antlr-syntax-test`
   - [ ] `--help`
 
