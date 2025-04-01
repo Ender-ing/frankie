@@ -108,14 +108,14 @@ namespace Base {
                     }
 
                     // Check if the file can be opened!
-                    if (!Common::FIles::isFileAccessible(Base::InitialConfigs::mainPath)) {
+                    if (!Common::Files::isFileAccessible(Base::InitialConfigs::mainPath)) {
                         // File isn't accessible!
                         REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Input file is non-existent or inaccessible!", Comms::END_REPORT);
                         ACTION_FATAL_FAILURE;
                     }
 
                     // Check if the file can be opened!
-                    if (!Common::FIles::isFrankieFile(Base::InitialConfigs::mainPath)) {
+                    if (!Common::Files::isFrankieFile(Base::InitialConfigs::mainPath)) {
                         // File isn't accessible!
                         REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Input file is corrupted or of an invalid type! (Must use a valid .frankie file)", Comms::END_REPORT);
                         ACTION_FATAL_FAILURE;
