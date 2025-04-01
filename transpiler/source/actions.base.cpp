@@ -15,6 +15,20 @@
 // Common
 #include "common/files.hpp"
 
+// Shorten the syntax for defining an action
+#define DEFINE_ACTION(FLAG1, FLAG2, DESCRIPTION, ARGS, FUNCTION){   \
+    {                                                               \
+        "-" FLAG1, "--" FLAG2,                                      \
+        #DESCRIPTION,                                               \
+        #ARGS                                                       \
+    },                                                              \
+    [](const ActionNextFunction getNextArg) FUNCTION                \
+}                                                                   \
+
+// Hide the return keyword to avoid confusion
+#define ACTION_FATAL_FAILURE                return false
+#define ACTION_PROGRESS                     return true
+
 namespace Base {
     namespace Actions {
         // List of actions and their respective functions
