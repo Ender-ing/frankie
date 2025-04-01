@@ -12,9 +12,6 @@
 
 #include "../comms/comms.hpp"
 
-// using namespace antlrcpptest;
-using namespace frankie_parser;
-
 namespace Parser {
     namespace Debug {
         // Private members
@@ -60,7 +57,7 @@ namespace Parser {
             antlr4::ANTLRInputStream input(file_contents);
 
             // Generate tokens
-            PolarFrankieLexer lexer(&input);
+            GeneratedLexer::PolarFrankieLexer lexer(&input);
 
             // Check for syntax errors
             DebugErrorListener errorListener;
@@ -79,7 +76,7 @@ namespace Parser {
             REPORT(Comms::END_REPORT);
   
             // Generate a parse tree
-            PolarFrankieParser parser(&tokens);
+            GeneratedParser::PolarFrankieParser parser(&tokens);
 
             // Look for syntax errors!
             parser.removeErrorListeners();// remove default parser error listeners.
