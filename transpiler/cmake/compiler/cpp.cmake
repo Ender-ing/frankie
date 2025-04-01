@@ -79,6 +79,8 @@ function(add_internal_target_cxx_flags TARGET)
             /we4505 # Unreferenced local function has been removed:
 
             /W4 # Enable all warnings
+
+            /wd4100 # unreferenced formal parameter (Disable)
         )
     else()
         # Other compilers (optional)
