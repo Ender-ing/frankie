@@ -15,7 +15,11 @@ namespace Comms {
 
     // Handle error throw statement
     static void throwError(std::string msg) {
-        std::cerr << CLI::format("[Internal Error] ", Comms::CLI::Color::red) << CLI::format(msg, Comms::CLI::Color::red) << CLI::format("\nPossible memory leaks/bad code. Please contact the developers of PolarFrankie!", Comms::CLI::Color::red) << std::endl;
+        std::cerr << CLI::format("[Internal Error] ", Comms::CLI::Color::red)
+            << CLI::format(msg, Comms::CLI::Color::red)
+            << CLI::format("\nPossible memory leaks/bad code. Please contact the developers of PolarFrankie!",
+                Comms::CLI::Color::red)
+            << std::endl;
         throw std::runtime_error(msg);
     }
 
@@ -84,7 +88,7 @@ namespace Comms {
                 ReportAction value = std::get<ReportAction>(arg);
                 if (value == START_REPORT){
                     if (!IndividualReport::isNew) {
-                        throwError("Attempting to start a new Comms::IndividualReport without ending the previous one!"); 
+                        throwError("Starting a new Comms::IndividualReport without ending the previous one!"); 
                     }
                     IndividualReport::isNew = false;
                 } else if (value == END_REPORT) {

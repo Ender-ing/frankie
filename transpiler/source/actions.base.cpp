@@ -52,7 +52,8 @@ namespace Base {
                     // Check if the action was successful!
                     if (!success) {
                         // Missing input argument!
-                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Missing the <mode> input argument! (-p, --protocol)", Comms::END_REPORT);
+                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT,
+                            "Missing the <mode> input argument! (-p, --protocol)", Comms::END_REPORT);
                         ACTION_FATAL_FAILURE;
                     }
                     
@@ -60,14 +61,18 @@ namespace Base {
                     if (protocolText == "s" || protocolText == "server") {
                         // Then set the protocol to 'server'
                         Comms::mode = Comms::LSP_MODE;
-                        REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Communications protocol has been set to 'server' mode!", Comms::END_REPORT);
+                        REPORT(Comms::START_REPORT, Comms::ACTION_REPORT,
+                            "Communications protocol has been set to 'server' mode!", Comms::END_REPORT);
                     } else if (protocolText == "c" || protocolText == "console") {
                         // Then set the protocol to 'console'
                         Comms::mode = Comms::CLI_MODE;
-                        REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Communications protocol has been set to 'console' mode!", Comms::END_REPORT);
+                        REPORT(Comms::START_REPORT, Comms::ACTION_REPORT,
+                            "Communications protocol has been set to 'console' mode!", Comms::END_REPORT);
                     } else {
                         // Incorrect input value!
-                        REPORT(Comms::START_REPORT, Comms::WARNING_REPORT, "Incorrect <mode> value ('", protocolText,"') detected! (-p, --protocol)", "\nExpected values are: s/server, or c/console.", Comms::END_REPORT);
+                        REPORT(Comms::START_REPORT, Comms::WARNING_REPORT,
+                            "Incorrect <mode> value ('", protocolText,"') detected! (-p, --protocol)",
+                            "\nExpected values are: s/server, or c/console.", Comms::END_REPORT);
                         // Fallback to console mode
                         Comms::mode = Comms::CLI_MODE;
                     }
@@ -103,21 +108,25 @@ namespace Base {
                     // Check if the action was successful!
                     if (!success) {
                         // Missing input argument!
-                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Missing the <path> input argument! (-i, --input)", Comms::END_REPORT);
+                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT,
+                            "Missing the <path> input argument! (-i, --input)", Comms::END_REPORT);
                         ACTION_FATAL_FAILURE;
                     }
 
                     // Check if the file can be opened!
                     if (!Common::Files::isFileAccessible(Base::InitialConfigs::mainPath)) {
                         // File isn't accessible!
-                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Input file is non-existent or inaccessible!", Comms::END_REPORT);
+                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Input file is non-existent or inaccessible!",
+                            Comms::END_REPORT);
                         ACTION_FATAL_FAILURE;
                     }
 
                     // Check if the file can be opened!
                     if (!Common::Files::isFrankieFile(Base::InitialConfigs::mainPath)) {
                         // File isn't accessible!
-                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Input file is corrupted or of an invalid type! (Must use a valid .frankie file)", Comms::END_REPORT);
+                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT,
+                            "Input file is corrupted or of an invalid type! (Must use a valid .frankie file)",
+                            Comms::END_REPORT);
                         ACTION_FATAL_FAILURE;
                     }
 
@@ -135,7 +144,8 @@ namespace Base {
                     InitialConfigs::Debug::Parser::activateAntlrSyntaxTest = true;
 
                     // Report status
-                    REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Enabled the ANTLR4 parser print syntax test!", Comms::END_REPORT);
+                    REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Enabled the ANTLR4 parser print syntax test!",
+                        Comms::END_REPORT);
 
                     ACTION_PROGRESS;
                 }

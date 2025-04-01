@@ -54,25 +54,30 @@ namespace Comms {
                 criticalsString,
                 fatalsString;
             if (Statistics::actionReports > 0) {
-                actionsString << format(std::to_string(Statistics::actionReports), Color::sea_green) << format(" action(s)", Color::light_sea_green);
+                actionsString << format(std::to_string(Statistics::actionReports), Color::sea_green)
+                    << format(" action(s)", Color::light_sea_green);
             }
             if (Statistics::warningReports > 0) {
                 if (Statistics::actionReports > 0) {
                     warningsString << format(", ", Color::light_sea_green);
                 }
-                warningsString << format(std::to_string(Statistics::warningReports), Color::golden_rod) << format(" warning(s)", Color::light_sea_green);
+                warningsString << format(std::to_string(Statistics::warningReports), Color::golden_rod)
+                    << format(" warning(s)", Color::light_sea_green);
             }
             if (Statistics::criticalReports > 0) {
                 if (Statistics::actionReports > 0 || Statistics::warningReports > 0) {
                     criticalsString << format(", ", Color::light_sea_green);
                 }
-                criticalsString << format(std::to_string(Statistics::criticalReports), Color::crimson) << format(" error(s)", Color::light_sea_green);
+                criticalsString << format(std::to_string(Statistics::criticalReports), Color::crimson)
+                    << format(" error(s)", Color::light_sea_green);
             }
             if (Statistics::fatalReports > 0) {
-                if (Statistics::actionReports > 0 || Statistics::warningReports > 0 || Statistics::criticalReports > 0) {
+                if (Statistics::actionReports > 0 || Statistics::warningReports > 0
+                    || Statistics::criticalReports > 0) {
                     fatalsString << format(", ", Color::light_sea_green);
                 }
-                fatalsString << format(std::to_string(Statistics::fatalReports), Color::crimson) << format(" fatal error(s)", Color::light_sea_green);
+                fatalsString << format(std::to_string(Statistics::fatalReports), Color::crimson)
+                    << format(" fatal error(s)", Color::light_sea_green);
             }
 
 
@@ -96,9 +101,11 @@ namespace Comms {
             if (reports > 0) {
                 std::cout << format("                |\\__/,|   (`\\", Color::golden_rod) << std::endl;
                 std::cout << format("              _.|o o  |_   ) )", Color::golden_rod) << std::endl;
-                std::cout << format("-------------", Color::light_sea_green) << format("(((", Color::golden_rod) << format("---", Color::light_sea_green)
-                    << format("(((", Color::golden_rod) << format("---------------------------------", Color::light_sea_green) << std::endl << std::endl;
-                std::cout << actionsString.str() << warningsString.str() << criticalsString.str() << fatalsString.str() << std::endl;    
+                std::cout << format("-------------", Color::light_sea_green) << format("(((", Color::golden_rod)
+                    << format("---", Color::light_sea_green) << format("(((", Color::golden_rod)
+                    << format("---------------------------------", Color::light_sea_green) << std::endl << std::endl;
+                std::cout << actionsString.str() << warningsString.str() << criticalsString.str()
+                    << fatalsString.str() << std::endl;    
             }
         }
     }

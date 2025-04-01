@@ -96,7 +96,8 @@ namespace Base {
                     }
                 } else {
                     // Unknown argument!
-                    REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Unknown argument! ('", arg, "')", Comms::END_REPORT);
+                    REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Unknown argument! ('", arg, "')",
+                        Comms::END_REPORT);
                     return false;
                 }
             }

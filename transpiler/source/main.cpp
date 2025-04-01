@@ -35,7 +35,8 @@ int main (int argc, const char *argv[]) {
     // Update initial configurations
     if(!Base::InitialConfigs::updateUsingArgs(argc, argv)){
         // This process failed!
-        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Terminating program due to the previous error(s)!", Comms::END_REPORT);
+        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Terminating program due to the previous error(s)!",
+            Comms::END_REPORT);
 
         // End the program
         Comms::finalize();
@@ -91,7 +92,9 @@ int main (int argc, const char *argv[]) {
     // Handle memory check results
     if(Common::CrtDebug::processCrtMemoryReports()){
         // Exist with an error on memory leaks!
-        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Terminating program due to detected memory errors! Please contact the developers of PolarFrankie!", Comms::END_REPORT);
+        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT,
+            "Terminating program due to detected memory errors! Please contact the developers of PolarFrankie!",
+            Comms::END_REPORT);
         return 1;
     }
 
