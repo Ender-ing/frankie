@@ -69,7 +69,7 @@ target_compile_definitions(FrankieParserLibrary PRIVATE FRANKIEPARSERLIBRARY_EXP
 # Attach manifest data
 attach_manifest_data(FrankieParserLibrary)
 # Add compiler flags
-#add_internal_target_cxx_flags(FrankieParserLibrary) # MUST FIX THE GRAMMAR FILES!
+add_internal_target_cxx_flags(FrankieParserLibrary) # MUST FIX THE GRAMMAR FILES!
 # ANTLR4
 add_dependencies(FrankieParserLibrary antlr4_shared)
 target_link_libraries(FrankieParserLibrary PUBLIC antlr4_shared)
