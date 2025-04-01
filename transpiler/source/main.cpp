@@ -5,7 +5,6 @@
 
 // Basic C++ headers
 #include <fstream>
-#include <sstream>
 
 // Common headers
 #include "common/headers.hpp"

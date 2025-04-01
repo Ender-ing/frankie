@@ -3,9 +3,6 @@
  * Enable uniform reports for both consoles and IDEs
 **/
 
-// Basic C++ headers
-#include <sstream>
-
 #include "comms.hpp"
 
 namespace Comms {

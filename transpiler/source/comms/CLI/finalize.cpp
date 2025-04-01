@@ -9,9 +9,6 @@
 #include "../comms.hpp"
 #include "basic.hpp"
 
-// Basic C++ headers
-#include <sstream>
-
 namespace Comms {
     namespace CLI {
         // Handle CLI finalisation
