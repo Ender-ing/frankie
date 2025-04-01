@@ -199,6 +199,8 @@ namespace Comms {
 
     // Keep track of finalisation
     static bool isFinalized = false;
+    // For actions that require minimal finalisation!
+    bool minimalProtocolFinalization = false;
 
     // Finalise protocol
     void finalize() {

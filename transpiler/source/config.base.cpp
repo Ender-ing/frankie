@@ -28,8 +28,6 @@ namespace Base {
 
         // Technical values
         namespace Technical {
-            // For actions that require minimal finalisation!
-            bool minimalProtocolFinalization = false;
             // For actions that require termination after the arguments are fully processed!
             bool terminateAfterArgs = false;
             // For actions that require termination after actions!

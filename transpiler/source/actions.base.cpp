@@ -92,7 +92,7 @@ namespace Base {
 
                     // Prevent other outputs
                     InitialConfigs::Technical::terminateAfterArgs = true;
-                    InitialConfigs::Technical::minimalProtocolFinalization = true;
+                    Comms::minimalProtocolFinalization = true;
 
                     ACTION_PROGRESS;
                 }

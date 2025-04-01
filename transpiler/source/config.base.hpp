@@ -37,8 +37,6 @@ namespace Base {
 
         // Technical values
         namespace Technical {
-            // For actions that require minimal finalisation!
-            extern FRANKIE_BASE_API bool minimalProtocolFinalization;
             // For actions that require termination after the arguments are fully processed!
             extern FRANKIE_BASE_API bool terminateAfterArgs;
             // For actions that require termination after actions!
@@ -46,7 +44,7 @@ namespace Base {
 
             // Look for flags that require the default initialisation to stop!
             // [true - skip, false - don't skip]
-            bool shouldSkipDefaultInitialization(int argc, const char *argv[]) ;
+            extern FRANKIE_BASE_API bool shouldSkipDefaultInitialization(int argc, const char *argv[]) ;
         }
 
         // Process and update values through program arguments!

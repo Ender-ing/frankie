@@ -85,6 +85,9 @@ namespace Comms {
     // Initalise protocol
     extern FRANKIE_COMMS_API void initalize() ;
 
+    // For actions that require minimal finalisation!
+    extern FRANKIE_COMMS_API bool minimalProtocolFinalization;
+
     // Finalise protocol
     extern FRANKIE_COMMS_API void finalize() ;
 }

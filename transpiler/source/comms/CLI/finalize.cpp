@@ -9,9 +9,6 @@
 #include "../comms.hpp"
 #include "basic.hpp"
 
-// Base headers
-#include "../../config.base.hpp"
-
 // Basic C++ headers
 #include <sstream>
 
@@ -19,7 +16,7 @@ namespace Comms {
     namespace CLI {
         // Handle CLI finalisation
         void finalize() {
-            if (Base::InitialConfigs::Technical::minimalProtocolFinalization) { //TMP
+            if (minimalProtocolFinalization) { //TMP
                 std::cout << std::endl;
                 return;
             }
