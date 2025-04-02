@@ -42,7 +42,8 @@ namespace Comms {
     // Report actions
     enum ReportAction {
         START_REPORT = 0xFFF00101, // Used as a measure to prevent the misuse of the report function
-        END_REPORT = 0xFFF00102 // Used to send and reset report data!
+        END_REPORT = 0xFFF00102, // Used to send and reset report data!
+        SET_STAGE_TITLE = 0xFFF00103 // Sets the stage of the report (e.g. lexer, parser, etc.)
     };
     // Report types
     enum ReportType {
@@ -65,6 +66,7 @@ namespace Comms {
         // Current reporting status!
         extern FRANKIE_COMMS_API bool isNew; // Check if this is a new report!
         extern FRANKIE_COMMS_API ReportType type;
+        extern FRANKIE_COMMS_API std::string stage;
         extern FRANKIE_COMMS_API std::stringstream messageStream;
     }
 
