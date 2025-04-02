@@ -17,42 +17,6 @@
 
 namespace Parser {
     namespace Debug {
-        // Private members
-        static bool syntaxCheckSuccess = true;
-        // Debug Error Listener
-        class DebugErrorListener : public antlr4::ANTLRErrorListener {
-        public:
-            void syntaxError(antlr4::Recognizer *recognizer, antlr4::Token *offendingSymbol, size_t line,
-                size_t charPositionInLine, const std::string &msg, std::exception_ptr e) override {
-
-                syntaxCheckSuccess = false;
-                REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Syntax error at line ", line, ":",
-                    charPositionInLine, " - ", msg, Comms::END_REPORT);
-            }
-            void reportAmbiguity(antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
-                size_t stopIndex, bool exact, const antlrcpp::BitSet &ambigAlts, antlr4::atn::ATNConfigSet *configs)
-                override {
-
-                syntaxCheckSuccess = false;
-                REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Ambiguity reported from index ",
-                    startIndex ," to index " , stopIndex, Comms::END_REPORT);
-            }
-            void reportAttemptingFullContext(antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
-                size_t stopIndex, const antlrcpp::BitSet &conflictingAlts, antlr4::atn::ATNConfigSet *configs)
-                override {
-
-                syntaxCheckSuccess = false;
-                REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Attempting full context reported from index ",
-                    startIndex ," to index " , stopIndex, Comms::END_REPORT);
-            }
-            void reportContextSensitivity(antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
-                size_t stopIndex, size_t prediction, antlr4::atn::ATNConfigSet *configs) override {
-
-                syntaxCheckSuccess = false;
-                REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Context sensitivity reported from index ",
-                    startIndex ," to index " , stopIndex, Comms::END_REPORT);
-            }
-        };
         // Check for syntax errors
         // [true -> success, false -> failure]
         bool syntaxCheck (std::string file_contents) {
@@ -91,7 +55,7 @@ namespace Parser {
             auto s = tree->toStringTree(&parser);
             REPORT(Comms::START_REPORT, Comms::DEBUG_REPORT, "Parse Tree: \n", s, Comms::END_REPORT);
 
-            return syntaxCheckSuccess;
+            return Listeners::errorsDetected;
         }
     }
 }

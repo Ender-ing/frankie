@@ -95,7 +95,6 @@ namespace Comms {
 
     // Internal library members!
     namespace ReportInternals {
-        static bool shouldSetStage = false;
         // Handle control input processing
         static void processReportControl(const ReportInput& arg) {
             // Arguments that are used to send instructions!
@@ -109,9 +108,6 @@ namespace Comms {
                 } else if (value == END_REPORT) {
                     // Send report data
                     IndividualReport::send();
-                } else if (value == SET_STAGE_TITLE) {
-                    // Use the next normal input as a stage name
-                    shouldSetStage = true;
                 } else {
                     throwError("Unknown Comms::ReportAction value!"); 
                 }
@@ -167,13 +163,8 @@ namespace Comms {
             // Check arg type
             if (std::holds_alternative<std::string>(arg)) {
                 std::string value = std::get<std::string>(arg);
-                if (ReportInternals::shouldSetStage) {
-                    // Set the stage name
-                    IndividualReport::stage = value;
-                    ReportInternals::shouldSetStage = false;
-                } else {
-                    text << value; // TMP
-                }
+                // TMP
+                text << value;
             } else if (std::holds_alternative<size_t>(arg)) {
                 size_t value = std::get<size_t>(arg);
                 // TMP
