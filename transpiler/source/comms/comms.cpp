@@ -157,6 +157,10 @@ namespace Comms {
 
         // Handle user input processing
         static void processReportInput(const ReportInput& arg) {
+            // Check if the report is valid
+            if (IndividualReport::isNew) {
+                throwError("Attempting to inject a value to an uninitialised Comms::report!");
+            }
             // Check if it's data that should saved, or printed!
             bool isMessageBody = true;
             std::stringstream text;
