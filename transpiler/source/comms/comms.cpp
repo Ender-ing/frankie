@@ -33,7 +33,6 @@ namespace Comms {
     namespace IndividualReport {
         // Current reporting status!
         bool isNew = true; // Check if this is a new report!
-        ReportType type;
         ReportType type = UNKNOWN_REPORT;
         std::string stage = "";
         std::stringstream messageStream; // report message data!
