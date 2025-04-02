@@ -15,11 +15,11 @@ namespace Parser {
     namespace Listeners {
         class LexerErrorListener : public BaseErrorListener {
             private:
-                std::string section = "Lexer";
+                const std::string section = "Lexer";
         };
         class ParserErrorListener : public BaseErrorListener {
             private:
-                std::string section = "Parser";
+                const std::string section = "Parser";
         };
     }
 }

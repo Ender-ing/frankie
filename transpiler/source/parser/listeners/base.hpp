@@ -19,7 +19,7 @@ namespace Parser {
                     size_t charPositionInLine, const std::string &msg, std::exception_ptr e) override ;
 
             private:
-                std::string section = "UNKNOWN"; // "Lexer" or "Parser"
+                const std::string section = "UNKNOWN"; // "Lexer" or "Parser"
         };
     }
 }
