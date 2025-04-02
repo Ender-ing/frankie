@@ -69,6 +69,13 @@ namespace Comms {
         extern FRANKIE_COMMS_API ReportType type;
         extern FRANKIE_COMMS_API std::string stage;
         extern FRANKIE_COMMS_API std::stringstream messageStream;
+
+        // Code-related report data
+        extern FRANKIE_COMMS_API std::string path;
+        extern FRANKIE_COMMS_API size_t startLine;
+        extern FRANKIE_COMMS_API size_t startColumn;
+        extern FRANKIE_COMMS_API size_t endLine;
+        extern FRANKIE_COMMS_API size_t endColumn;
     }
 
     // Keep track of general report statistics

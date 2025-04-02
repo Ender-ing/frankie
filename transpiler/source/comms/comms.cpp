@@ -37,6 +37,13 @@ namespace Comms {
         std::string stage = "";
         std::stringstream messageStream; // report message data!
 
+        // Code-related report data
+        std::string path = "";
+        size_t startLine = 0;
+        size_t startColumn = 0;
+        size_t endLine = 0;
+        size_t endColumn = 0;
+
         // Reset report data!
         static void reset() {
             // Report basic data
@@ -45,6 +52,13 @@ namespace Comms {
             stage = "";
             messageStream.str(""); // Clear the internal buffer
             messageStream.clear(); // Clear the state flags (eofbit, failbit, badbit)
+
+            // Code-related data
+            std::string path = "";
+            startLine = 0;
+            startColumn = 0;
+            endLine = 0;
+            endColumn = 0;
         }
 
         // Send report data!
