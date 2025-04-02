@@ -67,15 +67,14 @@ namespace Parser {
             GeneratedParser::PolarFrankieParser parser(&tokens);
 
             // Check for syntax errors
-            DebugErrorListener errorListener;
-            //Listeners::LexerErrorListener lexerErrorListener;
-            //Listeners::ParserErrorListener parserErrorListener;
+            Listeners::ErrorListener lexerErrorListener;
+            lexerErrorListener.stage = "Lexer";
+            Listeners::ErrorListener parserErrorListener;
+            parserErrorListener.stage = "Parser";
             lexer.removeErrorListeners();// remove default parser error listeners.
-            lexer.addErrorListener(&errorListener);
-            //lexer.addErrorListener(&lexerErrorListener);
+            lexer.addErrorListener(&lexerErrorListener);
             parser.removeErrorListeners();// remove default parser error listeners.
-            parser.addErrorListener(&errorListener);
-            //parser.addErrorListener(&parserErrorListener);
+            parser.addErrorListener(&parserErrorListener);
 
             // Print tokens
             tokens.fill();
