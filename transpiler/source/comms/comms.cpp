@@ -54,7 +54,7 @@ namespace Comms {
             messageStream.clear(); // Clear the state flags (eofbit, failbit, badbit)
 
             // Code-related data
-            std::string path = "";
+            path = "";
             startLine = 0;
             startColumn = 0;
             endLine = 0;
