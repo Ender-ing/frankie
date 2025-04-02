@@ -34,14 +34,15 @@ namespace Comms {
         // Current reporting status!
         bool isNew = true; // Check if this is a new report!
         ReportType type;
+        ReportType type = UNKNOWN_REPORT;
         std::string stage = "";
         std::stringstream messageStream; // report message data!
 
         // Reset report data!
         static void reset() {
+            // Report basic data
             isNew = true;
-            // Report details
-            type = NORMAL_REPORT;
+            type = UNKNOWN_REPORT;
             stage = "";
             messageStream.str(""); // Clear the internal buffer
             messageStream.clear(); // Clear the state flags (eofbit, failbit, badbit)

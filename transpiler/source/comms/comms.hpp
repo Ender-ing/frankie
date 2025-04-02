@@ -47,6 +47,7 @@ namespace Comms {
     };
     // Report types
     enum ReportType {
+        UNKNOWN_REPORT = 0xFFF00200, // Placeholder for unknown report types
         NORMAL_REPORT = 0xFFF00201, // Used for general reports
         WARNING_REPORT = 0xFFF00202, // Used for warnings
         CRITICAL_REPORT = 0xFFF00203, // Used for errors
