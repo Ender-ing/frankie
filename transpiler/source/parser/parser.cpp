@@ -8,8 +8,11 @@
 #include "PolarFrankieLexer.h"
 #include "PolarFrankieParser.h"
 
+// Parser
 #include "parser.hpp"
+#include "listeners/errors.hpp"
 
+// Comms
 #include "../comms/comms.hpp"
 
 namespace Parser {
@@ -65,10 +68,14 @@ namespace Parser {
 
             // Check for syntax errors
             DebugErrorListener errorListener;
+            //Listeners::LexerErrorListener lexerErrorListener;
+            //Listeners::ParserErrorListener parserErrorListener;
             lexer.removeErrorListeners();// remove default parser error listeners.
             lexer.addErrorListener(&errorListener);
+            //lexer.addErrorListener(&lexerErrorListener);
             parser.removeErrorListeners();// remove default parser error listeners.
             parser.addErrorListener(&errorListener);
+            //parser.addErrorListener(&parserErrorListener);
 
             // Print tokens
             tokens.fill();
