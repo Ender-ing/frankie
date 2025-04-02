@@ -28,7 +28,7 @@ namespace Parser {
                 Comms::IndividualReport::endColumn = Comms::IndividualReport::startColumn + tokenText.length();
             } else {
                 // TMP
-                tokenText = "<N/A> (Error)";
+                tokenText = "<N/A>";
                 Comms::IndividualReport::endColumn = Comms::IndividualReport::startColumn + 1;
             }
             Comms::IndividualReport::endLine = line; // TMP
