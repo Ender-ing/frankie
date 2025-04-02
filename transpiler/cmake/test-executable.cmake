@@ -49,7 +49,7 @@ function(define_frankie_test test_prefix test_name should_fail test_command)
         set_tests_properties(${full_test_name}__execute PROPERTIES WILL_FAIL ${should_fail})
         # Valgrind memory leaks test
         if(VALGRIND_EXECUTABLE)
-            add_test(NAME ${full_test_name}__valgrind COMMAND ${TEST_VALGRIND_COMMAND} ${test_command} | tee >(grep "-- no leaks are possible" > /dev/null) && exit 0 || exit 1)
+            add_test(NAME ${full_test_name}__valgrind COMMAND ${TEST_VALGRIND_COMMAND} ${test_command})
             set_tests_properties(${full_test_name}__valgrind PROPERTIES WILL_FAIL ${should_fail})
         else()
             message(WARNING "[TESTS] Extra memory leak tests have been disabled! (Please install Valgrind to enable said tests...)")
