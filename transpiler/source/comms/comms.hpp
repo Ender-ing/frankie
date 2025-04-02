@@ -59,14 +59,13 @@ namespace Comms {
     #define REPORT_INPUT_TYPES size_t, std::string
     typedef std::variant<REPORT_BASIC_TYPES, REPORT_INPUT_TYPES> ReportInput;
     typedef std::vector<ReportInput> ReportInputs;
-    typedef std::vector<std::string> ReportBodyData;
 
     // Report-specific status
     namespace IndividualReport {
         // Current reporting status!
         extern FRANKIE_COMMS_API bool isNew; // Check if this is a new report!
         extern FRANKIE_COMMS_API ReportType type;
-        extern FRANKIE_COMMS_API ReportBodyData messageBodyData;
+        extern FRANKIE_COMMS_API std::stringstream messageStream;
     }
 
     // Keep track of general report statistics

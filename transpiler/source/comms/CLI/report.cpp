@@ -49,7 +49,7 @@ namespace Comms {
                 int channel = 0; // [0 -> cout, 1 -> cerr]
                 bool shouldPrompt = true;
                 std::string prompt;
-                auto print = [&channel, &color](std::string data) {
+                auto out = [&channel, &color](std::string data) {
                     // {fmt}
                     sanitize(data);
 
@@ -96,13 +96,11 @@ namespace Comms {
                 
                 // Print report type info
                 if (shouldPrompt) {
-                    print(prompt);
+                    out(prompt);
                 }
 
                 // TMP
-                for (auto& data : IndividualReport::messageBodyData) {
-                    print(data);
-                }
+                out(IndividualReport::messageStream.str());
 
                 // Update print statistics
                 if (isFirstPrint) {

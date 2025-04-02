@@ -34,14 +34,15 @@ namespace Comms {
         // Current reporting status!
         bool isNew = true; // Check if this is a new report!
         ReportType type;
-        ReportBodyData messageBodyData = {}; // report message data!
+        std::stringstream messageStream; // report message data!
 
         // Reset report data!
         static void reset() {
             isNew = true;
             // Report details
             type = NORMAL_REPORT;
-            messageBodyData.clear();
+            messageStream.str(""); // Clear the internal buffer
+            messageStream.clear(); // Clear the state flags (eofbit, failbit, badbit)
         }
 
         // Send report data!
@@ -157,7 +158,7 @@ namespace Comms {
 
             // Save message body data
             if (isMessageBody) {
-                IndividualReport::messageBodyData.push_back(text.str());
+                IndividualReport::messageStream << text.str();
             }
         }
     }
