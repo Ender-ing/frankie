@@ -33,6 +33,9 @@ set(FRANKIE_MAIN_CPP_PATH ${FRANKIE_SOURCE_DIR}/main.cpp)
 
 include(FetchContent)
 
+# CMake functions & macros
+include(${FRANKIE_CMAKE_DIR}/utility.cmake)
+
 # Manage compiler settings
 include(${FRANKIE_CMAKE_DIR}/compiler/cpp.cmake)
 
