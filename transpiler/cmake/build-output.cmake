@@ -102,8 +102,8 @@ endfunction()
 function(attach_manifest_data TARGET)
     message(STATUS "[BUILD] Attaching manifest data to target: ${TARGET}")
     # Set versioning info
-    get_ini_value(${FRANKIE_MANIFEST_FILE} ${TARGET} "VERSION" INI_VERSION)
-    #get_ini_value(${FRANKIE_MANIFEST_FILE} ${TARGET} "SOVERSION" INI_SOVERSION)
+    get_ini_value(${FRANKIE_MANIFEST_FILE} "TARGET:${TARGET}" "VERSION" INI_VERSION)
+    #get_ini_value(${FRANKIE_MANIFEST_FILE} "TARGET:${TARGET}" "SOVERSION" INI_SOVERSION)
 
     # Update target info
     set_target_properties(${TARGET} PROPERTIES # THIS DOESN'T WORK!
@@ -135,7 +135,7 @@ function(attach_manifest_data TARGET)
     list(GET version_list 1 IN_BIN_MINOR)
     list(GET version_list 2 IN_BIN_PATCH)
     list(GET version_list 3 IN_BIN_EXTRA)
-    get_ini_value(${FRANKIE_MANIFEST_FILE} ${TARGET} "DESCRIPTION" IN_BIN_DESCRIPTION)
+    get_ini_value(${FRANKIE_MANIFEST_FILE} "TARGET:${TARGET}" "DESCRIPTION" IN_BIN_DESCRIPTION)
     set(IN_BIN_VERSION_NAME ${INI_VERSION})
 
     # Get target type
