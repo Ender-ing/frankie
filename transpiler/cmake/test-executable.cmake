@@ -101,7 +101,7 @@ set(FRANKIE_FILE_TESTS "") # All frankie file tests will be applied to files add
 frankie_binary_test()
 
 # Load all .frankie test files
-file(GLOB_RECURSE TEST_FRANKIE_FILES ${FRANKIE_TESTS_DIR} "*.frankie")
+file(GLOB_RECURSE TEST_FRANKIE_FILES ${FRANKIE_TESTS_DIR} "${FRANKIE_TESTS_DIR}/*.frankie")
 foreach(file_path ${TEST_FRANKIE_FILES})
     message(STATUS "[TESTS] Processing test file ${file_path}...")
     # Get file name
