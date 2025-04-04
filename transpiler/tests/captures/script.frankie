@@ -1,0 +1,20 @@
+;;?
+ ;  @INFO
+ ;  Test script string captures
+?;;
+
+
+;; @TEST inline grouping
+#(some-command1);#(some-command2);#(some-command3)
+
+;; @TEST grouping
+#(some-command4)
+#(some-command5)
+#(some-command6)
+
+;; @TEST spaced grouping
+#(some-command7)
+
+#(some-command8)
+
+#(some-command9)
