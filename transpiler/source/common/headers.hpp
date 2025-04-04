@@ -9,12 +9,10 @@
 // #pragma execution_character_set("utf-8") (NOT STANDARD)
 
 // Basic C++ headers
-//#include <iostream>
 //#include <fstream>
 #include <sstream>
 #include <string>
 #include <iostream>
-#include <ostream>
 #include <vector>
 #include <array>
 
@@ -28,7 +26,7 @@
 //#elif __EMSCRIPTEN__ // WASM (maybe? It'd be useful but it requires a lot of effort to implement)
 //    #include <emscripten.h>
 #else
-  // ???
+    // ???
 #endif
 
 // If you decide to support WASM, expose library members like this:
