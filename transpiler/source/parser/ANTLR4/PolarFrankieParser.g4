@@ -20,7 +20,7 @@ options {
 //// Parser Rules
 
 root
-    : (expression (SYM_SEMICOLON | SYM_NEWLINE))* expression? EOF
+    : (expression (SYM_SEMICOLON | SYM_NEWLINE))* (expression? | SYM_NEWLINE*) EOF
     ; /* This is the start scope! */
 
 // Expressions
@@ -30,13 +30,15 @@ expression
     | command
     | capture
     | expressions_group // TMP (remove later)
-    | SYM_PARENTHESIS_OPEN expression SYM_PARENTHESIS_CLOSE // Ignore superfluous parentheses
+    | SYM_NEWLINE expression // Ignore extra newlines
+    | expression SYM_NEWLINE // Ignore extra newlines
+    // | SYM_PARENTHESIS_OPEN expression SYM_PARENTHESIS_CLOSE // Ignore superfluous parentheses
     ; /* All supported expressions */
 
 // Groups/zones
 expressions_group
     :   SYM_PARENTHESIS_OPEN
-            (expression (SYM_SEMICOLON | SYM_NEWLINE))* expression? // Same as root:
+            (expression (SYM_SEMICOLON | SYM_NEWLINE))* (expression? | SYM_NEWLINE*) // Same as root:
         SYM_PARENTHESIS_CLOSE
     ; /* Parentheses grouping actually matters */
 

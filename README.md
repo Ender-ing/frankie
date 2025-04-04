@@ -42,7 +42,7 @@ rest of the language components should be defined from within the `.frankie` lib
   - [x] `--debug-parser-antlr-syntax-test`
   - [ ] `--help`
 
-## Language syntax support
+## Language syntax support (lexer & parser)
 
 - [x] Comments
   - [x] Linear and multilinear comments
@@ -63,7 +63,11 @@ rest of the language components should be defined from within the `.frankie` lib
     - [ ] Type casting
 - [ ] `command` statement
 - [x] `()` expression grouping
-- [ ] Captures
-  - [ ] Runtime output capture
-  - [ ] Compile time script capture
+- [x] Captures
+  - [x] Runtime output capture
+  - [x] Compile time script capture
 - [ ] Variable identifiers
+
+## Semantic support
+
+*Nothing...*

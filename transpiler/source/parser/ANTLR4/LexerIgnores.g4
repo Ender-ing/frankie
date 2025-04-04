@@ -18,15 +18,15 @@ import LexerFragments;
 // Whitespace
 CHARS_IGNORE_LIST
     : WHITESPACE_
-            -> channel(HIDDEN)
+        -> skip
     ;
 
 // Comments
 COMMENT_BLOCK
     : ';;?' .*? '?;;'
-            -> channel(HIDDEN)
+        -> skip
     ; /* Multilinear comments are never processed for code generation */
 COMMENT_LINE
     : ';;' ~[\n]*
-            -> channel(HIDDEN)
+        -> skip
     ; /* Comments end when a new line starts! */

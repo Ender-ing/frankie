@@ -15,8 +15,7 @@ options {
 
 // New lines
 SYM_NEWLINE
-    : [\n]
-            -> channel(HIDDEN)
+    : ('\r'? '\n')+
     ; // Newline characters need to have their own tokens!
 
 // Expression-related symbols
