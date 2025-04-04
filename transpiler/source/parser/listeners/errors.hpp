@@ -18,7 +18,15 @@ namespace Parser {
 
         // Listen for syntax-related errors
         class FRANKIE_PARSER_API ErrorListener : public antlr4::BaseErrorListener {
+            private:
+                // (Storing a std::string value will result in a C4251 MSVC warning)
+                const char* stage; // "Lexer" or "Parser"
             public:
+                // Constructors
+                ErrorListener(const char* stageName) : stage(stageName) {}
+                ErrorListener(const std::string& stageName) : stage(stageName.c_str()) {}
+
+                // ANTLR4 functions
                 void syntaxError(antlr4::Recognizer *recognizer, antlr4::Token *offendingSymbol, size_t line,
                     size_t charPositionInLine, const std::string &msg, std::exception_ptr e) override ;
                 void reportAmbiguity(antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
@@ -30,9 +38,6 @@ namespace Parser {
                 void reportContextSensitivity(antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa,
                     size_t startIndex, size_t stopIndex, size_t prediction,
                     antlr4::atn::ATNConfigSet *configs) override ;
-
-                std::string stage; // "Lexer" or "Parser"
-            private:
         };
     }
 }

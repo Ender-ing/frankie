@@ -31,10 +31,8 @@ namespace Parser {
             GeneratedParser::PolarFrankieParser parser(&tokens);
 
             // Check for syntax errors
-            Listeners::ErrorListener lexerErrorListener;
-            lexerErrorListener.stage = "Lexer";
-            Listeners::ErrorListener parserErrorListener;
-            parserErrorListener.stage = "Parser";
+            Listeners::ErrorListener lexerErrorListener("Lexer");
+            Listeners::ErrorListener parserErrorListener("Parser");
             lexer.removeErrorListeners();// remove default parser error listeners.
             lexer.addErrorListener(&lexerErrorListener);
             parser.removeErrorListeners();// remove default parser error listeners.
