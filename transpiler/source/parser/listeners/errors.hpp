@@ -5,11 +5,11 @@
 
 #pragma once
 
-#include "../../common/headers.hpp"
-#include "../dynamic.hpp" // FRANKIE_PARSER_API
-
 // ANTLR4 imports
 #include "antlr4-runtime.h"
+
+#include "../../common/headers.hpp"
+#include "../dynamic.hpp" // FRANKIE_PARSER_API
 
 namespace Parser {
     namespace Listeners {
