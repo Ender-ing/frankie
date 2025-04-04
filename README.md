@@ -1,5 +1,8 @@
 # PolarFrankie
 
+[![Transpiler](https://github.com/Ender-ing/frankie/actions/workflows/transpiler.yml/badge.svg)](https://github.com/Ender-ing/frankie/actions/workflows/transpiler.yml)
+[![VSCode Extension](https://github.com/Ender-ing/frankie/actions/workflows/vscode_extension.yml/badge.svg)](https://github.com/Ender-ing/frankie/actions/workflows/vscode_extension.yml)
+
 PolarFrankie, a command line scripting metaprogramming language in the planning!
 
 > [!NOTE]
