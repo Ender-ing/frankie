@@ -8,8 +8,8 @@
             "type": "antlr-debug",
             "request": "launch",
             "input": "${file}",
-            "grammar": "transpiler/source/ANTLR4/PolarFrankieParser.g4",
-            "actionFile": "transpiler/source/ANTLR4/actions.debug.js",
+            "grammar": "transpiler/source/parser/ANTLR4/PolarFrankieParser.g4",
+            "actionFile": "transpiler/source/parser/ANTLR4/actions.debug.js",
             "startRule": "root",
             "printParseTree": true,
             "visualParseTree": true
