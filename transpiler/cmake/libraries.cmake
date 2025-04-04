@@ -28,7 +28,7 @@ target_compile_definitions(FrankieBaseLibrary PRIVATE FRANKIEBASELIBRARY_EXPORTS
 # Attach manifest data
 attach_manifest_data(FrankieBaseLibrary)
 # Add compiler flags
-add_internal_target_cxx_flags(FrankieBaseLibrary)
+add_internal_target_cxx_flags(FrankieBaseLibrary FALSE)
 # Link other libraries to the library
 add_dependencies(FrankieBaseLibrary FrankieCommonLibrary)
 target_link_libraries(FrankieBaseLibrary PUBLIC FrankieCommonLibrary)
@@ -43,7 +43,7 @@ target_compile_definitions(FrankieCommsLibrary PRIVATE FRANKIECOMMSLIBRARY_EXPOR
 # Attach manifest data
 attach_manifest_data(FrankieCommsLibrary)
 # Add compiler flags
-add_internal_target_cxx_flags(FrankieCommsLibrary)
+add_internal_target_cxx_flags(FrankieCommsLibrary FALSE)
 # Link other libraries to the library
 add_dependencies(FrankieCommsLibrary fmt::fmt)
 target_link_libraries(FrankieCommsLibrary PUBLIC fmt::fmt)
@@ -56,7 +56,7 @@ target_compile_definitions(FrankieCommonLibrary PRIVATE FRANKIECOMMONLIBRARY_EXP
 # Attach manifest data
 attach_manifest_data(FrankieCommonLibrary)
 # Add compiler flags
-add_internal_target_cxx_flags(FrankieCommonLibrary)
+add_internal_target_cxx_flags(FrankieCommonLibrary FALSE)
 
 # Create a library from /parser
 add_library(FrankieParserLibrary SHARED
@@ -69,7 +69,7 @@ target_compile_definitions(FrankieParserLibrary PRIVATE FRANKIEPARSERLIBRARY_EXP
 # Attach manifest data
 attach_manifest_data(FrankieParserLibrary)
 # Add compiler flags
-#add_internal_target_cxx_flags(FrankieParserLibrary) # MUST FIX THE GRAMMAR FILES!
+add_internal_target_cxx_flags(FrankieParserLibrary TRUE)
 # ANTLR4
 add_dependencies(FrankieParserLibrary antlr4_shared)
 target_link_libraries(FrankieParserLibrary PUBLIC antlr4_shared)

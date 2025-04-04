@@ -48,8 +48,8 @@ namespace Comms {
                 uint32_t color;
                 int channel = 0; // [0 -> cout, 1 -> cerr]
                 bool shouldPrompt = true;
-                std::string prompt;
-                auto print = [&channel, &color](std::string data) {
+                std::stringstream prompt;
+                auto out = [&channel, &color](std::string data) {
                     // {fmt}
                     sanitize(data);
 
@@ -61,27 +61,27 @@ namespace Comms {
                     color = Color::golden_rod;
                     channel = 1;
                     // Title
-                    prompt = "[Warning] (TYPE?) ";
+                    prompt << "[Warning]";
                 } else if (IndividualReport::type == CRITICAL_REPORT) {
                     color = Color::crimson;
                     channel = 1;
                     // Title
-                    prompt = "[Error] (TYPE?) ";
+                    prompt << "[Error]";
                 } else if (IndividualReport::type == FATAL_REPORT) {
                     color = Color::crimson;
                     channel = 1;
                     // Title
-                    prompt = "[Fatal Error] (TYPE?) ";
+                    prompt << "[Fatal Error]";
                 } else if (IndividualReport::type == ACTION_REPORT) {
                     color = Color::sea_green;
                     channel = 1;
                     // Title
-                    prompt = "[Action] (TYPE?) ";
+                    prompt << "[Action]";
                 } else if (IndividualReport::type == DEBUG_REPORT) {
                     color = Color::blue_violet;
                     channel = 0;
                     // Title
-                    prompt = "[Debug] (TYPE?) ";
+                    prompt << "[Debug]";
                 } else {
                     color = Color::white;
                     channel = 0;
@@ -96,13 +96,16 @@ namespace Comms {
                 
                 // Print report type info
                 if (shouldPrompt) {
-                    print(prompt);
+                    if (IndividualReport::stage.length() > 0) {
+                        prompt << " (" << IndividualReport::stage << ") ";
+                    } else {
+                        prompt << " ";
+                    }
+                    out(prompt.str());
                 }
 
                 // TMP
-                for (auto& data : IndividualReport::messageBodyData) {
-                    print(data);
-                }
+                out(IndividualReport::messageStream.str());
 
                 // Update print statistics
                 if (isFirstPrint) {

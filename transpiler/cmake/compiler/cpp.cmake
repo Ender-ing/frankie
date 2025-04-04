@@ -36,11 +36,12 @@ else()
 endif()
 
 # Warning flags (only for internal targets)
-function(add_internal_target_cxx_flags TARGET)
+function(add_internal_target_cxx_flags TARGET IS_LESS_RESTRICTIVE)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         # GCC or Clang
         target_compile_options(${TARGET} PRIVATE
-            -Wshadow
+            -Wall # Enable all warnings
+
             -Wpointer-arith
             -Wcast-align
             -Wstrict-overflow=4
@@ -51,35 +52,57 @@ function(add_internal_target_cxx_flags TARGET)
 
             -Wunused
 
-            -Wall # Enable all warnings
+            -Wno-unused-parameter
         )
+        # Non-AppleClang flags
+        if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
+            target_compile_options(${TARGET} PRIVATE
+                -Wshadow=local
+            )
+        endif()
+        if(NOT IS_LESS_RESTRICTIVE)
+            target_compile_options(${TARGET} PRIVATE
+                -Wshadow
+            )
+        endif()
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
         # MSVC
         target_compile_options(${TARGET} PRIVATE
-            /we4456 # Declaration of identifier hides previous local declaration.
-            /we4457 # Declaration of member hides previous local declaration.
-            /we4458 # Declaration of identifier hides class member.
-            /we4459 # Declaration of formal parameter shadows global declaration.
+            /analyze:WX- # Extra code analysis (without warning errors)
 
-            /we4826 # Conversion from type 'type1' to type 'type2' requires reinterpretation of object representation.
+            /W4 # Enable all warnings
 
-            /we4230 # nonstandard extension used: string literal used for array initialization.
+            /we4456 # declaration of identifier hides previous local declaration
+            /we4457 # declaration of member hides previous local declaration
+            /we4458 # declaration of identifier hides class member
+            /we4459 # declaration of formal parameter shadows global declaration
+            /Zc:templateScope # apply templates shadowing checks
+
+            /we4826 # Conversion from type 'type1' to type 'type2' requires reinterpretation of object representation
+
+            /we4230 # nonstandard extension used: string literal used for array initialization
             /we4244 # conversion from 'const char [N]' to 'char *', possible loss of data.
 
-            /we4180 # qualifier applied to function type has no meaning; ignored.
+            /we4180 # qualifier applied to function type has no meaning; ignored
             /we4190 # 'identifier' has C-linkage specified, but returns UDT 'type' which is not C-linkage-compatible.
 
             /we4244 # conversion from 'type1' to 'type2', possible loss of data.
             /we4242 # conversion from 'type1' to 'type2', possible loss of data.
 
-            /we4702 # unreachable code.
+            /we4702 # unreachable code
 
-            /we4101 # unreferenced local variable.
-            /we4189 # local variable is initialized but not referenced.
-            /we4505 # Unreferenced local function has been removed:
+            /we4101 # unreferenced local variable
+            /we4189 # local variable is initialized but not referenced
+            /we4505 # Unreferenced local function has been removed
 
-            /W4 # Enable all warnings
+            /wd4100 # unreferenced formal parameter (Disable)
         )
+        if(NOT IS_LESS_RESTRICTIVE)
+            target_compile_options(${TARGET} PRIVATE
+                /we6244 # local declaration of <variable> hides previous declaration at <line> of <file>
+                /we6246 # Local declaration of <variable> hides declaration of same name in outer scope    
+            )
+        endif()
     else()
         # Other compilers (optional)
         message(FATAL_ERROR "[C++] Compiler ${CMAKE_CXX_COMPILER_ID} not recognized. Can't set the proper warning flags.")

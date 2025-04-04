@@ -3,9 +3,6 @@
  * Enable uniform reports for both consoles and IDEs
 **/
 
-// Basic C++ headers
-#include <sstream>
-
 #include "comms.hpp"
 
 namespace Comms {
@@ -36,15 +33,32 @@ namespace Comms {
     namespace IndividualReport {
         // Current reporting status!
         bool isNew = true; // Check if this is a new report!
-        ReportType type;
-        ReportBodyData messageBodyData = {}; // report message data!
+        ReportType type = UNKNOWN_REPORT;
+        std::string stage = "";
+        std::stringstream messageStream; // report message data!
+
+        // Code-related report data
+        std::string path = "";
+        size_t startLine = 0;
+        size_t startColumn = 0;
+        size_t endLine = 0;
+        size_t endColumn = 0;
 
         // Reset report data!
         static void reset() {
+            // Report basic data
             isNew = true;
-            // Report details
-            type = NORMAL_REPORT;
-            messageBodyData.clear();
+            type = UNKNOWN_REPORT;
+            stage = "";
+            messageStream.str(""); // Clear the internal buffer
+            messageStream.clear(); // Clear the state flags (eofbit, failbit, badbit)
+
+            // Code-related data
+            path = "";
+            startLine = 0;
+            startColumn = 0;
+            endLine = 0;
+            endColumn = 0;
         }
 
         // Send report data!
@@ -139,6 +153,10 @@ namespace Comms {
 
         // Handle user input processing
         static void processReportInput(const ReportInput& arg) {
+            // Check if the report is valid
+            if (IndividualReport::isNew) {
+                throwError("Attempting to inject a value to an uninitialised Comms::report!");
+            }
             // Check if it's data that should saved, or printed!
             bool isMessageBody = true;
             std::stringstream text;
@@ -160,7 +178,7 @@ namespace Comms {
 
             // Save message body data
             if (isMessageBody) {
-                IndividualReport::messageBodyData.push_back(text.str());
+                IndividualReport::messageStream << text.str();
             }
         }
     }

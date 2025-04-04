@@ -46,6 +46,7 @@ namespace Comms {
     };
     // Report types
     enum ReportType {
+        UNKNOWN_REPORT = 0xFFF00200, // Placeholder for unknown report types
         NORMAL_REPORT = 0xFFF00201, // Used for general reports
         WARNING_REPORT = 0xFFF00202, // Used for warnings
         CRITICAL_REPORT = 0xFFF00203, // Used for errors
@@ -59,14 +60,21 @@ namespace Comms {
     #define REPORT_INPUT_TYPES size_t, std::string
     typedef std::variant<REPORT_BASIC_TYPES, REPORT_INPUT_TYPES> ReportInput;
     typedef std::vector<ReportInput> ReportInputs;
-    typedef std::vector<std::string> ReportBodyData;
 
     // Report-specific status
     namespace IndividualReport {
         // Current reporting status!
         extern FRANKIE_COMMS_API bool isNew; // Check if this is a new report!
         extern FRANKIE_COMMS_API ReportType type;
-        extern FRANKIE_COMMS_API ReportBodyData messageBodyData;
+        extern FRANKIE_COMMS_API std::string stage;
+        extern FRANKIE_COMMS_API std::stringstream messageStream;
+
+        // Code-related report data
+        extern FRANKIE_COMMS_API std::string path;
+        extern FRANKIE_COMMS_API size_t startLine;
+        extern FRANKIE_COMMS_API size_t startColumn;
+        extern FRANKIE_COMMS_API size_t endLine;
+        extern FRANKIE_COMMS_API size_t endColumn;
     }
 
     // Keep track of general report statistics
