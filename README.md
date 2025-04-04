@@ -8,6 +8,9 @@ PolarFrankie, a command line scripting metaprogramming language in the planning!
 > [!NOTE]
 > You can check the docs [over here](https://docs.ender.ing/docs/frankie/intro/)!
 
+The transpiler is only supposed to handle basic operations and concepts (like assignment, functions, etc.), and the
+rest of the language components should be defined from within the `.frankie` library files!
+
 ## Progress
 
 - [x] Add a basic VSCode Extension to support highlighting
@@ -41,6 +44,9 @@ PolarFrankie, a command line scripting metaprogramming language in the planning!
 
 ## Language syntax support
 
+- [x] Comments
+  - [x] Linear and multilinear comments
+  - [x] Special comment highlights (VSCode extension)
 - [ ] Basic data and types
   - [ ] Numbers
     - [x] Basic literals
@@ -49,14 +55,15 @@ PolarFrankie, a command line scripting metaprogramming language in the planning!
   - [ ] Strings
     - [x] Basic literals
     - [x] Escape characters
-    - [x] Variable references
+    - [x] Variable/value string references
     - [ ] String manipulation
     - [ ] Type casting
   - [ ] Booleans
     - [x] Basic literals
     - [ ] Type casting
 - [ ] `command` statement
-- [ ] `()` expression grouping
-  - [ ] Basic expression grouping
-  - [ ] Output capture
-  - [ ] Script capture
+- [x] `()` expression grouping
+- [ ] Captures
+  - [ ] Runtime output capture
+  - [ ] Compile time script capture
+- [ ] Variable identifiers
