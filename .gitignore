@@ -45,3 +45,4 @@ transpiler/dependencies
 
 # Other
 .parent
+*.lnk
