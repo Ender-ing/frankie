@@ -42,7 +42,6 @@ function(add_internal_target_cxx_flags TARGET IS_LESS_RESTRICTIVE)
         target_compile_options(${TARGET} PRIVATE
             -Wall # Enable all warnings
 
-            -Wshadow=local
             -Wpointer-arith
             -Wcast-align
             -Wstrict-overflow=4
@@ -55,6 +54,12 @@ function(add_internal_target_cxx_flags TARGET IS_LESS_RESTRICTIVE)
 
             -Wno-unused-parameter
         )
+        # Non-AppleClang flags
+        if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
+            target_compile_options(${TARGET} PRIVATE
+                -Wshadow=local
+            )
+        endif()
         if(NOT IS_LESS_RESTRICTIVE)
             target_compile_options(${TARGET} PRIVATE
                 -Wshadow
