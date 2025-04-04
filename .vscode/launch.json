@@ -10,7 +10,7 @@
             "input": "${file}",
             "grammar": "transpiler/source/parser/ANTLR4/PolarFrankieParser.g4",
             "actionFile": "transpiler/source/parser/ANTLR4/actions.debug.js",
-            "startRule": "root",
+            "startRule": "start",
             "printParseTree": true,
             "visualParseTree": true
         }

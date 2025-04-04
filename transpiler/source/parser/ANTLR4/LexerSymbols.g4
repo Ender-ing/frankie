@@ -15,7 +15,8 @@ options {
 
 // New lines
 SYM_NEWLINE
-    : ('\r'? '\n')+
+    : ('\r'? '\n')
+            -> skip
     ; // Newline characters need to have their own tokens!
 
 // Expression-related symbols
