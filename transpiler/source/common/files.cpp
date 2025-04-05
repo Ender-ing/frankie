@@ -74,6 +74,21 @@ namespace Common {
 
                 // Get executable path
                 fs::path executablePath(wExecutablePath);
+            #elif __APPLE__
+                // macOS logic
+                char buffer[PATH_MAX] = {0};
+                uint32_t bufsize = PATH_MAX;
+                if (_NSGetExecutablePath(buffer, &bufsize) != 0) {
+                    return false;
+                }
+                // Resolve any symlinks and get the canonical path
+                char realPath[PATH_MAX];
+                if (realpath(buffer, realPath) == NULL) {
+                    return false;
+                }
+
+                // Get executable path
+                fs::path executablePath((std::string) realPath);
             #else
                 // Unix-like logic
                 char buffer[PATH_MAX] = { 0 };

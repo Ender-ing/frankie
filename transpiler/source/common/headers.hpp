@@ -25,6 +25,7 @@
     #include <unistd.h> // readlink, ...
 #elif __APPLE__ // macOS (and other Apple platforms)
     #include <mach/mach_time.h>
+    #include <mach-o/dyld.h> // _NSGetExecutablePath, ...
 //#elif __EMSCRIPTEN__ // WASM (maybe? It'd be useful but it requires a lot of effort to implement)
 //    #include <emscripten.h>
 #else
