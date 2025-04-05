@@ -109,7 +109,9 @@ jobs:
 
               # .tar.gz
               artifact_targz="$artifact_name.tar.gz"
-              tar -czvf $artifact_targz $artifact_dir/*
+              cd $artifact_dir
+              tar -czvf $artifact_targz *
+              cd ..
               upload_asset "$artifact_targz"
               # Save asset hash
               sha256sum $artifact_targz >> SHASUMS256.txt
