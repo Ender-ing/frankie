@@ -27,6 +27,7 @@ namespace Comms {
         int programStatus = 0; // Default: 0 (success)
         // Keep track of the reporting status
         bool didSendReport = false;
+        bool didSendFatalReport = false;
     }
 
     // Report-specific status
@@ -68,6 +69,9 @@ namespace Comms {
             }
             if(!ProcessReport::didSendReport){
                 ProcessReport::didSendReport = true;
+            }
+            if(!ProcessReport::didSendFatalReport){
+                ProcessReport::didSendFatalReport = true;
             }
             // Send report data to CLI/LSP
             if (mode == CLI_MODE) {

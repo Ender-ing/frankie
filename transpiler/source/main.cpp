@@ -34,8 +34,12 @@ int main (int argc, const char *argv[]) {
     // Update initial configurations
     if(!Base::InitialConfigs::updateUsingArgs(argc, argv)){
         // This process failed!
-        REPORT(Comms::START_REPORT, Comms::CRITICAL_REPORT, "Terminating program due to the previous error(s)!",
-            Comms::END_REPORT);
+        if (!Comms::ProcessReport::didSendFatalReport) {
+            //
+            REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Terminating program due to a Base::InitialConfigs error!",
+                "\nPossible memory leaks/bad code. Please contact the developers of PolarFrankie!",
+                Comms::END_REPORT);
+        }
 
         // End the program
         Comms::finalize();
