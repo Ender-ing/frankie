@@ -63,6 +63,7 @@ jobs:
     - name: Extract version (optional)
       if: inputs.bundle_binaries
       run: |
+        set -e
         VERSION=$(${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/bin/frankie --version | head -n 1)
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
@@ -112,6 +113,7 @@ jobs:
     - name: Extract version (optional)
       if: inputs.bundle_binaries
       run: |
+        set -e
         VERSION=$(${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/bin/frankie --version | head -n 1)
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
