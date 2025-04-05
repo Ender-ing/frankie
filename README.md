@@ -42,6 +42,7 @@ rest of the language components should be defined from within the `.frankie` lib
     - [ ] Format checks
   - [x] `--debug-parser-antlr-syntax-test`
   - [ ] `--help`
+  - [x] `--strict-flags`
 
 ## Language syntax support (lexer & parser)
 
