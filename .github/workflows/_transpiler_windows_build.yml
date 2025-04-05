@@ -78,7 +78,7 @@ jobs:
     - name: Extract version (optional)
       if: inputs.bundle_binaries
       run: |
-        $version = (Get-Item "*.exe" | Select-Object -First 1).VersionInfo.FileVersion
+        $version = (Get-Item "frankie.exe").VersionInfo.FileVersion
         if ($version) {
           echo "VERSION=$version" >> $env:GITHUB_ENV
         } else {
