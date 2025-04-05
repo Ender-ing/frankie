@@ -14,6 +14,7 @@ set(FRANKIE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
 set(FRANKIE_TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 set(FRANKIE_BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dist)
 set(FRANKIE_MANIFEST_FILE ${CMAKE_CURRENT_SOURCE_DIR}/manifest.ini)
+set(FRANKIE_LICENSE_FILE ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE)
 
 # CMake modules path
 set(CMAKE_MODULE_PATH
@@ -55,3 +56,6 @@ if(FRANKIE_TESTS)
 else()
     message(WARNING "[TESTS] Custom tests have been disabled!")
 endif()
+
+# CMake files that are not related to the main building process
+include(${FRANKIE_CMAKE_DIR}/other/other.cmake)

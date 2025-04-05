@@ -36,7 +36,7 @@ int main (int argc, const char *argv[]) {
         // This process failed!
         if (Comms::Statistics::fatalReports == 0) {
             REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Terminating program due to a Base::InitialConfigs error!",
-                "\nPossible memory leaks/bad code. Please contact the developers of PolarFrankie!",
+                BAD_CODE_OR_MEMORY_LEAKS,
                 Comms::END_REPORT);
         }
 

@@ -9,11 +9,14 @@
 // CLI/LSP
 #include "comms/comms.hpp"
 
+// Common
+#include "common/files.hpp"
+
 namespace Base {
     // All state-related members should be contained under one namepsace
     namespace InitialConfigs {
         // Starting Path
-        std::string runPath = "";
+        std::string frankiePath = "";
 
         // Main source file
         std::string mainPath = "";
@@ -62,8 +65,14 @@ namespace Base {
         // Process and update values through program arguments!
         // [true - sucess, false - failure]
         bool updateUsingArgs(int argc, const char *argv[]) {
-            // Get the starting path
-            runPath = (std::string) argv[0];
+            // Get the frankie transpiler path
+            if (!Common::Files::getExecutableDir(frankiePath)) { // Same as /path/to/bin
+                REPORT(Comms::START_REPORT, Comms::FATAL_REPORT,
+                    "Couldn't get the transpiler's path!",
+                    BAD_CODE_OR_MEMORY_LEAKS,
+                    Comms::END_REPORT);
+            }
+            frankiePath = Common::Files::getParentPath(frankiePath);// Same as  /path/to/bin/..
 
             // Loop through all arguments (skipping the first one)
             for (int i = 1; i < argc; i++) {
@@ -91,7 +100,7 @@ namespace Base {
                     // Unexpected input!
                     REPORT(Comms::START_REPORT,
                         (InitialConfigs::Technical::strictFlagDetection) ? Comms::FATAL_REPORT : Comms::WARNING_REPORT,
-                        "Unexpected command line input! ('", arg, "')",
+                        "Unexpected command line input: '", arg, "'",
                         Comms::END_REPORT);
                     if (InitialConfigs::Technical::strictFlagDetection) {
                         return false;
@@ -107,7 +116,7 @@ namespace Base {
                     // Unknown argument!
                     REPORT(Comms::START_REPORT,
                         (InitialConfigs::Technical::strictFlagDetection) ? Comms::FATAL_REPORT : Comms::WARNING_REPORT,
-                        "Unknown command line flag! ('", arg, "')",
+                        "Unknown command line flag: ", arg,
                         Comms::END_REPORT);
                     if (InitialConfigs::Technical::strictFlagDetection) {
                         return false;

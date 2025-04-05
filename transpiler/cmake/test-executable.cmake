@@ -60,14 +60,14 @@ function(define_frankie_test test_prefix test_name should_fail test_command)
 endfunction()
 
 # Define Basic binary testing function
-function(frankie_binary_test)
+function(frankie_binary_test TEST_NAME FLAGS FULL_FLAGS)
     # Test if the binary's symbolic links are functioning normally!
-    define_frankie_test("FrankieBinaryTest__" "FrankieTranspiler"
+    define_frankie_test("FrankieBinaryTest__${TEST_NAME}_" "FrankieTranspiler"
         FALSE
-        "${TEST_FRANKIE_COMMAND}")
-    define_frankie_test("FrankieBinaryTest__" "frankie"
+        "${TEST_FRANKIE_COMMAND};${FULL_FLAGS}")
+    define_frankie_test("FrankieBinaryTest__${TEST_NAME}_" "frankie"
         FALSE
-        "${TEST_FRANKIE_MINI_COMMAND}"
+        "${TEST_FRANKIE_MINI_COMMAND};${FLAGS}"
         )
 endfunction()
 
@@ -98,7 +98,12 @@ set(FRANKIE_FILE_TESTS "") # All frankie file tests will be applied to files add
 #endforeach()
 
 # Test the basic binary command!
-frankie_binary_test()
+frankie_binary_test("Empty" "" "")
+# Test command flags!
+frankie_binary_test("License" "-sf;-l" "--strict-flags;--license")
+frankie_binary_test("Version" "-sf;-v" "--strict-flags;--version")
+frankie_binary_test("Protocol_Console" "-sf;-p;c" "--strict-flags;--protocol;console")
+# Missing tests for: --protocol server, --input
 
 # Load all .frankie test files
 file(GLOB_RECURSE TEST_FRANKIE_FILES ${FRANKIE_TESTS_DIR} "${FRANKIE_TESTS_DIR}/*.frankie")
