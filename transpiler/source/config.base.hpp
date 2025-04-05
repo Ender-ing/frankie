@@ -22,7 +22,7 @@ namespace Base {
     // All state-related members should be contained under one namepsace
     namespace InitialConfigs {
         // Starting Path
-        extern FRANKIE_BASE_API std::string runPath;
+        extern FRANKIE_BASE_API std::string frankiePath;
 
         // Main source file
         extern FRANKIE_BASE_API std::string mainPath;
