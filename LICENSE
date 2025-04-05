@@ -19,7 +19,7 @@ command line scripting language. As such, when using the term "Software", one
 should assume all of the aforementioned included elements to be part of said
 term.
 
-Copyright (c) 2024 Ender.ing (<https://github.com/Ender-ing>),
+Copyright (c) 2024-2025 Ender.ing (<https://github.com/Ender-ing>),
     Endering (<https://marketplace.visualstudio.com/publishers/Endering>),
     0xENDER (<https://github.com/0xENDER>)
 
@@ -49,7 +49,7 @@ activities, discriminatory or hateful activities, or activities that violate
 the rights of others is strongly discouraged.
 
 Responsibility for any negative consequences that may arise from the misuse of
-this Software and any of its outputs solely fall on the actively engaged
+this Software and any of its outputs solely falls on the actively engaged
 parties.
 
 ## Contribution Statement
@@ -70,3 +70,4 @@ permissions for its use.
 
 Any contributions made without explicit statements are assumed to fall under
 this license!
+ss

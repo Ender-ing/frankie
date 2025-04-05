@@ -1,5 +1,6 @@
 # PolarFrankie
 
+[![License](https://img.shields.io/badge/license-Modified_MIT-blue.svg)](https://raw.githubusercontent.com/Ender-ing/frankie/main/LICENSE)
 [![Transpiler](https://github.com/Ender-ing/frankie/actions/workflows/transpiler.yml/badge.svg)](https://github.com/Ender-ing/frankie/actions/workflows/transpiler.yml)
 [![VSCode Extension](https://github.com/Ender-ing/frankie/actions/workflows/vscode_extension.yml/badge.svg)](https://github.com/Ender-ing/frankie/actions/workflows/vscode_extension.yml)
 
