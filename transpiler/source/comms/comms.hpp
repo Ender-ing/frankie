@@ -37,7 +37,6 @@ namespace Comms {
         extern FRANKIE_COMMS_API int programStatus;
         // Keep track of the reporting status
         extern FRANKIE_COMMS_API bool didSendReport;
-        extern FRANKIE_COMMS_API bool didSendFatalReport;
     }
 
     // Report actions
