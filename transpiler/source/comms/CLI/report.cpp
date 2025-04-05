@@ -47,14 +47,19 @@ namespace Comms {
                 // Track output data printing
                 uint32_t color;
                 int channel = 0; // [0 -> cout, 1 -> cerr]
+                bool shouldColor = true;
                 bool shouldPrompt = true;
                 std::stringstream prompt;
-                auto out = [&channel, &color](std::string data) {
+                auto out = [&channel, &color, &shouldColor](std::string data) {
                     // {fmt}
                     sanitize(data);
 
                     // Print to the chosen output channel
-                    INTERNAL_C_OUT(Comms::CLI::format(data, color), channel);
+                    if (shouldColor) {
+                        INTERNAL_C_OUT(Comms::CLI::format(data, color), channel);
+                    } else {
+                        INTERNAL_C_OUT(data, channel);
+                    }
                 };
 
                 if (IndividualReport::type == WARNING_REPORT) {
@@ -83,7 +88,7 @@ namespace Comms {
                     // Title
                     prompt << "[Debug]";
                 } else {
-                    color = Color::white;
+                    shouldColor = false;
                     channel = 0;
                     // No prompts
                     shouldPrompt = false;
