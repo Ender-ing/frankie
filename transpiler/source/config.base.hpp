@@ -41,6 +41,8 @@ namespace Base {
             extern FRANKIE_BASE_API bool terminateAfterArgs;
             // For actions that require termination after actions!
             extern FRANKIE_BASE_API bool terminateAfterActions;
+            // Fail process when unknown flags are detected!
+            extern FRANKIE_BASE_API bool strictFlagDetection;
 
             // Look for flags that require the default initialisation to stop!
             // [true - skip, false - don't skip]

@@ -32,6 +32,8 @@ namespace Base {
             bool terminateAfterArgs = false;
             // For actions that require termination after actions!
             bool terminateAfterActions = false;
+            // Fail process when unknown flags are detected!
+            bool strictFlagDetection = false;
 
             // Look for flags that require the default initialisation to stop!
             // [true - skip, false - don't skip]
@@ -85,7 +87,16 @@ namespace Base {
 
                 // Check current flag
                 Actions::ActionFunction action;
-                if (Actions::getActionFunctionByFlag(arg, action)) {
+                if (arg[0] != '-') {
+                    // Unexpected input!
+                    REPORT(Comms::START_REPORT,
+                        (InitialConfigs::Technical::strictFlagDetection) ? Comms::FATAL_REPORT : Comms::WARNING_REPORT,
+                        "Unexpected command line input! ('", arg, "')",
+                        Comms::END_REPORT);
+                    if (InitialConfigs::Technical::strictFlagDetection) {
+                        return false;
+                    }
+                } else if (Actions::getActionFunctionByFlag(arg, action)) {
                     // Execute action, and check for failure
                     if (!action(getNextArg)) {
                         // Action-related fatal error!
@@ -94,9 +105,13 @@ namespace Base {
                     }
                 } else {
                     // Unknown argument!
-                    REPORT(Comms::START_REPORT, Comms::FATAL_REPORT, "Unknown argument! ('", arg, "')",
+                    REPORT(Comms::START_REPORT,
+                        (InitialConfigs::Technical::strictFlagDetection) ? Comms::FATAL_REPORT : Comms::WARNING_REPORT,
+                        "Unknown command line flag! ('", arg, "')",
                         Comms::END_REPORT);
-                    return false;
+                    if (InitialConfigs::Technical::strictFlagDetection) {
+                        return false;
+                    }
                 }
             }
 
