@@ -19,7 +19,7 @@ options {
 
 //// Parser Rules
 
-root
+start
     : expression_full* EOF
     ; /* This is the start scope! */
 

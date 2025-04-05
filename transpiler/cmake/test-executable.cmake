@@ -101,7 +101,12 @@ set(FRANKIE_FILE_TESTS "") # All frankie file tests will be applied to files add
 frankie_binary_test()
 
 # Load all .frankie test files
-file(GLOB_RECURSE TEST_FRANKIE_FILES ${FRANKIE_TESTS_DIR} "*.frankie")
+file(GLOB_RECURSE TEST_FRANKIE_FILES ${FRANKIE_TESTS_DIR} "${FRANKIE_TESTS_DIR}/*.frankie")
+list(LENGTH TEST_FRANKIE_FILES test_files_list_length)
+get_ini_value(${FRANKIE_MANIFEST_FILE} "TESTS" "COUNT" INI_TESTS_COUNT)
+if(NOT test_files_list_length EQUAL INI_TESTS_COUNT)
+    message(FATAL_ERROR "[TESTS] Inconsistent number of tests! (Found ${test_files_list_length} tests, expecting ${INI_TESTS_COUNT})")
+endif()
 foreach(file_path ${TEST_FRANKIE_FILES})
     message(STATUS "[TESTS] Processing test file ${file_path}...")
     # Get file name

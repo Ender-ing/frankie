@@ -69,41 +69,13 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${FRANKIE_BINARY_DIR}/Release/${FRANK
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${FRANKIE_BINARY_DIR}/Debug/${FRANKIE_BINARY_PLATFORM}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${FRANKIE_BINARY_DIR}/Release/${FRANKIE_BINARY_PLATFORM}/lib)
 
-# Add a .ini value reader
-function(get_ini_value INI_FILE INI_SECTION KEY OUTPUT_VARIABLE)
-    # Get file contents
-    file(READ ${INI_FILE} INI_CONTENTS)
-    string(REGEX REPLACE "\r" "" INI_CONTENTS "${INI_CONTENTS}")
-
-    # Get the required section
-    string(REGEX MATCH "(\\[${INI_SECTION}\\]\n)(([^\\[]*)\n)*\\[?" MATCHED_SECTION "${INI_CONTENTS}")
-
-    # Look for the key
-    string(REGEX MATCH "(^|\n)(${KEY}\\=[^\n]*)" MATCHED_VALUE "${MATCHED_SECTION}")
-    # Only get the value
-    # (?<=(\[FrankieTranspiler\]\n))^VERSION=([^\n]*) # Doesn't work if the value is not directly after the section's name
-    string(REGEX REPLACE "(^|\n)${KEY}\\=[\\s]*(\"(.*)\"|([\\d]+))[\\s]*" "\\3" VALUE "${MATCHED_VALUE}")
-    string(STRIP "${VALUE}" VALUE) # Remove extra whitespace (for bad string values)
-
-    # Check for value inheritance
-    string(REGEX MATCH "^INHERIT:.+" INIT_INHERIT "${VALUE}")
-    if(INIT_INHERIT)
-        string(REGEX REPLACE "INHERIT:(.*)" "\\1" INIT_INHERIT "${INIT_INHERIT}")
-        # Get value from INIT_INHERIT's section
-        get_ini_value(${INI_FILE} ${INIT_INHERIT} ${KEY} VALUE)
-    endif()
-
-    # Return value
-    set(${OUTPUT_VARIABLE} "${VALUE}" PARENT_SCOPE)
-endfunction()
-
 # Attach manifest.ini info to targets!
 # (Only supports executables and dynamic libraries!)
 function(attach_manifest_data TARGET)
     message(STATUS "[BUILD] Attaching manifest data to target: ${TARGET}")
     # Set versioning info
-    get_ini_value(${FRANKIE_MANIFEST_FILE} ${TARGET} "VERSION" INI_VERSION)
-    #get_ini_value(${FRANKIE_MANIFEST_FILE} ${TARGET} "SOVERSION" INI_SOVERSION)
+    get_ini_value(${FRANKIE_MANIFEST_FILE} "TARGET:${TARGET}" "VERSION" INI_VERSION)
+    #get_ini_value(${FRANKIE_MANIFEST_FILE} "TARGET:${TARGET}" "SOVERSION" INI_SOVERSION)
 
     # Update target info
     set_target_properties(${TARGET} PROPERTIES # THIS DOESN'T WORK!
@@ -135,7 +107,7 @@ function(attach_manifest_data TARGET)
     list(GET version_list 1 IN_BIN_MINOR)
     list(GET version_list 2 IN_BIN_PATCH)
     list(GET version_list 3 IN_BIN_EXTRA)
-    get_ini_value(${FRANKIE_MANIFEST_FILE} ${TARGET} "DESCRIPTION" IN_BIN_DESCRIPTION)
+    get_ini_value(${FRANKIE_MANIFEST_FILE} "TARGET:${TARGET}" "DESCRIPTION" IN_BIN_DESCRIPTION)
     set(IN_BIN_VERSION_NAME ${INI_VERSION})
 
     # Get target type

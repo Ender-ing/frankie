@@ -27,11 +27,14 @@ set(CMAKE_MODULE_PATH
 )
 
 # ANTLR4 files generation configuration
-set(FRANKIE_ANTLR4_LEXER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieLexer.g4)
-set(FRANKIE_ANTLR4_PARSER_PATH ${FRANKIE_SOURCE_DIR}/ANTLR4/PolarFrankieParser.g4)
+set(FRANKIE_ANTLR4_LEXER_PATH ${FRANKIE_SOURCE_DIR}/parser/ANTLR4/PolarFrankieLexer.g4)
+set(FRANKIE_ANTLR4_PARSER_PATH ${FRANKIE_SOURCE_DIR}/parser/ANTLR4/PolarFrankieParser.g4)
 set(FRANKIE_MAIN_CPP_PATH ${FRANKIE_SOURCE_DIR}/main.cpp)
 
 include(FetchContent)
+
+# CMake functions & macros
+include(${FRANKIE_CMAKE_DIR}/utility.cmake)
 
 # Manage compiler settings
 include(${FRANKIE_CMAKE_DIR}/compiler/cpp.cmake)

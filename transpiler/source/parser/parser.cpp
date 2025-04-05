@@ -46,8 +46,8 @@ namespace Parser {
             }
             REPORT(Comms::END_REPORT);
 
-            // Get the root tree!
-            antlr4::tree::ParseTree *tree = parser.root();
+            // Get the start tree!
+            antlr4::tree::ParseTree *tree = parser.start();
 
             // Print the parse tree!
             auto s = tree->toStringTree(&parser);
