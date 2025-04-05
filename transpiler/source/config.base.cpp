@@ -91,7 +91,7 @@ namespace Base {
                     // Unexpected input!
                     REPORT(Comms::START_REPORT,
                         (InitialConfigs::Technical::strictFlagDetection) ? Comms::FATAL_REPORT : Comms::WARNING_REPORT,
-                        "Unexpected command line input! ('", arg, "')",
+                        "Unexpected command line input: '", arg, "'",
                         Comms::END_REPORT);
                     if (InitialConfigs::Technical::strictFlagDetection) {
                         return false;
@@ -107,7 +107,7 @@ namespace Base {
                     // Unknown argument!
                     REPORT(Comms::START_REPORT,
                         (InitialConfigs::Technical::strictFlagDetection) ? Comms::FATAL_REPORT : Comms::WARNING_REPORT,
-                        "Unknown command line flag! ('", arg, "')",
+                        "Unknown command line flag: ", arg,
                         Comms::END_REPORT);
                     if (InitialConfigs::Technical::strictFlagDetection) {
                         return false;
