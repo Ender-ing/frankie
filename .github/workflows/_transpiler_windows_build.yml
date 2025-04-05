@@ -78,7 +78,6 @@ jobs:
     - name: Extract version (optional)
       if: inputs.bundle_binaries
       run: |
-        dir
         $version = (Get-Item "frankie.exe").VersionInfo.FileVersion
         if ($version) {
           echo "VERSION=$version" >> $env:GITHUB_ENV
@@ -86,7 +85,7 @@ jobs:
           Write-Error "Couldn't get VERSION info from the generated binaries!"
           exit 1
         }
-      working-directory: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/
+      working-directory: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/bin/
 
     - name: Upload Binaries Artifact (optional)
       if: inputs.bundle_binaries
