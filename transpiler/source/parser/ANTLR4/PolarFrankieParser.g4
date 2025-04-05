@@ -20,10 +20,9 @@ options {
 //// Parser Rules
 
 start
-    :   (
-            expression (SYM_NEWLINE | SYM_SEMICOLON) |
-            SYM_NEWLINE
-        )* (expression)? SYM_NEWLINE* EOF
+    :   (SYM_NEWLINE | SYM_SEMICOLON)* (
+            expression (SYM_NEWLINE | SYM_SEMICOLON)+
+        )* expression? EOF
     ; /* This is the start scope! */
 
 // Expressions
@@ -40,10 +39,9 @@ expression
 expressions_group
     :   SYM_PARENTHESIS_OPEN
             // Same as start: rule
-            (
-                expression (SYM_NEWLINE | SYM_SEMICOLON) |
-                SYM_NEWLINE
-            )* (expression)? SYM_NEWLINE*
+            (SYM_NEWLINE | SYM_SEMICOLON)* (
+                expression (SYM_NEWLINE | SYM_SEMICOLON)+
+            )* expression?
         SYM_PARENTHESIS_CLOSE
     ; /* Parentheses grouping actually matters */
 
