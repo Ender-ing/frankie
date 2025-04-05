@@ -176,6 +176,35 @@ namespace Base {
 
                     ACTION_PROGRESS;
                 }
+            ),
+            DEFINE_ACTION(
+                "l", "license",
+                "Get license text.",
+                "",
+                {
+                    // Report action
+                    REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Printing license text!",
+                        Comms::END_REPORT);
+
+                    // Get the license text
+                    std::string content;
+                    std::string licensePath = InitialConfigs::frankiePath + "/LICENSE";
+                    if (!Common::Files::getFileContent(licensePath, content)) {
+                        // File isn't accessible!
+                        REPORT(Comms::START_REPORT, Comms::FATAL_REPORT,
+                            "Couldn't access the LICENSE file: ",
+                            licensePath,
+                            BAD_CODE_OR_MEMORY_LEAKS,
+                            Comms::END_REPORT);
+
+                        ACTION_FATAL_FAILURE;
+                    }
+
+                    // Print the license text
+                    REPORT(Comms::START_REPORT, Comms::NORMAL_REPORT, content, Comms::END_REPORT);
+
+                    ACTION_PROGRESS;
+                }
             )
     };
 
