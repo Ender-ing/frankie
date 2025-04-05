@@ -20,7 +20,10 @@ options {
 //// Parser Rules
 
 start
-    : (expression SYM_SEMICOLON?)* EOF
+    :   (
+            expression (SYM_NEWLINE | SYM_SEMICOLON) |
+            SYM_NEWLINE
+        )* (expression)? SYM_NEWLINE* EOF
     ; /* This is the start scope! */
 
 // Expressions
@@ -36,7 +39,11 @@ expression
 // Groups/zones
 expressions_group
     :   SYM_PARENTHESIS_OPEN
-            (expression SYM_SEMICOLON?)* // Same as start: rule
+            // Same as start: rule
+            (
+                expression (SYM_NEWLINE | SYM_SEMICOLON) |
+                SYM_NEWLINE
+            )* (expression)? SYM_NEWLINE*
         SYM_PARENTHESIS_CLOSE
     ; /* Parentheses grouping actually matters */
 
