@@ -82,7 +82,7 @@ namespace Common {
                 }
 
                 // Get executable path
-                fs::path executablePath((std::string) buffer));
+                fs::path executablePath((std::string) buffer);
             #endif
     
             // Remove filename
