@@ -55,6 +55,19 @@ namespace Base {
                 "Forcefully feed all output (status, warnings, or errors) into the normal standard output stream!"
             },*/
             DEFINE_ACTION(
+                "sf", "strict-flags",
+                "Terminate process when unknown flags are detected.",
+                "",
+                {
+                    REPORT(Comms::START_REPORT, Comms::ACTION_REPORT, "Enabled 'strict flags' mode!", Comms::END_REPORT);
+
+                    // Change to strict flags mode
+                    InitialConfigs::Technical::strictFlagDetection = true;
+
+                    ACTION_PROGRESS;
+                }
+            ),
+            DEFINE_ACTION(
                 "p", "protocol",
                 "Set the data output protocol.",
                 "<mode> - c/console (console, default) | s/server (language server)",
