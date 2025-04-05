@@ -113,11 +113,6 @@ namespace Comms {
                 }
             } else if (std::holds_alternative<ReportType>(arg)) {
                 ReportType value = std::get<ReportType>(arg);
-                // Update program status
-                if (value == CRITICAL_REPORT) {
-                    // Update program status to 'failure'
-                    ProcessReport::programStatus = 1;
-                }
 
                 // Track report type
                 switch (value) {
@@ -129,9 +124,13 @@ namespace Comms {
                         break;
                     case CRITICAL_REPORT:
                         Statistics::criticalReports++;
+                        // Update program status
+                        ProcessReport::programStatus = 1;
                         break;
                     case FATAL_REPORT:
                         Statistics::fatalReports++;
+                        // Update program status
+                        ProcessReport::programStatus = 1;
                         break;
                     case ACTION_REPORT:
                         Statistics::actionReports++;
