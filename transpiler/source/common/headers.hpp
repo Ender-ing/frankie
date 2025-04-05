@@ -37,3 +37,6 @@
 // For more info, check https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/C_to_Wasm
 // (side note: as of now, I am not sure if the preferred compiler supports dynamic library linking or the
 // imported external libraries)
+
+// TMP
+#define BAD_CODE_OR_MEMORY_LEAKS "\nPossible memory leaks/bad code. Please contact the developers of PolarFrankie!"

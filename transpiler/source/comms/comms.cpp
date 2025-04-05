@@ -14,7 +14,7 @@ namespace Comms {
     static void throwError(std::string msg) {
         std::cerr << CLI::format("[Internal Error] ", Comms::CLI::Color::red)
             << CLI::format(msg, Comms::CLI::Color::red)
-            << CLI::format("\nPossible memory leaks/bad code. Please contact the developers of PolarFrankie!",
+            << CLI::format(BAD_CODE_OR_MEMORY_LEAKS,
                 Comms::CLI::Color::red)
             << std::endl;
         throw std::runtime_error(msg);
