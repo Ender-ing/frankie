@@ -111,18 +111,18 @@ else()
       DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
       # <CUSTOM MODIFICATIONS
       PATCH_COMMAND
-        COMMAND ${ANTLR4_PATCH_COMMAND}
-          --fuzz=0
+        COMMAND ${GIT_PATCH_EXECUTABLE}
+          --forward --force --fuzz=0
             ${ANTLR4_ROOT}/runtime/Cpp/runtime/CMakeLists.txt
             < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__CMakeLists.txt.diff
           || true
-        COMMAND ${ANTLR4_PATCH_COMMAND}
-          --fuzz=0
+        COMMAND ${GIT_PATCH_EXECUTABLE}
+          --forward --force --fuzz=0
             ${ANTLR4_ROOT}/runtime/Cpp/runtime/src/atn/ProfilingATNSimulator.cpp
             < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__ProfilingATNSimulator.cpp.diff
           || true
-        COMMAND ${ANTLR4_PATCH_COMMAND}
-          --fuzz=0
+        COMMAND ${GIT_PATCH_EXECUTABLE}
+          --forward --force --fuzz=0
             ${ANTLR4_ROOT}/runtime/Cpp/runtime/antlrcpp.xcodeproj/project.pbxproj
             < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__project.pbxproj.diff
           || true
