@@ -20,7 +20,7 @@ namespace Comms {
             const uint32_t golden_rod = static_cast<uint32_t>(fmt::color::golden_rod);
             const uint32_t light_sea_green = static_cast<uint32_t>(fmt::color::light_sea_green);
         }
-        std::string format (std::string text, const uint32_t color) {
+        std::string color(std::string text, const uint32_t color) {
             return fmt::format(fg(static_cast<fmt::v11::color>(color)), text);
         }
     }

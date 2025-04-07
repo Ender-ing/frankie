@@ -12,9 +12,9 @@ namespace Comms {
 
     // Handle error throw statement
     static void throwError(std::string msg) {
-        std::cerr << CLI::format("[Internal Error] ", Comms::CLI::Color::red)
-            << CLI::format(msg, Comms::CLI::Color::red)
-            << CLI::format(BAD_CODE_OR_MEMORY_LEAKS,
+        std::cerr << CLI::color("[Internal Error] ", Comms::CLI::Color::red)
+            << CLI::color(msg, Comms::CLI::Color::red)
+            << CLI::color(BAD_CODE_OR_MEMORY_LEAKS,
                 Comms::CLI::Color::red)
             << std::endl;
         throw std::runtime_error(msg);

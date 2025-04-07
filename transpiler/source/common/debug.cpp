@@ -45,7 +45,7 @@ namespace Common {
         bool processCrtMemoryReports() {
             #ifdef WINDOWS_CRTDEBUG_ACTIVE
                 std::string leakReport = captureCrtDumpMemoryLeaks();
-                std::cout << Comms::CLI::format("Leak Report:\n", Comms::CLI::Color::red) << leakReport << std::endl;
+                std::cout << Comms::CLI::color("Leak Report:\n", Comms::CLI::Color::red) << leakReport << std::endl;
                 return false;
             #else
                 return false; // Always return a success state! (Non-windows machines)

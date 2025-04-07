@@ -56,7 +56,7 @@ namespace Comms {
 
                     // Print to the chosen output channel
                     if (shouldColor) {
-                        INTERNAL_C_OUT(Comms::CLI::format(data, color), channel);
+                        INTERNAL_C_OUT(Comms::CLI::color(data, color), channel);
                     } else {
                         INTERNAL_C_OUT(data, channel);
                     }
