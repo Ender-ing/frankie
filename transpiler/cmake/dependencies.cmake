@@ -3,7 +3,8 @@ message(STATUS "[DEPENDENCIES] Checking dependencies...")
 # VERSION CONTROL
 # Manage the versions for used dependencies
 # {fmt} library
-set(FMT_LIB_VERSION 11.1.3)
+set(FMT_LIB_VERSION 10.2.1)
+#Currently, I can't figure out why v11.1.4 doesn't like c++20
 # ANTLR4
 set(ANTLR4_TAG 4.13.2)
 
@@ -156,7 +157,7 @@ else()
     # Download {fmt}
     message(STATUS "[DEPENDENCIES] Fetching {fmt}...")
     set(FRANKIE_DEP_FMT_LIB_PATH ${FRANKIE_DEPENDENCIES_DIR}/fmt)
-    if(EXISTS "${FRANKIE_DEP_FMT_LIB_PATH}/CMakeLists.txt")
+    if(EXISTS ${FRANKIE_DEP_FMT_LIB_PATH}/CMakeLists.txt)
         FetchContent_Declare(fmt
             GIT_TAG ${FMT_LIB_VERSION}
             SOURCE_DIR ${FRANKIE_DEP_FMT_LIB_PATH})
