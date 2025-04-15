@@ -9,6 +9,10 @@ on:
         required: false
         type: string
         default: macos-latest
+      skip_mac:
+        required: false
+        type: boolean
+        default: false
       build_platform:
         required: true
         type: string
@@ -77,6 +81,7 @@ jobs:
   # macOS
   build-transpiler-on-macos:
     name: macOS ${{inputs.build_platform_name}}
+    if: !inputs.skip_mac
     runs-on: ${{inputs.mac_system}}
 
     steps:
