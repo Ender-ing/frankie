@@ -111,9 +111,21 @@ else()
       DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
       # <CUSTOM MODIFICATIONS
       PATCH_COMMAND
-        COMMAND ${GIT_PATCH_EXECUTABLE} ${ANTLR4_ROOT}/runtime/Cpp/runtime/CMakeLists.txt < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__CMakeLists.txt.diff
-        COMMAND ${GIT_PATCH_EXECUTABLE} ${ANTLR4_ROOT}/runtime/Cpp/runtime/src/atn/ProfilingATNSimulator.cpp < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__ProfilingATNSimulator.cpp.diff
-        COMMAND ${GIT_PATCH_EXECUTABLE} ${ANTLR4_ROOT}/runtime/Cpp/runtime/antlrcpp.xcodeproj/project.pbxproj < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__project.pbxproj.diff
+        COMMAND ${GIT_PATCH_EXECUTABLE}
+          --forward --force --fuzz=0
+            ${ANTLR4_ROOT}/runtime/Cpp/runtime/CMakeLists.txt
+            < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__CMakeLists.txt.diff
+          || true
+        COMMAND ${GIT_PATCH_EXECUTABLE}
+          --forward --force --fuzz=0
+            ${ANTLR4_ROOT}/runtime/Cpp/runtime/src/atn/ProfilingATNSimulator.cpp
+            < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__ProfilingATNSimulator.cpp.diff
+          || true
+        COMMAND ${GIT_PATCH_EXECUTABLE}
+          --forward --force --fuzz=0
+            ${ANTLR4_ROOT}/runtime/Cpp/runtime/antlrcpp.xcodeproj/project.pbxproj
+            < ${FRANKIE_CMAKE_DIR}/ANTLR4/patches/antlr4_runtime_patch__project.pbxproj.diff
+          || true
       # CUSTOM MODIFICATIONS>
       BUILD_COMMAND ""
       BUILD_IN_SOURCE 1
@@ -124,7 +136,9 @@ else()
           -DWITH_STATIC_CRT:BOOL=${ANTLR4_WITH_STATIC_CRT}
           -DDISABLE_WARNINGS:BOOL=ON
           # -DCMAKE_CXX_STANDARD:STRING=17 # if desired, compile the runtime with a different C++ standard
-          # -DCMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} # alternatively, compile the runtime with the same C++ standard as the outer project
+          # <CUSTOM MODIFICATIONS
+          -DCMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} # alternatively, compile the runtime with the same C++ standard as the outer project
+          # CUSTOM MODIFICATIONS>
       INSTALL_COMMAND ""
       EXCLUDE_FROM_ALL 1)
 endif()

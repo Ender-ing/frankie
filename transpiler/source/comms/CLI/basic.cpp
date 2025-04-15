@@ -3,11 +3,13 @@
  * Include all used CLI headers
 **/
 
+#include "basic.hpp"
+
 // {fmt}
 #include <fmt/format.h>
 #include <fmt/color.h>
+#include <fmt/std.h>
 
-#include "basic.hpp"
 
 namespace Comms {
     namespace CLI {
@@ -20,8 +22,9 @@ namespace Comms {
             const uint32_t golden_rod = static_cast<uint32_t>(fmt::color::golden_rod);
             const uint32_t light_sea_green = static_cast<uint32_t>(fmt::color::light_sea_green);
         }
-        std::string format (std::string text, const uint32_t color) {
-            return fmt::format(fg(static_cast<fmt::v11::color>(color)), text);
+        
+        std::string color(const std::string &text, const uint32_t color) {
+            return fmt::format(fmt::fg(static_cast<fmt::color>(color)), text);
         }
     }
 }

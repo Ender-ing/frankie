@@ -34,6 +34,7 @@ rest of the language components should be defined from within the `.frankie` lib
 - [x] Introduction and summary
 - [ ] Flags
   - [x] `--version`
+  - [x] `--license`
   - [ ] `--protocol`
     - [x] CLI
     - [ ] LSP

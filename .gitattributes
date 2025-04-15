@@ -8,3 +8,7 @@
 # C
 *.c linguist-language=c
 *.h linguist-language=c
+
+
+# ANTLR4 (TMP)
+transpiler/source/old-ANTLR4/* linguist-documentation

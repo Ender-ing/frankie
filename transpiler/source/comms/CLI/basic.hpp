@@ -22,6 +22,6 @@ namespace Comms {
             extern FRANKIE_COMMS_API const uint32_t golden_rod;
             extern FRANKIE_COMMS_API const uint32_t light_sea_green;
         }
-        extern FRANKIE_COMMS_API std::string format (std::string text, const uint32_t color) ;
+        extern FRANKIE_COMMS_API std::string color(const std::string &text, const uint32_t color) ;
     }
 }
