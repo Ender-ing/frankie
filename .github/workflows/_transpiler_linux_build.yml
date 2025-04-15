@@ -39,6 +39,7 @@ jobs:
       run: |
         sudo dpkg --add-architecture i686
         sudo apt update
+        sudo apt upgrade
         sudo apt-get install -y gcc-multilib g++-multilib
         sudo apt-get install -y libc6:i686 libstdc++6:i686
 
@@ -47,6 +48,7 @@ jobs:
       run: |
         sudo dpkg --add-architecture armhf
         sudo apt update
+        sudo apt upgrade
         sudo apt-get install -y gcc-multilib g++-multilib
         sudo apt-get install -y libc6:armhf libstdc++6:armhf
 
