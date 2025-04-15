@@ -21,10 +21,6 @@ on:
       bundle_binaries:
         required: true
         type: boolean
-      skip_for:
-        required: false
-        type: string
-        default: ''
 
 jobs:
 
@@ -81,8 +77,9 @@ jobs:
   # macOS
   build-transpiler-on-macos:
     name: macOS ${{inputs.build_platform_name}}
-    if: inputs.skip_for != 'macOS'
     runs-on: ${{inputs.mac_system}}
+    # Skip x32 builds for macOS
+    if: inputs.build_platform_name != 'x86_32'
 
     steps:
     - name: Checkout code

@@ -51,7 +51,6 @@ jobs:
       build_platform_name: x86_32
       build_mode: ${{inputs.build_mode}}
       bundle_binaries: ${{inputs.bundle_binaries}}
-      skip_for: 'macOS'
 
   # ARM64
 #  build-transpiler-on-windows-arm64:
