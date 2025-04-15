@@ -123,8 +123,10 @@ set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 
 # Make adding global C/C++ flags easier
 function(add_c_cpp_global_flag flag)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${flag}")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${flag}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${flag}")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${flag}")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${flag}")
 endfunction()
 
 # Make adding global compile definitions easier
