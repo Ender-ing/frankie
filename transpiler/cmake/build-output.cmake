@@ -33,6 +33,16 @@ elseif(CMAKE_UNIX_GENERATOR_PLATFORM)
         if(CMAKE_SYSTEM_NAME MATCHES "Linux")
             add_c_cpp_global_flag("-m32")
             add_c_cpp_global_flag("-march=i386")
+
+            # Include/find directories
+            set(CMAKE_FIND_ROOT_PATH /usr/lib/i386-linux-gnu /usr/include)
+            set(CMAKE_FIND_LIBRARY_PATHS /usr/lib/i386-linux-gnu)
+            set(CMAKE_FIND_INCLUDE_PATH /usr/include)
+
+            # Root path settings
+            set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+            set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+            set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
         elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
             message(FATAL_ERROR "[BUILD] 32-bit builds are not supported on macOS!")
             #add_c_cpp_global_flag("-arch i386")
