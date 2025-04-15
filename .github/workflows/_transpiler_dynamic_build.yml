@@ -47,7 +47,7 @@ jobs:
     with:
       linux_system: ubuntu-latest
       mac_system: macos-13
-      skip_mac: true
+      skip_for: 'macOS'
       build_platform: x86
       build_platform_name: x86_32
       build_mode: ${{inputs.build_mode}}
