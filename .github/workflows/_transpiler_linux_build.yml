@@ -33,17 +33,17 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential cmake valgrind
-        sudo apt-get install -y gcc-multilib g++-multilib
+#        sudo apt-get install -y gcc-multilib g++-multilib
 
-    - name: Install dependencies (x64_32)
-      if: inputs.build_platform_name == 'x86_32'
-      run: |
-        sudo apt-get install -y libc6:i386 libstdc++6:i386
-
-    - name: Install dependencies (arm32)
-      if: inputs.build_platform_name == 'arm32'
-      run: |
-        sudo apt-get install -y libc6:armhf libstdc++6:armhf
+#    - name: Install dependencies (x64_32)
+#      if: inputs.build_platform_name == 'x86_32'
+#      run: |
+#        sudo apt-get install -y libc6:i386 libstdc++6:i386
+#
+#    - name: Install dependencies (arm32)
+#      if: inputs.build_platform_name == 'arm32'
+#      run: |
+#        sudo apt-get install -y libc6:armhf libstdc++6:armhf
 
     - name: Make the "transpiler/build" directory
       run: mkdir ${{github.workspace}}/transpiler/build
