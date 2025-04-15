@@ -21,11 +21,19 @@ jobs:
       build_platform_name: x86_64
       build_mode: ${{inputs.build_mode}}
       bundle_binaries: ${{inputs.bundle_binaries}}
-  build-transpiler-on-unix-like-x86-64:
+  build-transpiler-on-linux-x86-64:
     name: Unix-like x64
-    uses: ./.github/workflows/_transpiler_unix_like_build.yml
+    uses: ./.github/workflows/_transpiler_linux_build.yml
     with:
       linux_system: ubuntu-latest
+      build_platform: x64
+      build_platform_name: x86_64
+      build_mode: ${{inputs.build_mode}}
+      bundle_binaries: ${{inputs.bundle_binaries}}
+  build-transpiler-on-mac-x86-64:
+    name: Unix-like x64
+    uses: ./.github/workflows/_transpiler_mac_build.yml
+    with:
       mac_system: macos-13
       build_platform: x64
       build_platform_name: x86_64
@@ -41,12 +49,11 @@ jobs:
       build_platform_name: x86_32
       build_mode: ${{inputs.build_mode}}
       bundle_binaries: ${{inputs.bundle_binaries}}
-  build-transpiler-on-unix-like-x86-32:
+  build-transpiler-on-linux-x86-32:
     name: Unix-like x86
-    uses: ./.github/workflows/_transpiler_unix_like_build.yml
+    uses: ./.github/workflows/_transpiler_linux_build.yml
     with:
       linux_system: ubuntu-latest
-      mac_system: macos-13
       build_platform: x86
       build_platform_name: x86_32
       build_mode: ${{inputs.build_mode}}
@@ -61,11 +68,19 @@ jobs:
 #      build_platform_name: arm64
 #      build_mode: ${{inputs.build_mode}}
 #      bundle_binaries: ${{inputs.bundle_binaries}}
-  build-transpiler-on-unix-like-arm64:
+  build-transpiler-on-linux-arm64:
     name: Unix-like ARM64
-    uses: ./.github/workflows/_transpiler_unix_like_build.yml
+    uses: ./.github/workflows/_transpiler_linux_build.yml
     with:
       linux_system: ubuntu-24.04-arm
+      build_platform: ARM64
+      build_platform_name: arm64
+      build_mode: ${{inputs.build_mode}}
+      bundle_binaries: ${{inputs.bundle_binaries}}
+  build-transpiler-on-mac-arm64:
+    name: Unix-like ARM64
+    uses: ./.github/workflows/_transpiler_mac_build.yml
+    with:
       mac_system: macos-latest
       build_platform: ARM64
       build_platform_name: arm64
@@ -81,12 +96,11 @@ jobs:
 #      build_platform_name: arm32
 #      build_mode: ${{inputs.build_mode}}
 #      bundle_binaries: ${{inputs.bundle_binaries}}
-  build-transpiler-on-unix-like-arm32:
+  build-transpiler-on-linux-arm32:
     name: Unix-like ARM
-    uses: ./.github/workflows/_transpiler_unix_like_build.yml
+    uses: ./.github/workflows/_transpiler_linux_build.yml
     with:
       linux_system: ubuntu-24.04-arm
-      mac_system: macos-latest
       build_platform: ARM
       build_platform_name: arm32
       build_mode: ${{inputs.build_mode}}
