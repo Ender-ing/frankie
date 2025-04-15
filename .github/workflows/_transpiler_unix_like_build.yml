@@ -101,7 +101,7 @@ jobs:
     - name: Tap osx-cross/homebrew-arm
       run: brew tap osx-cross/homebrew-arm
     - name: Install armv7 cross-compiler ('arm32' target)
-      if: inputs.build_platform_name == 'x86_32'
+      if: inputs.build_platform_name == 'arm32'
       run: brew install arm-gcc-bin --with-target=armv7-none-eabi
       
     - name: Build
