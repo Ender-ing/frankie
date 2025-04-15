@@ -102,7 +102,7 @@ jobs:
       run: brew tap osx-cross/homebrew-arm
     - name: Install armv7 cross-compiler ('arm32' target)
       if: inputs.build_platform_name == 'arm32'
-      run: brew install arm-gcc-bin --with-target=armv7-none-eabi
+      run: brew install --formula arm-gcc-bin --with-target=armv7-none-eabi
       
     - name: Build
       run: cmake --build . --config ${{inputs.build_mode}} --parallel 3
