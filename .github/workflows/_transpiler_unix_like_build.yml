@@ -97,6 +97,13 @@ jobs:
       run: cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -DCMAKE_UNIX_GENERATOR_PLATFORM=${{inputs.build_platform}} -DFRANKIE_TESTS=OFF
       working-directory: transpiler/build
 
+    # Handle cross-compilation on macOS
+    - name: Tap osx-cross/homebrew-arm
+      run: brew tap osx-cross/homebrew-arm
+    - name: Install armv7 cross-compiler ('arm32' target)
+      if: inputs.build_platform_name == 'x86_32'
+      run: brew install arm-gcc-bin --with-target=armv7-none-eabi
+      
     - name: Build
       run: cmake --build . --config ${{inputs.build_mode}} --parallel 3
       working-directory: transpiler/build
