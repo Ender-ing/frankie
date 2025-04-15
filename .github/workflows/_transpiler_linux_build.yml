@@ -38,6 +38,8 @@ jobs:
       if: inputs.build_platform_name == 'x86_32'
       run: |
         sudo dpkg --add-architecture i386
+        sudo apt update
+        sudo apt upgrade
         sudo apt-get install -y gcc-multilib g++-multilib
         sudo apt-get install -y libc6:i386 libstdc++6:i386
 
@@ -45,6 +47,8 @@ jobs:
       if: inputs.build_platform_name == 'arm32'
       run: |
         sudo dpkg --add-architecture armhf
+        sudo apt update
+        sudo apt upgrade
         sudo apt-get install -y gcc-multilib g++-multilib
         sudo apt-get install -y libc6:armhf libstdc++6:armhf
 
