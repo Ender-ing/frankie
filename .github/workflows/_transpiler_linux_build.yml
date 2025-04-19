@@ -48,7 +48,8 @@ jobs:
         sudo dpkg --add-architecture armhf
         sudo apt update
         sudo apt upgrade
-        sudo apt-get install -y gcc-multilib g++-multilib libc6:armhf libstdc++6:armhf
+        sudo apt-get install -y libc6:armhf libstdc++6:armhf
+        sudo apt-get install -y gcc-multilib g++-multilib
 
     - name: Make the "transpiler/build" directory
       run: mkdir ${{github.workspace}}/transpiler/build
