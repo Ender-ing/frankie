@@ -5,10 +5,6 @@ on:
         required: false
         type: string
         default: ubuntu-latest
-      mac_system:
-        required: false
-        type: string
-        default: macos-latest
       build_platform:
         required: true
         type: string
@@ -37,6 +33,22 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential cmake valgrind
+
+    - name: Install dependencies (x86_32)
+      if: inputs.build_platform_name == 'x86_32'
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt update
+        sudo apt upgrade
+        sudo apt-get install -y gcc-multilib g++-multilib libc6:i386 libstdc++6:i386
+
+    - name: Install dependencies (arm32)
+      if: inputs.build_platform_name == 'arm32'
+      run: |
+        sudo dpkg --add-architecture armhf
+        sudo apt update
+        sudo apt upgrade
+        sudo apt-get install -y gcc-multilib g++-multilib libc6:armhf libstdc++6:armhf
 
     - name: Make the "transpiler/build" directory
       run: mkdir ${{github.workspace}}/transpiler/build
@@ -72,56 +84,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: PolarFrankie-${{inputs.build_mode}}-v${{env.VERSION}}-Linux-${{inputs.build_platform_name}}
-        path: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/
-
-  # macOS
-  build-transpiler-on-macos:
-    name: macOS ${{inputs.build_platform_name}}
-    runs-on: ${{inputs.mac_system}}
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Install dependencies
-      run: |
-        brew update
-        brew install --formula cmake --quiet
-
-    - name: Make the "transpiler/build" directory
-      run: mkdir ${{github.workspace}}/transpiler/build
-
-    - name: Configure CMake
-      run: cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -DCMAKE_UNIX_GENERATOR_PLATFORM=${{inputs.build_platform}} -DFRANKIE_TESTS=OFF
-      working-directory: transpiler/build
-
-    - name: Build
-      run: cmake --build . --config ${{inputs.build_mode}} --parallel 3
-      working-directory: transpiler/build
-
-    - name: Reset the "transpiler/build" directory
-      run: |
-        rm -rf ${{github.workspace}}/transpiler/build
-        mkdir ${{github.workspace}}/transpiler/build
-
-    - name: Run Tests
-      run: |
-        cmake .. -DCMAKE_BUILD_TYPE=${{inputs.build_mode}} -DCMAKE_UNIX_GENERATOR_PLATFORM=${{inputs.build_platform}}
-        ctest -VV -C ${{inputs.build_mode}}
-      working-directory: transpiler/build
-
-    - name: Extract version (optional)
-      if: inputs.bundle_binaries
-      run: |
-        set -e
-        VERSION=$(${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/bin/frankie --version | head -n 1)
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-    - name: Upload Binaries Artifact (optional)
-      if: inputs.bundle_binaries
-      uses: actions/upload-artifact@v4
-      with:
-        name: PolarFrankie-${{inputs.build_mode}}-v${{env.VERSION}}-macOS-${{inputs.build_platform_name}}
         path: ${{github.workspace}}/transpiler/dist/${{inputs.build_mode}}/${{inputs.build_platform_name}}/
 
     # Used to display all patch errors (I ain't got no money for a macOS, deal with it)
